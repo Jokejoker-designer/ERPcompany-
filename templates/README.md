@@ -11,7 +11,7 @@ templates/
 
 ## Bảo mật
 
-- **Không** kèm file mẫu gắn tên khách thật (Vedan, UIC, …).
+- **Không** kèm file mẫu gắn tên khách thật / biên bản công trình thật.
 - **Không** kèm folder tham chiếu gốc nặng (`99_MAU_GOC_THAM_CHIEU`).
 - `THONG_TIN_CONG_TY_*.json` đã thay bằng **CÔNG TY DEMO SME**.
 - Letterhead trong file Word/Excel gốc có thể còn branding sản phẩm “Thanh Hoài”;
