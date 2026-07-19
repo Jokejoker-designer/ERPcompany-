@@ -1,0 +1,126 @@
+{
+  "version": "3.1",
+  "roles": {
+    "giamdoc": {
+      "view": "all_authorized",
+      "approve": [
+        "contract",
+        "quotation",
+        "variation",
+        "payment",
+        "final_account",
+        "warranty_close"
+      ],
+      "restricted": []
+    },
+    "ktt": {
+      "view": [
+        "assigned_projects",
+        "technical_documents"
+      ],
+      "create": [
+        "site_log",
+        "quantity",
+        "technical_document",
+        "variation"
+      ],
+      "approve": [
+        "technical_review"
+      ],
+      "restricted": [
+        "cost_price",
+        "margin",
+        "bank_credentials"
+      ]
+    },
+    "ktv_ctv": {
+      "view": [
+        "assigned_tasks",
+        "assigned_project_documents"
+      ],
+      "create": [
+        "daily_log",
+        "photo",
+        "material_usage",
+        "issue_report"
+      ],
+      "restricted": [
+        "financial_values",
+        "other_projects",
+        "approval"
+      ]
+    },
+    "ketoan": {
+      "view": [
+        "approved_financial_documents",
+        "contracts",
+        "invoices",
+        "bank_reconciliation"
+      ],
+      "create": [
+        "payment_request",
+        "invoice_register",
+        "debt_reconciliation"
+      ],
+      "approve": [
+        "payment_match"
+      ],
+      "restricted": [
+        "technical_approval"
+      ]
+    },
+    "thukho": {
+      "view": [
+        "warehouse",
+        "material_documents",
+        "assigned_projects"
+      ],
+      "create": [
+        "receipt",
+        "issue",
+        "return",
+        "co_cq_register"
+      ],
+      "approve": [
+        "physical_receipt"
+      ],
+      "restricted": [
+        "customer_margin",
+        "bank_data"
+      ]
+    },
+    "kinhdoanh": {
+      "view": [
+        "customers",
+        "quotations",
+        "contracts",
+        "project_progress_summary"
+      ],
+      "create": [
+        "customer",
+        "survey_request",
+        "quotation",
+        "rfq"
+      ],
+      "restricted": [
+        "cost_price_unless_granted",
+        "bank_data"
+      ]
+    },
+    "admin": {
+      "view": [
+        "system_config",
+        "audit_metadata"
+      ],
+      "create": [
+        "user",
+        "role_assignment",
+        "template_config"
+      ],
+      "restricted": [
+        "business_confidential_data_unless_explicitly_granted"
+      ]
+    }
+  },
+  "enforcement": "Server-side RBAC plus object/project scope; frontend visibility is not an authorization boundary."
+}

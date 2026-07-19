@@ -1,0 +1,11 @@
+{
+  "company_name": "CÔNG TY DEMO SME",
+  "short_name": "DEMO SME",
+  "tax_id": "",
+  "address": "",
+  "phone": "",
+  "email": "",
+  "director": "Người đại diện Demo",
+  "system": "Thanh Hoai ERP (public package)",
+  "note": "Placeholder — không phải dữ liệu công ty production. Điền thật qua config.json sau cài."
+}

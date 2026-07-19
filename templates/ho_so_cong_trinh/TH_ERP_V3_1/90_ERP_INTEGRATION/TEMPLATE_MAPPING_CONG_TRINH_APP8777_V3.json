@@ -1,0 +1,1553 @@
+{
+  "package": "THANH_HOAI_ERP_V3_1_WINDOWS_SAFE",
+  "version": "3.1",
+  "generated_at": "2026-07-13",
+  "placeholder_policy": "ERP fills {{...}} fields; issued/signed files are immutable and revisions create new artifacts.",
+  "quotation_dynamic_contract": "90_ERP_INTEGRATION/APP8777_DYNAMIC_ROW_EXPORT_CONTRACT.json",
+  "templates": [
+    {
+      "template_id": "CT_00_CLDH",
+      "code": "CT-00-CLDH",
+      "title": "CHECKLIST ĐÓNG HỒ SƠ CÔNG TRÌNH",
+      "path": "00_HUONG_DAN_CHECKLIST/MAU_Checklist_dong_ho_so_cong_trinh.docx",
+      "phase_code": "00",
+      "file_type": "docx",
+      "owner_role": "admin",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_00_PLYC",
+      "code": "CT-00-PLYC",
+      "legacy_code": "CT-00-PLYC",
+      "title": "Phụ lục yêu cầu chi tiết theo nhóm công trình",
+      "path": "00_HUONG_DAN_CHECKLIST/MAU_PL_Yeu_cau_chi_tiet_theo_nhom_CT.docx",
+      "phase_code": "00",
+      "file_type": "docx",
+      "owner_role": "admin",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_01_BBHKD",
+      "code": "CT-01-BBHKD",
+      "legacy_code": "CT-01-BBHKD",
+      "title": "Biên bản họp khởi động công trình",
+      "path": "01_PHAP_LY_HOP_DONG/Bien_ban_thong_nhat_cac_ben/MAU_Bien_ban_khoi_dong_cong_trinh.docx",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_01_BBTNCB",
+      "code": "CT-01-BBTNCB",
+      "legacy_code": "CT-01-BBTNCB",
+      "title": "Biên bản thống nhất các bên",
+      "path": "01_PHAP_LY_HOP_DONG/Bien_ban_thong_nhat_cac_ben/MAU_Bien_ban_thong_nhat_cac_ben.docx",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_01_BLBH",
+      "code": "CT-01-BLBH",
+      "title": "PHIẾU THEO DÕI BẢO LÃNH BẢO HÀNH",
+      "path": "01_PHAP_LY_HOP_DONG/Bao_lanh_tam_ung_-_thuc_h_44465C71/MAU_Theo_doi_bao_lanh_bao_hanh.docx",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_01_BLTA",
+      "code": "CT-01-BLTA",
+      "title": "PHIẾU THEO DÕI BẢO LÃNH TẠM ỨNG",
+      "path": "01_PHAP_LY_HOP_DONG/Bao_lanh_tam_ung_-_thuc_h_44465C71/MAU_Theo_doi_bao_lanh_tam_ung.docx",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_01_BLTH",
+      "code": "CT-01-BLTH",
+      "title": "PHIẾU THEO DÕI BẢO LÃNH THỰC HIỆN HỢP ĐỒNG",
+      "path": "01_PHAP_LY_HOP_DONG/Bao_lanh_tam_ung_-_thuc_h_44465C71/MAU_Theo_doi_bao_lanh_thuc_hien_hop_dong.docx",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_01_DSNS",
+      "code": "CT-01-DSNS",
+      "legacy_code": "CT-01-DSNS",
+      "title": "Thông báo danh sách cán bộ chỉ huy và công nhân thi công",
+      "path": "01_PHAP_LY_HOP_DONG/CCCD_VA_nhan_su_ra_vao_cong_truong/MAU_Thong_bao_danh_sach_can_bo_cong_nhan_thi_cong.docx",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_01_HSNL",
+      "code": "CT-01-HSNL",
+      "title": "DANH MỤC HỒ SƠ NĂNG LỰC NHÀ THẦU",
+      "path": "01_PHAP_LY_HOP_DONG/Ho_so_nang_luc_nha_thau/MAU_Danh_muc_ho_so_nang_luc_nha_thau.docx",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_01_PKBNV",
+      "code": "CT-01-PKBNV",
+      "legacy_code": "CT-01-PKBNV",
+      "title": "Phiếu khai báo nhân viên thi công",
+      "path": "01_PHAP_LY_HOP_DONG/CCCD_VA_nhan_su_ra_vao_cong_truong/MAU_Phieu_khai_bao_nhan_vien_thi_cong.docx",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_01_PLPS",
+      "code": "CT-01-PLPS",
+      "legacy_code": "CT-01-PLPS",
+      "title": "Phụ lục hợp đồng phát sinh / điều chỉnh khối lượng",
+      "path": "01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/MAU_Phu_luc_hop_dong_phat_sinh_khoi_luong.docx",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "HD_01",
+      "code": "HD-01",
+      "legacy_code": "HD-01_TEMPLATE_HOP_DONG_NGU",
+      "title": "01_TEMPLATE_HOP_DONG_NGUYEN_TAC_THANH_HOAI",
+      "path": "01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/BO_HOP_DONG_THANH_HOAI_ERP/01_TEMPLATE_HOP_DONG_NGUYEN_TAC_THANH_HOAI.docx",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "HD_02",
+      "code": "HD-02",
+      "legacy_code": "HD-02_TEMPLATE_HOP_DONG_MUA",
+      "title": "02_TEMPLATE_HOP_DONG_MUA_BAN_HANG_HOA_THANH_HOAI",
+      "path": "01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/BO_HOP_DONG_THANH_HOAI_ERP/02_TEMPLATE_HOP_DONG_MUA_BAN_HANG_HOA_THANH_HOAI.docx",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "HD_03",
+      "code": "HD-03",
+      "legacy_code": "HD-03_TEMPLATE_HOP_DONG_THI",
+      "title": "03_TEMPLATE_HOP_DONG_THI_CONG_LAP_DAT_THANH_HOAI_REVISED_LEGAL_v3_LEX_REFERENCES",
+      "path": "01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/BO_HOP_DONG_THANH_HOAI_ERP/03_TEMPLATE_HOP_DONG_THI_CONG_LAP_DAT_THANH_HO_BDA9B93A.docx",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "HD_04",
+      "code": "HD-04",
+      "legacy_code": "HD-04_TEMPLATE_HOP_DONG_KIN",
+      "title": "04_TEMPLATE_HOP_DONG_KINH_TE_THANH_HOAI",
+      "path": "01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/BO_HOP_DONG_THANH_HOAI_ERP/04_TEMPLATE_HOP_DONG_KINH_TE_THANH_HOAI.docx",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "HD_05",
+      "code": "HD-05",
+      "legacy_code": "HD-05_TEMPLATE_HOP_DONG_BAO",
+      "title": "05_TEMPLATE_HOP_DONG_BAO_TRI_BAO_DUONG_THANH_HOAI_REVISED_LEGAL_v2",
+      "path": "01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/BO_HOP_DONG_THANH_HOAI_ERP/05_TEMPLATE_HOP_DONG_BAO_TRI_BAO_DUONG_THANH_H_CB7085C2.docx",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "HD_06",
+      "code": "HD-06",
+      "legacy_code": "HD-06_PHU_LUC_DIEU_KHOAN_CH",
+      "title": "06_PHU_LUC_DIEU_KHOAN_CHINH_SACH_CHUNG_THANH_HOAI",
+      "path": "01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/BO_HOP_DONG_THANH_HOAI_ERP/06_PHU_LUC_DIEU_KHOAN_CHINH_SACH_CHUNG_THANH_HOAI.docx",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "HD_07",
+      "code": "HD-07",
+      "legacy_code": "HD-07_PHU_LUC_BANG_KHOI_LUO",
+      "title": "07_PHU_LUC_BANG_KHOI_LUONG_TIEN_DO_THANH_TOAN_THANH_HOAI",
+      "path": "01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/BO_HOP_DONG_THANH_HOAI_ERP/07_PHU_LUC_BANG_KHOI_LUONG_TIEN_DO_THANH_TOAN_7F689CA9.docx",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_02_DMBV",
+      "code": "CT-02-DMBV",
+      "legacy_code": "CT-02-DMBV",
+      "title": "Danh mục bản vẽ và phiếu phát hành bản vẽ",
+      "path": "02_THIET_KE_BAN_VE/Ban_ve_thiet_ke/MAU_Danh_muc_ban_ve_va_phieu_phat_hanh.docx",
+      "phase_code": "02",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_02_PHBV",
+      "code": "CT-02-PHBV",
+      "title": "PHIẾU PHÁT HÀNH / THU HỒI BẢN VẼ",
+      "path": "02_THIET_KE_BAN_VE/Ban_ve_thiet_ke/MAU_Phieu_phat_hanh_thu_hoi_ban_ve.docx",
+      "phase_code": "02",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_02_RFI",
+      "code": "CT-02-RFI",
+      "legacy_code": "CT-02-RFI",
+      "title": "RFI - Phiếu yêu cầu làm rõ thông tin thiết kế",
+      "path": "02_THIET_KE_BAN_VE/Ban_ve_thi_cong_Shop_drawing/MAU_RFI_yeu_cau_thong_tin_thiet_ke.docx",
+      "phase_code": "02",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_02_TDTK",
+      "code": "CT-02-TDTK",
+      "legacy_code": "CT-02-TDTK",
+      "title": "MẪU NGUỒN CHUẨN - Bang ke thay doi thiet ke duoc duyet",
+      "path": "02_THIET_KE_BAN_VE/Ban_ve_thi_cong_Shop_drawing/MAU_NGUON_Bang_ke_thay_doi_thiet_ke_duoc_duyet.docx",
+      "phase_code": "02",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_02_XREF",
+      "code": "CT-02-XREF",
+      "title": "DANH MỤC CAD / XREF VÀ KIỂM SOÁT REVISION",
+      "path": "02_THIET_KE_BAN_VE/CAD_VA_XREF/MAU_Danh_muc_CAD_XREF_va_kiem_soat_revision.docx",
+      "phase_code": "02",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_03_CAT",
+      "code": "CT-03-CAT",
+      "title": "DANH MỤC CATALOGUE VÀ THÔNG SỐ KỸ THUẬT",
+      "path": "03_VAT_TU_DE_TRINH/Catalogue_VA_thong_so_ky_thuat/MAU_Danh_muc_catalogue_va_thong_so_ky_thuat.docx",
+      "phase_code": "03",
+      "file_type": "docx",
+      "owner_role": "thukho",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_03_DCHDNK",
+      "code": "CT-03-DCHDNK",
+      "title": "Đối chiếu hóa đơn đầu vào - nhập kho - công trình",
+      "path": "03_VAT_TU_DE_TRINH/Giao_nhan_VA_luan_chuyen_vat_tu/MAU_Doi_chieu_hoa_don_dau_vao_va_nhap_kho.xlsx",
+      "phase_code": "03",
+      "file_type": "xlsx",
+      "sheet_name": "HOA_DON_NHAP_KHO",
+      "item_header_row": 10,
+      "item_template_row": 11,
+      "dynamic_rows": true,
+      "owner_role": "thukho",
+      "reviewer_role": "ketoan",
+      "approver_role": "thukho",
+      "output_formats": [
+        "XLSX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_03_GNCOCQ",
+      "code": "CT-03-GNCOCQ",
+      "title": "PHIẾU GIAO NHẬN CO/CQ VÀ HỒ SƠ CHẤT LƯỢNG",
+      "path": "03_VAT_TU_DE_TRINH/Chung_chi_CO_-_CQ/MAU_Phieu_giao_nhan_CO_CQ_va_ho_so_chat_luong.docx",
+      "phase_code": "03",
+      "file_type": "docx",
+      "owner_role": "thukho",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_03_MIR",
+      "code": "CT-03-MIR",
+      "legacy_code": "CT-03-MIR",
+      "title": "Biên bản nghiệm thu vật tư đầu vào / MIR",
+      "path": "03_VAT_TU_DE_TRINH/Nghiem_thu_vat_tu_dau_vao/MAU_Bien_ban_nghiem_thu_vat_tu_dau_vao_MIR.docx",
+      "phase_code": "03",
+      "file_type": "docx",
+      "owner_role": "thukho",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_03_PGNVT",
+      "code": "CT-03-PGNVT",
+      "title": "PHIẾU GIAO NHẬN VẬT TƯ TẠI CÔNG TRÌNH",
+      "path": "03_VAT_TU_DE_TRINH/Giao_nhan_VA_luan_chuyen_vat_tu/MAU_Phieu_giao_nhan_vat_tu_tai_cong_trinh.docx",
+      "phase_code": "03",
+      "file_type": "docx",
+      "owner_role": "thukho",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_03_PHTVT",
+      "code": "CT-03-PHTVT",
+      "title": "PHIẾU HOÀN TRẢ VẬT TƯ",
+      "path": "03_VAT_TU_DE_TRINH/Giao_nhan_VA_luan_chuyen_vat_tu/MAU_Phieu_hoan_tra_vat_tu.docx",
+      "phase_code": "03",
+      "file_type": "docx",
+      "owner_role": "thukho",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_03_SUB",
+      "code": "CT-03-SUB",
+      "legacy_code": "CT-03-SUB",
+      "title": "Phiếu trình mẫu vật tư / Material Submittal",
+      "path": "03_VAT_TU_DE_TRINH/Trinh_mau_vat_tu_Submittal/MAU_Phieu_trinh_mau_vat_tu_Submittal.docx",
+      "phase_code": "03",
+      "file_type": "docx",
+      "owner_role": "thukho",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "QUOTE_UNIVERSAL",
+      "code": "BG-01",
+      "legacy_code": "BG-01_BAO_GIA_DA_NANG",
+      "title": "Báo giá đa năng",
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/01_BAO_GIA_DA_NANG.xlsx",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "sheet_name": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "dynamic_rows": true,
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "XLSX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "QUOTE_EQUIPMENT",
+      "code": "BG-02",
+      "legacy_code": "BG-02_BAO_GIA_CUNG_CAP_THIE",
+      "title": "Báo giá cung cấp thiết bị",
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/02_BAO_GIA_CUNG_CAP_THIET_BI.xlsx",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "sheet_name": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "dynamic_rows": true,
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "XLSX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "QUOTE_INSTALLATION",
+      "code": "BG-03",
+      "legacy_code": "BG-03_BAO_GIA_THI_CONG_LAP_",
+      "title": "Báo giá thi công lắp đặt",
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/03_BAO_GIA_THI_CONG_LAP_DAT.xlsx",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "sheet_name": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "dynamic_rows": true,
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "XLSX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "QUOTE_MATERIAL_LABOR",
+      "code": "BG-04",
+      "legacy_code": "BG-04_BAO_GIA_VAT_TU_VA_NHA",
+      "title": "Báo giá vật tư và nhân công",
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/04_BAO_GIA_VAT_TU_VA_NHAN_CONG.xlsx",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "sheet_name": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "dynamic_rows": true,
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "XLSX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "QUOTE_LABOR_ONLY",
+      "code": "BG-05",
+      "legacy_code": "BG-05_BAO_GIA_NHAN_CONG_RIE",
+      "title": "Báo giá nhân công riêng",
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/05_BAO_GIA_NHAN_CONG_RIENG.xlsx",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "sheet_name": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "dynamic_rows": true,
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "XLSX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "QUOTE_MAINTENANCE",
+      "code": "BG-06",
+      "legacy_code": "BG-06_BAO_GIA_BAO_TRI_DINH_",
+      "title": "Báo giá bảo trì định kỳ",
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/06_BAO_GIA_BAO_TRI_DINH_KY.xlsx",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "sheet_name": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "dynamic_rows": true,
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "XLSX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "QUOTE_REPAIR",
+      "code": "BG-07",
+      "legacy_code": "BG-07_BAO_GIA_SUA_CHUA_KHAC",
+      "title": "Báo giá sửa chữa / khắc phục sự cố",
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/07_BAO_GIA_SUA_CHUA_KHAC_PHUC_SU_CO.xlsx",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "sheet_name": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "dynamic_rows": true,
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "XLSX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "QUOTE_VARIATION",
+      "code": "BG-08",
+      "legacy_code": "BG-08_BAO_GIA_PHAT_SINH_CON",
+      "title": "Báo giá phát sinh công trình",
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/08_BAO_GIA_PHAT_SINH_CONG_TRINH.xlsx",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "sheet_name": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "dynamic_rows": true,
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "XLSX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "QUOTE_FINAL_ACCOUNT",
+      "code": "BG-09",
+      "legacy_code": "BG-09_BAO_GIA_QUYET_TOAN_BO",
+      "title": "Báo giá quyết toán / bổ sung",
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/09_BAO_GIA_QUYET_TOAN_BO_SUNG.xlsx",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "sheet_name": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "dynamic_rows": true,
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "XLSX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "QUOTE_PROJECT_SUMMARY",
+      "code": "BG-10",
+      "legacy_code": "BG-10_BAO_GIA_TONG_HOP_CONG",
+      "title": "Báo giá tổng hợp công trình",
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/10_BAO_GIA_TONG_HOP_CONG_TRINH.xlsx",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "sheet_name": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "dynamic_rows": true,
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "XLSX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "QUOTE_JOINT_VENTURE",
+      "code": "BG-11",
+      "legacy_code": "BG-11_BAO_GIA_LIEN_DANH_PHA",
+      "title": "Báo giá liên danh / phân chia phạm vi",
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/11_BAO_GIA_LIEN_DANH_PHAN_CHIA_PHAM_VI.xlsx",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "sheet_name": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "dynamic_rows": true,
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "XLSX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_04_BOQ",
+      "code": "CT-04-BOQ",
+      "title": "Bảng khối lượng dự thầu / dự toán",
+      "path": "04_BAO_GIA_KHOI_LUONG/Khoi_luong_du_thau_-_bao_gia/MAU_Bang_khoi_luong_du_thau_BOQ.xlsx",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "sheet_name": "BOQ",
+      "item_header_row": 10,
+      "item_template_row": 11,
+      "dynamic_rows": true,
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "XLSX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_04_PO",
+      "code": "CT-04-PO",
+      "title": "ĐƠN ĐẶT HÀNG / PURCHASE ORDER",
+      "path": "04_BAO_GIA_KHOI_LUONG/PO_-_Don_dat_hang_NCC_-_thau_phu/MAU_Don_dat_hang_PO.docx",
+      "phase_code": "04",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_04_RFQ",
+      "code": "CT-04-RFQ",
+      "title": "PHIẾU YÊU CẦU BÁO GIÁ NHÀ CUNG CẤP / NHÀ THẦU PHỤ",
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_nha_thau_phu_-_NCC/MAU_Phieu_yeu_cau_bao_gia_NCC_nha_thau_phu.docx",
+      "phase_code": "04",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_04_SSBG",
+      "code": "CT-04-SSBG",
+      "title": "Bảng so sánh báo giá nhà cung cấp",
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_nha_thau_phu_-_NCC/MAU_Bang_so_sanh_bao_gia_NCC.xlsx",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "sheet_name": "SO_SANH_NCC",
+      "item_header_row": 10,
+      "item_template_row": 11,
+      "dynamic_rows": true,
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "XLSX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_04_VO",
+      "code": "CT-04-VO",
+      "legacy_code": "CT-04-VO",
+      "title": "Đề nghị phát sinh / Variation Order",
+      "path": "04_BAO_GIA_KHOI_LUONG/Khoi_luong_thuc_te_thi_cong/MAU_De_nghi_phat_sinh_VO.docx",
+      "phase_code": "04",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_04_XNKL",
+      "code": "CT-04-XNKL",
+      "legacy_code": "CT-04-XNKL",
+      "title": "Xác nhận khối lượng thi công hàng tháng/giai đoạn",
+      "path": "04_BAO_GIA_KHOI_LUONG/Khoi_luong_thuc_te_thi_cong/MAU_Xac_nhan_khoi_luong_thi_cong_hang_thang.docx",
+      "phase_code": "04",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_05_ATLD",
+      "code": "CT-05-ATLD",
+      "legacy_code": "CT-05-ATLD",
+      "title": "Thông báo người phụ trách ATLĐ - VSMT",
+      "path": "05_THI_CONG_QLCL/An_toan_lao_dong_ATLD/MAU_Thong_bao_nguoi_phu_trach_ATLD_VSMT.docx",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_05_BCDVTC",
+      "code": "CT-05-BCDVTC",
+      "legacy_code": "CT-05-BCDVTC",
+      "title": "MẪU NGUỒN CHUẨN - Bao cao cua don vi thi cong",
+      "path": "05_THI_CONG_QLCL/Bao_cao_don_vi_thi_cong/MAU_NGUON_Bao_cao_cua_don_vi_thi_cong.docx",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_05_BCHA",
+      "code": "CT-05-BCHA",
+      "title": "BÁO CÁO HÌNH ẢNH THI CÔNG",
+      "path": "05_THI_CONG_QLCL/Hinh_anh_thi_cong/MAU_Bao_cao_hinh_anh_thi_cong.docx",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_05_BCTD",
+      "code": "CT-05-BCTD",
+      "title": "BÁO CÁO TIẾN ĐỘ TUẦN / THÁNG",
+      "path": "05_THI_CONG_QLCL/Theo_doi_tien_do/MAU_Bao_cao_tien_do_tuan_thang.docx",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_05_BPTC",
+      "code": "CT-05-BPTC",
+      "legacy_code": "CT-05-BPTC",
+      "title": "Biện pháp thi công đảm bảo an toàn",
+      "path": "05_THI_CONG_QLCL/Thuyet_minh_bien_phap_thi_cong/MAU_Bien_phap_thi_cong_dam_bao_an_toan.docx",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_05_BPTC_BIA",
+      "code": "CT-05-BPTC-BIA",
+      "legacy_code": "CT-05-BPTC-BIA",
+      "title": "MẪU NGUỒN CHUẨN - Bia bien phap thi cong",
+      "path": "05_THI_CONG_QLCL/Thuyet_minh_bien_phap_thi_cong/MAU_NGUON_Bia_bien_phap_thi_cong.docx",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_05_BTBD",
+      "code": "CT-05-BTBD",
+      "title": "Biên bản bảo trì / bảo dưỡng định kỳ",
+      "path": "05_THI_CONG_QLCL/Bao_cao_don_vi_thi_cong/MAU_Bien_ban_bao_tri_bao_duong_dinh_ky.docx",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_05_NCR",
+      "code": "CT-05-NCR",
+      "legacy_code": "CT-05-NCR",
+      "title": "NCR - Biên bản không phù hợp và hành động khắc phục",
+      "path": "05_THI_CONG_QLCL/NCR_-_Khong_phu_hop_VA_khac_phuc/MAU_Bien_ban_khong_phu_hop_NCR.docx",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_05_NKTC",
+      "code": "CT-05-NKTC",
+      "legacy_code": "CT-05-NKTC",
+      "title": "Nhật ký thi công hằng ngày",
+      "path": "05_THI_CONG_QLCL/Nhat_ky_thi_cong/MAU_Nhat_ky_thi_cong_hang_ngay.docx",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_05_NKTC_BIA",
+      "code": "CT-05-NKTC-BIA",
+      "legacy_code": "CT-05-NKTC-BIA",
+      "title": "MẪU NGUỒN CHUẨN - Bia so nhat ky thi cong",
+      "path": "05_THI_CONG_QLCL/Nhat_ky_thi_cong/MAU_NGUON_Bia_so_nhat_ky_thi_cong.docx",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_05_NKTC_SO",
+      "code": "CT-05-NKTC-SO",
+      "legacy_code": "CT-05-NKTC-SO",
+      "title": "MẪU NGUỒN CHUẨN - So nhat ky thi cong",
+      "path": "05_THI_CONG_QLCL/Nhat_ky_thi_cong/MAU_NGUON_So_nhat_ky_thi_cong.docx",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_05_SCKP",
+      "code": "CT-05-SCKP",
+      "title": "Biên bản sửa chữa / khắc phục sự cố",
+      "path": "05_THI_CONG_QLCL/Bao_cao_don_vi_thi_cong/MAU_Bien_ban_sua_chua_khac_phuc_su_co.docx",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_05_VSMT",
+      "code": "CT-05-VSMT",
+      "legacy_code": "CT-05-VSMT",
+      "title": "Kế hoạch vệ sinh môi trường công trường",
+      "path": "05_THI_CONG_QLCL/Ve_sinh_moi_truong_VSMT/MAU_Ke_hoach_VSMT_cong_truong.docx",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_06_BBLM",
+      "code": "CT-06-BBLM",
+      "legacy_code": "CT-06-BBLM",
+      "title": "MẪU NGUỒN CHUẨN - Bien ban lay mau thi nghiem",
+      "path": "06_NGHIEM_THU/Lay_mau_thi_nghiem/MAU_NGUON_Bien_ban_lay_mau_thi_nghiem.docx",
+      "phase_code": "06",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_06_BBNTGD",
+      "code": "CT-06-BBNTGD",
+      "legacy_code": "CT-06-BBNTGD",
+      "title": "Biên bản nghiệm thu giai đoạn / bộ phận công trình",
+      "path": "06_NGHIEM_THU/NT_giai_doan_-_bo_phan/MAU_BBNT_giai_doan_bo_phan.docx",
+      "phase_code": "06",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_06_BBNTHH",
+      "code": "CT-06-BBNTHH",
+      "legacy_code": "CT-06-BBNTHH",
+      "title": "Biên bản nghiệm thu hoàn thành đưa vào sử dụng",
+      "path": "06_NGHIEM_THU/NT_hoan_thanh_-_dua_vao_su_dung/MAU_BBNT_hoan_thanh_dua_vao_su_dung.docx",
+      "phase_code": "06",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_06_BBNTHH_STD",
+      "code": "CT-06-BBNTHH-STD",
+      "legacy_code": "CT-06-BBNTHH-STD",
+      "title": "MẪU NGUỒN CHUẨN - BBNT hoan thanh dua vao su dung",
+      "path": "06_NGHIEM_THU/NT_hoan_thanh_-_dua_vao_su_dung/MAU_NGUON_BBNT_hoan_thanh_dua_vao_su_dung.docx",
+      "phase_code": "06",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_06_KTHS",
+      "code": "CT-06-KTHS",
+      "legacy_code": "CT-06-KTHS",
+      "title": "MẪU NGUỒN CHUẨN - Bien ban kiem tra ho so nghiem thu",
+      "path": "06_NGHIEM_THU/Kiem_tra_ho_so_nghiem_thu/MAU_NGUON_Bien_ban_kiem_tra_ho_so_nghiem_thu.docx",
+      "phase_code": "06",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_06_PYCNT",
+      "code": "CT-06-PYCNT",
+      "legacy_code": "CT-06-PYCNT",
+      "title": "MẪU NGUỒN CHUẨN - Phieu yeu cau nghiem thu",
+      "path": "06_NGHIEM_THU/Phieu_yeu_cau_nghiem_thu/MAU_NGUON_Phieu_yeu_cau_nghiem_thu.docx",
+      "phase_code": "06",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_06_TC",
+      "code": "CT-06-TC",
+      "legacy_code": "CT-06-TC",
+      "title": "Biên bản nghiệm thu chạy thử và cân chỉnh / T&C",
+      "path": "06_NGHIEM_THU/NT_chay_thu_VA_can_chinh_T_VA_C/MAU_BBNT_chay_thu_can_chinh_TC.docx",
+      "phase_code": "06",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_06_WIR",
+      "code": "CT-06-WIR",
+      "legacy_code": "CT-06-WIR",
+      "title": "Biên bản nghiệm thu công việc lắp đặt / WIR",
+      "path": "06_NGHIEM_THU/NT_cong_viec_-_lap_dat/MAU_BBNT_cong_viec_lap_dat_WIR.docx",
+      "phase_code": "06",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ktt",
+      "approver_role": "ktt",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_07_BBBG",
+      "code": "CT-07-BBBG",
+      "legacy_code": "CT-07-BBBG",
+      "title": "Biên bản bàn giao công trình/hạng mục",
+      "path": "07_HOAN_CONG_BAN_GIAO/Bien_ban_ban_giao/MAU_Bien_ban_ban_giao_cong_trinh.docx",
+      "phase_code": "07",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_07_BGTL",
+      "code": "CT-07-BGTL",
+      "title": "BIÊN BẢN BÀN GIAO TÀI LIỆU, THIẾT BỊ VÀ CHÌA KHÓA",
+      "path": "07_HOAN_CONG_BAN_GIAO/Bien_ban_ban_giao/MAU_Bien_ban_ban_giao_tai_lieu_thiet_bi_va_chia_khoa.docx",
+      "phase_code": "07",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_07_DMBVHC",
+      "code": "CT-07-DMBVHC",
+      "legacy_code": "CT-07-DMBVHC",
+      "title": "Danh mục bản vẽ hoàn công / As-built Drawing Register",
+      "path": "07_HOAN_CONG_BAN_GIAO/Ban_ve_hoan_cong_As-built/MAU_Danh_muc_ban_ve_hoan_cong.docx",
+      "phase_code": "07",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_07_DTVH",
+      "code": "CT-07-DTVH",
+      "title": "BIÊN BẢN HƯỚNG DẪN VẬN HÀNH VÀ ĐÀO TẠO",
+      "path": "07_HOAN_CONG_BAN_GIAO/Ho_so_O_VA_M/MAU_Bien_ban_huong_dan_van_hanh_va_dao_tao.docx",
+      "phase_code": "07",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_07_MLHC",
+      "code": "CT-07-MLHC",
+      "legacy_code": "CT-07-MLHC",
+      "title": "Mục lục hồ sơ hoàn công",
+      "path": "07_HOAN_CONG_BAN_GIAO/Ho_so_hoan_cong/MAU_Muc_luc_ho_so_hoan_cong.docx",
+      "phase_code": "07",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_07_OM",
+      "code": "CT-07-OM",
+      "title": "MỤC LỤC HỒ SƠ VẬN HÀNH VÀ BẢO TRÌ (O&M)",
+      "path": "07_HOAN_CONG_BAN_GIAO/Ho_so_O_VA_M/MAU_Muc_luc_ho_so_O_VA_M.docx",
+      "phase_code": "07",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ktt",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_08_BKHD",
+      "code": "CT-08-BKHD",
+      "title": "BẢNG KÊ HÓA ĐƠN VÀ CHỨNG TỪ THANH TOÁN",
+      "path": "08_THANH_QUYET_TOAN/Hoa_don/MAU_Bang_ke_hoa_don_va_chung_tu_thanh_toan.docx",
+      "phase_code": "08",
+      "file_type": "docx",
+      "owner_role": "ketoan",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_08_DCCN",
+      "code": "CT-08-DCCN",
+      "title": "BIÊN BẢN ĐỐI CHIẾU CÔNG NỢ",
+      "path": "08_THANH_QUYET_TOAN/Doi_chieu_cong_no/MAU_Bien_ban_doi_chieu_cong_no.docx",
+      "phase_code": "08",
+      "file_type": "docx",
+      "owner_role": "ketoan",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_08_DCHD",
+      "code": "CT-08-DCHD",
+      "title": "Đối chiếu hóa đơn - sao kê - thanh toán",
+      "path": "08_THANH_QUYET_TOAN/Hoa_don/MAU_Doi_chieu_hoa_don_sao_ke_thanh_toan.xlsx",
+      "phase_code": "08",
+      "file_type": "xlsx",
+      "sheet_name": "DOI_CHIEU",
+      "item_header_row": 10,
+      "item_template_row": 11,
+      "dynamic_rows": true,
+      "owner_role": "ketoan",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "XLSX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_08_HSTT",
+      "code": "CT-08-HSTT",
+      "legacy_code": "CT-08-HSTT",
+      "title": "Hồ sơ thanh toán giai đoạn",
+      "path": "08_THANH_QUYET_TOAN/Ho_so_thanh_toan_giai_doan/MAU_Ho_so_thanh_toan_giai_doan.docx",
+      "phase_code": "08",
+      "file_type": "docx",
+      "owner_role": "ketoan",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_08_QTHT",
+      "code": "CT-08-QTHT",
+      "legacy_code": "CT-08-QTHT",
+      "title": "Bảng giá trị khối lượng quyết toán hoàn thành",
+      "path": "08_THANH_QUYET_TOAN/Quyet_toan_cong_trinh/MAU_Bang_gia_tri_quyet_toan_hoan_thanh.docx",
+      "phase_code": "08",
+      "file_type": "docx",
+      "owner_role": "ketoan",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_08_TDNTT",
+      "code": "CT-08-TDNTT",
+      "legacy_code": "CT-08-TDNTT",
+      "title": "Thư đề nghị thanh toán công trình",
+      "path": "08_THANH_QUYET_TOAN/Thu_de_nghi_thanh_toan/MAU_Thu_de_nghi_thanh_toan_cong_trinh.docx",
+      "phase_code": "08",
+      "file_type": "docx",
+      "owner_role": "ketoan",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_09_BBSUCO",
+      "code": "CT-09-BBSUCO",
+      "legacy_code": "CT-09-BBSUCO",
+      "title": "Biên bản xử lý sự cố bảo hành",
+      "path": "09_BAO_HANH/Xu_ly_su_co_bao_hanh/MAU_Bien_ban_xu_ly_su_co_bao_hanh.docx",
+      "phase_code": "09",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_09_BGBH",
+      "code": "CT-09-BGBH",
+      "title": "BIÊN BẢN BÀN GIAO BẢO HÀNH",
+      "path": "09_BAO_HANH/Cam_ket_VA_bien_ban_bao_hanh/MAU_Bien_ban_ban_giao_bao_hanh.docx",
+      "phase_code": "09",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_09_CKBH",
+      "code": "CT-09-CKBH",
+      "legacy_code": "CT-09-CKBH",
+      "title": "Cam kết bảo hành công trình/hạng mục",
+      "path": "09_BAO_HANH/Cam_ket_VA_bien_ban_bao_hanh/MAU_Cam_ket_bao_hanh_cong_trinh.docx",
+      "phase_code": "09",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    },
+    {
+      "template_id": "CT_09_KTBH",
+      "code": "CT-09-KTBH",
+      "title": "BIÊN BẢN KẾT THÚC BẢO HÀNH VÀ ĐỀ NGHỊ HOÀN TRẢ BẢO LÃNH",
+      "path": "09_BAO_HANH/Ket_thuc_bao_hanh/MAU_Bien_ban_ket_thuc_bao_hanh_va_de_nghi_hoan_B94E0228.docx",
+      "phase_code": "09",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "reviewer_role": "ketoan",
+      "approver_role": "giamdoc",
+      "output_formats": [
+        "DOCX",
+        "PDF"
+      ],
+      "status": "ACTIVE",
+      "exists": true
+    }
+  ]
+}

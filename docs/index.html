@@ -84,7 +84,8 @@
           <button type="button" class="screen-tab active" data-screen="dashboard">Dashboard</button>
           <button type="button" class="screen-tab" data-screen="receivable">Công nợ</button>
           <button type="button" class="screen-tab" data-screen="quotation">Báo giá</button>
-          <button type="button" class="screen-tab" data-screen="documents">Hồ sơ</button>
+          <button type="button" class="screen-tab" data-screen="documents">Hồ sơ CT V3.1</button>
+          <button type="button" class="screen-tab" data-screen="chungtu">7 chứng từ</button>
           <button type="button" class="screen-tab" data-screen="bank">Sao kê</button>
           <button type="button" class="screen-tab" data-screen="roles">Tài khoản</button>
         </div>
@@ -284,21 +285,67 @@
                 </div>
               </div>
 
-              <!-- documents -->
+              <!-- documents: full CT V3.1 registry (from docs/data/ct_registry.json) -->
               <div class="screen" data-pane="documents">
-                <p class="page-note">Kho hồ sơ / Tài liệu — index, phân loại (mẫu checklist).</p>
+                <p class="page-note">
+                  Bộ hồ sơ công trình <strong>TH_ERP_V3_1</strong> — 84 mã template (CT-00…CT-09),
+                  mapping giống app. Dữ liệu trạng thái dưới là <strong>mẫu fictional</strong> cho DEMO-CT-07.
+                </p>
+                <div class="grid metrics four-sm" id="ct-kpis">
+                  <div class="metric panel"><div class="metric-label">Tổng mẫu CT</div><div class="metric-value" id="kpi-total">—</div></div>
+                  <div class="metric panel"><div class="metric-label">File trong package</div><div class="metric-value" id="kpi-exists">—</div></div>
+                  <div class="metric panel"><div class="metric-label">Bắt buộc (mẫu)</div><div class="metric-value" id="kpi-req">18</div></div>
+                  <div class="metric panel"><div class="metric-label">Thiếu (mẫu)</div><div class="metric-value danger" id="kpi-miss">5</div></div>
+                </div>
                 <div class="panel">
-                  <div class="panel-head"><h3 class="panel-title">Checklist hồ sơ DEMO-CT-07</h3></div>
+                  <div class="panel-head">
+                    <h3 class="panel-title">Hồ sơ DEMO-CT-07 · projection theo phase</h3>
+                    <span class="chip warn">Policy: INSTALLATION_STANDARD (demo)</span>
+                  </div>
                   <div class="panel-body">
-                    <div class="dossier-grid">
-                      <div class="dos-card done"><strong>01</strong> Hợp đồng gốc<span class="chip ok">Đủ</span></div>
-                      <div class="dos-card done"><strong>02</strong> Báo giá chốt<span class="chip ok">Đủ</span></div>
-                      <div class="dos-card mid"><strong>03</strong> BBNT đợt 1<span class="chip warn">Thiếu ký</span></div>
-                      <div class="dos-card"><strong>04</strong> CO/CQ vật tư<span class="chip info">2 file</span></div>
-                      <div class="dos-card"><strong>05</strong> Nhật ký thi công<span class="chip">KTV</span></div>
-                      <div class="dos-card"><strong>06</strong> Bảng QT<span class="chip">—</span></div>
+                    <div class="phase-tabs" id="phase-tabs" role="tablist"></div>
+                    <div class="ct-table-wrap">
+                      <table class="tbl" id="ct-table">
+                        <thead>
+                          <tr>
+                            <th>Mã</th><th>Tên mẫu</th><th>Phase</th><th>Loại</th>
+                            <th>Owner</th><th>File package</th><th>Trạng thái demo</th>
+                          </tr>
+                        </thead>
+                        <tbody id="ct-tbody">
+                          <tr><td colspan="7" class="muted">Đang tải registry…</td></tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <p class="hint">Quét folder: cấu hình <code>scan_roots</code> trên máy cài — chỉ index metadata, không upload cloud.</p>
+                    <p class="hint">
+                      Source repo: <code>templates/ho_so_cong_trinh/TH_ERP_V3_1/</code> +
+                      <code>90_ERP_INTEGRATION/TEMPLATE_MAPPING_…_V3.json</code>.
+                      Không chứa tên khách / MST production.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 7 operational docs -->
+              <div class="screen" data-pane="chungtu">
+                <p class="page-note">Bộ 7 chứng từ vận hành (export Word/Excel) — folder <code>templates/chung_tu/</code>.</p>
+                <div class="panel">
+                  <div class="panel-head"><h3 class="panel-title">TEMPLATE vận hành (có trong package)</h3></div>
+                  <div class="panel-body">
+                    <table class="tbl">
+                      <thead><tr><th>Loại</th><th>Mã / file</th><th>Định dạng</th><th>Vai trò dùng</th></tr></thead>
+                      <tbody>
+                        <tr><td>Báo giá</td><td>THANH_HOAI_TEMPLATE_BAO_GIA_*</td><td>xlsx</td><td>Kinh doanh</td></tr>
+                        <tr><td>BBNT</td><td>03_TEMPLATE_BIEN_BAN_NGHIEM_THU_*</td><td>docx / xlsx</td><td>KTT / GĐ</td></tr>
+                        <tr><td>BQT</td><td>04_TEMPLATE_BANG_QUYET_TOAN_*</td><td>docx / xlsx</td><td>Kế toán</td></tr>
+                        <tr><td>ĐCCN</td><td>06_TEMPLATE_BIEN_BAN_DOI_CHIEU_*</td><td>docx / xlsx</td><td>Kế toán</td></tr>
+                        <tr><td>Thư ĐNTT</td><td>05_TEMPLATE_THU_DE_NGHI_THANH_TOAN_*</td><td>docx / xlsx</td><td>Kế toán / GĐ</td></tr>
+                        <tr><td>Hợp đồng</td><td>01–05_TEMPLATE_HOP_DONG_*</td><td>docx</td><td>Kinh doanh / GĐ</td></tr>
+                        <tr><td>PXK</td><td>07_TEMPLATE_PHIEU_GIAO_HANG_XUAT_KHO_*</td><td>docx / xlsx</td><td>Thủ kho</td></tr>
+                        <tr><td>Checklist KTV</td><td>08_TEMPLATE_CHECKLIST_*</td><td>docx / xlsx</td><td>KTV</td></tr>
+                      </tbody>
+                    </table>
+                    <p class="hint">App điền <code>{{placeholder}}</code> qua <code>docgen.py</code> — letterhead lấy cấu hình công ty sau cài.</p>
                   </div>
                 </div>
               </div>

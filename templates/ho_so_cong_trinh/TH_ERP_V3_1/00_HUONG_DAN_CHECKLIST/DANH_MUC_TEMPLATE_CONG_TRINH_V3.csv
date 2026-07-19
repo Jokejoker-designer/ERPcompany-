@@ -1,0 +1,85 @@
+﻿Template ID,Mã mẫu,Tiêu đề,Giai đoạn,Đường dẫn,Loại file,Owner,Reviewer,Approver,Dòng động,Trạng thái
+CT_00_CLDH,CT-00-CLDH,CHECKLIST ĐÓNG HỒ SƠ CÔNG TRÌNH,00,00_HUONG_DAN_CHECKLIST/MAU_Checklist_dong_ho_so_cong_trinh.docx,docx,admin,ktt,giamdoc,false,ACTIVE
+CT_00_PLYC,CT-00-PLYC,Phụ lục yêu cầu chi tiết theo nhóm công trình,00,00_HUONG_DAN_CHECKLIST/MAU_PL_Yeu_cau_chi_tiet_theo_nhom_CT.docx,docx,admin,ktt,giamdoc,false,ACTIVE
+CT_01_BBHKD,CT-01-BBHKD,Biên bản họp khởi động công trình,01,01_PHAP_LY_HOP_DONG/Bien_ban_thong_nhat_cac_ben/MAU_Bien_ban_khoi_dong_cong_trinh.docx,docx,kinhdoanh,ketoan,giamdoc,false,ACTIVE
+CT_01_BBTNCB,CT-01-BBTNCB,Biên bản thống nhất các bên,01,01_PHAP_LY_HOP_DONG/Bien_ban_thong_nhat_cac_ben/MAU_Bien_ban_thong_nhat_cac_ben.docx,docx,kinhdoanh,ketoan,giamdoc,false,ACTIVE
+CT_01_BLBH,CT-01-BLBH,PHIẾU THEO DÕI BẢO LÃNH BẢO HÀNH,01,01_PHAP_LY_HOP_DONG/Bao_lanh_tam_ung_-_thuc_h_44465C71/MAU_Theo_doi_bao_lanh_bao_hanh.docx,docx,kinhdoanh,ketoan,giamdoc,false,ACTIVE
+CT_01_BLTA,CT-01-BLTA,PHIẾU THEO DÕI BẢO LÃNH TẠM ỨNG,01,01_PHAP_LY_HOP_DONG/Bao_lanh_tam_ung_-_thuc_h_44465C71/MAU_Theo_doi_bao_lanh_tam_ung.docx,docx,kinhdoanh,ketoan,giamdoc,false,ACTIVE
+CT_01_BLTH,CT-01-BLTH,PHIẾU THEO DÕI BẢO LÃNH THỰC HIỆN HỢP ĐỒNG,01,01_PHAP_LY_HOP_DONG/Bao_lanh_tam_ung_-_thuc_h_44465C71/MAU_Theo_doi_bao_lanh_thuc_hien_hop_dong.docx,docx,kinhdoanh,ketoan,giamdoc,false,ACTIVE
+CT_01_DSNS,CT-01-DSNS,Thông báo danh sách cán bộ chỉ huy và công nhân thi công,01,01_PHAP_LY_HOP_DONG/CCCD_VA_nhan_su_ra_vao_cong_truong/MAU_Thong_bao_danh_sach_can_bo_cong_nhan_thi_cong.docx,docx,kinhdoanh,ketoan,giamdoc,false,ACTIVE
+CT_01_HSNL,CT-01-HSNL,DANH MỤC HỒ SƠ NĂNG LỰC NHÀ THẦU,01,01_PHAP_LY_HOP_DONG/Ho_so_nang_luc_nha_thau/MAU_Danh_muc_ho_so_nang_luc_nha_thau.docx,docx,kinhdoanh,ketoan,giamdoc,false,ACTIVE
+CT_01_PKBNV,CT-01-PKBNV,Phiếu khai báo nhân viên thi công,01,01_PHAP_LY_HOP_DONG/CCCD_VA_nhan_su_ra_vao_cong_truong/MAU_Phieu_khai_bao_nhan_vien_thi_cong.docx,docx,kinhdoanh,ketoan,giamdoc,false,ACTIVE
+CT_01_PLPS,CT-01-PLPS,Phụ lục hợp đồng phát sinh / điều chỉnh khối lượng,01,01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/MAU_Phu_luc_hop_dong_phat_sinh_khoi_luong.docx,docx,kinhdoanh,ketoan,giamdoc,false,ACTIVE
+HD_01,HD-01,01_TEMPLATE_HOP_DONG_NGUYEN_TAC_THANH_HOAI,01,01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/BO_HOP_DONG_THANH_HOAI_ERP/01_TEMPLATE_HOP_DONG_NGUYEN_TAC_THANH_HOAI.docx,docx,kinhdoanh,ketoan,giamdoc,false,ACTIVE
+HD_02,HD-02,02_TEMPLATE_HOP_DONG_MUA_BAN_HANG_HOA_THANH_HOAI,01,01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/BO_HOP_DONG_THANH_HOAI_ERP/02_TEMPLATE_HOP_DONG_MUA_BAN_HANG_HOA_THANH_HOAI.docx,docx,kinhdoanh,ketoan,giamdoc,false,ACTIVE
+HD_03,HD-03,03_TEMPLATE_HOP_DONG_THI_CONG_LAP_DAT_THANH_HOAI_REVISED_LEGAL_v3_LEX_REFERENCES,01,01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/BO_HOP_DONG_THANH_HOAI_ERP/03_TEMPLATE_HOP_DONG_THI_CONG_LAP_DAT_THANH_HO_BDA9B93A.docx,docx,kinhdoanh,ketoan,giamdoc,false,ACTIVE
+HD_04,HD-04,04_TEMPLATE_HOP_DONG_KINH_TE_THANH_HOAI,01,01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/BO_HOP_DONG_THANH_HOAI_ERP/04_TEMPLATE_HOP_DONG_KINH_TE_THANH_HOAI.docx,docx,kinhdoanh,ketoan,giamdoc,false,ACTIVE
+HD_05,HD-05,05_TEMPLATE_HOP_DONG_BAO_TRI_BAO_DUONG_THANH_HOAI_REVISED_LEGAL_v2,01,01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/BO_HOP_DONG_THANH_HOAI_ERP/05_TEMPLATE_HOP_DONG_BAO_TRI_BAO_DUONG_THANH_H_CB7085C2.docx,docx,kinhdoanh,ketoan,giamdoc,false,ACTIVE
+HD_06,HD-06,06_PHU_LUC_DIEU_KHOAN_CHINH_SACH_CHUNG_THANH_HOAI,01,01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/BO_HOP_DONG_THANH_HOAI_ERP/06_PHU_LUC_DIEU_KHOAN_CHINH_SACH_CHUNG_THANH_HOAI.docx,docx,kinhdoanh,ketoan,giamdoc,false,ACTIVE
+HD_07,HD-07,07_PHU_LUC_BANG_KHOI_LUONG_TIEN_DO_THANH_TOAN_THANH_HOAI,01,01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/BO_HOP_DONG_THANH_HOAI_ERP/07_PHU_LUC_BANG_KHOI_LUONG_TIEN_DO_THANH_TOAN_7F689CA9.docx,docx,kinhdoanh,ketoan,giamdoc,false,ACTIVE
+CT_02_DMBV,CT-02-DMBV,Danh mục bản vẽ và phiếu phát hành bản vẽ,02,02_THIET_KE_BAN_VE/Ban_ve_thiet_ke/MAU_Danh_muc_ban_ve_va_phieu_phat_hanh.docx,docx,ktt,ktt,ktt,false,ACTIVE
+CT_02_PHBV,CT-02-PHBV,PHIẾU PHÁT HÀNH / THU HỒI BẢN VẼ,02,02_THIET_KE_BAN_VE/Ban_ve_thiet_ke/MAU_Phieu_phat_hanh_thu_hoi_ban_ve.docx,docx,ktt,ktt,ktt,false,ACTIVE
+CT_02_RFI,CT-02-RFI,RFI - Phiếu yêu cầu làm rõ thông tin thiết kế,02,02_THIET_KE_BAN_VE/Ban_ve_thi_cong_Shop_drawing/MAU_RFI_yeu_cau_thong_tin_thiet_ke.docx,docx,ktt,ktt,ktt,false,ACTIVE
+CT_02_TDTK,CT-02-TDTK,MẪU NGUỒN CHUẨN - Bang ke thay doi thiet ke duoc duyet,02,02_THIET_KE_BAN_VE/Ban_ve_thi_cong_Shop_drawing/MAU_NGUON_Bang_ke_thay_doi_thiet_ke_duoc_duyet.docx,docx,ktt,ktt,ktt,false,ACTIVE
+CT_02_XREF,CT-02-XREF,DANH MỤC CAD / XREF VÀ KIỂM SOÁT REVISION,02,02_THIET_KE_BAN_VE/CAD_VA_XREF/MAU_Danh_muc_CAD_XREF_va_kiem_soat_revision.docx,docx,ktt,ktt,ktt,false,ACTIVE
+CT_03_CAT,CT-03-CAT,DANH MỤC CATALOGUE VÀ THÔNG SỐ KỸ THUẬT,03,03_VAT_TU_DE_TRINH/Catalogue_VA_thong_so_ky_thuat/MAU_Danh_muc_catalogue_va_thong_so_ky_thuat.docx,docx,thukho,ktt,ktt,false,ACTIVE
+CT_03_DCHDNK,CT-03-DCHDNK,Đối chiếu hóa đơn đầu vào - nhập kho - công trình,03,03_VAT_TU_DE_TRINH/Giao_nhan_VA_luan_chuyen_vat_tu/MAU_Doi_chieu_hoa_don_dau_vao_va_nhap_kho.xlsx,xlsx,thukho,ketoan,thukho,true,ACTIVE
+CT_03_GNCOCQ,CT-03-GNCOCQ,PHIẾU GIAO NHẬN CO/CQ VÀ HỒ SƠ CHẤT LƯỢNG,03,03_VAT_TU_DE_TRINH/Chung_chi_CO_-_CQ/MAU_Phieu_giao_nhan_CO_CQ_va_ho_so_chat_luong.docx,docx,thukho,ktt,ktt,false,ACTIVE
+CT_03_MIR,CT-03-MIR,Biên bản nghiệm thu vật tư đầu vào / MIR,03,03_VAT_TU_DE_TRINH/Nghiem_thu_vat_tu_dau_vao/MAU_Bien_ban_nghiem_thu_vat_tu_dau_vao_MIR.docx,docx,thukho,ktt,ktt,false,ACTIVE
+CT_03_PGNVT,CT-03-PGNVT,PHIẾU GIAO NHẬN VẬT TƯ TẠI CÔNG TRÌNH,03,03_VAT_TU_DE_TRINH/Giao_nhan_VA_luan_chuyen_vat_tu/MAU_Phieu_giao_nhan_vat_tu_tai_cong_trinh.docx,docx,thukho,ktt,ktt,false,ACTIVE
+CT_03_PHTVT,CT-03-PHTVT,PHIẾU HOÀN TRẢ VẬT TƯ,03,03_VAT_TU_DE_TRINH/Giao_nhan_VA_luan_chuyen_vat_tu/MAU_Phieu_hoan_tra_vat_tu.docx,docx,thukho,ktt,ktt,false,ACTIVE
+CT_03_SUB,CT-03-SUB,Phiếu trình mẫu vật tư / Material Submittal,03,03_VAT_TU_DE_TRINH/Trinh_mau_vat_tu_Submittal/MAU_Phieu_trinh_mau_vat_tu_Submittal.docx,docx,thukho,ktt,ktt,false,ACTIVE
+QUOTE_UNIVERSAL,BG-01,Báo giá đa năng,04,04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/01_BAO_GIA_DA_NANG.xlsx,xlsx,kinhdoanh,ktt,giamdoc,true,ACTIVE
+QUOTE_EQUIPMENT,BG-02,Báo giá cung cấp thiết bị,04,04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/02_BAO_GIA_CUNG_CAP_THIET_BI.xlsx,xlsx,kinhdoanh,ktt,giamdoc,true,ACTIVE
+QUOTE_INSTALLATION,BG-03,Báo giá thi công lắp đặt,04,04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/03_BAO_GIA_THI_CONG_LAP_DAT.xlsx,xlsx,kinhdoanh,ktt,giamdoc,true,ACTIVE
+QUOTE_MATERIAL_LABOR,BG-04,Báo giá vật tư và nhân công,04,04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/04_BAO_GIA_VAT_TU_VA_NHAN_CONG.xlsx,xlsx,kinhdoanh,ktt,giamdoc,true,ACTIVE
+QUOTE_LABOR_ONLY,BG-05,Báo giá nhân công riêng,04,04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/05_BAO_GIA_NHAN_CONG_RIENG.xlsx,xlsx,kinhdoanh,ktt,giamdoc,true,ACTIVE
+QUOTE_MAINTENANCE,BG-06,Báo giá bảo trì định kỳ,04,04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/06_BAO_GIA_BAO_TRI_DINH_KY.xlsx,xlsx,kinhdoanh,ktt,giamdoc,true,ACTIVE
+QUOTE_REPAIR,BG-07,Báo giá sửa chữa / khắc phục sự cố,04,04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/07_BAO_GIA_SUA_CHUA_KHAC_PHUC_SU_CO.xlsx,xlsx,kinhdoanh,ktt,giamdoc,true,ACTIVE
+QUOTE_VARIATION,BG-08,Báo giá phát sinh công trình,04,04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/08_BAO_GIA_PHAT_SINH_CONG_TRINH.xlsx,xlsx,kinhdoanh,ktt,giamdoc,true,ACTIVE
+QUOTE_FINAL_ACCOUNT,BG-09,Báo giá quyết toán / bổ sung,04,04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/09_BAO_GIA_QUYET_TOAN_BO_SUNG.xlsx,xlsx,kinhdoanh,ktt,giamdoc,true,ACTIVE
+QUOTE_PROJECT_SUMMARY,BG-10,Báo giá tổng hợp công trình,04,04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/10_BAO_GIA_TONG_HOP_CONG_TRINH.xlsx,xlsx,kinhdoanh,ktt,giamdoc,true,ACTIVE
+QUOTE_JOINT_VENTURE,BG-11,Báo giá liên danh / phân chia phạm vi,04,04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/11_BAO_GIA_LIEN_DANH_PHAN_CHIA_PHAM_VI.xlsx,xlsx,kinhdoanh,ktt,giamdoc,true,ACTIVE
+CT_04_BOQ,CT-04-BOQ,Bảng khối lượng dự thầu / dự toán,04,04_BAO_GIA_KHOI_LUONG/Khoi_luong_du_thau_-_bao_gia/MAU_Bang_khoi_luong_du_thau_BOQ.xlsx,xlsx,kinhdoanh,ktt,giamdoc,true,ACTIVE
+CT_04_PO,CT-04-PO,ĐƠN ĐẶT HÀNG / PURCHASE ORDER,04,04_BAO_GIA_KHOI_LUONG/PO_-_Don_dat_hang_NCC_-_thau_phu/MAU_Don_dat_hang_PO.docx,docx,kinhdoanh,ketoan,giamdoc,false,ACTIVE
+CT_04_RFQ,CT-04-RFQ,PHIẾU YÊU CẦU BÁO GIÁ NHÀ CUNG CẤP / NHÀ THẦU PHỤ,04,04_BAO_GIA_KHOI_LUONG/Bao_gia_nha_thau_phu_-_NCC/MAU_Phieu_yeu_cau_bao_gia_NCC_nha_thau_phu.docx,docx,kinhdoanh,ketoan,giamdoc,false,ACTIVE
+CT_04_SSBG,CT-04-SSBG,Bảng so sánh báo giá nhà cung cấp,04,04_BAO_GIA_KHOI_LUONG/Bao_gia_nha_thau_phu_-_NCC/MAU_Bang_so_sanh_bao_gia_NCC.xlsx,xlsx,kinhdoanh,ketoan,giamdoc,true,ACTIVE
+CT_04_VO,CT-04-VO,Đề nghị phát sinh / Variation Order,04,04_BAO_GIA_KHOI_LUONG/Khoi_luong_thuc_te_thi_cong/MAU_De_nghi_phat_sinh_VO.docx,docx,ktt,ktt,giamdoc,false,ACTIVE
+CT_04_XNKL,CT-04-XNKL,Xác nhận khối lượng thi công hàng tháng/giai đoạn,04,04_BAO_GIA_KHOI_LUONG/Khoi_luong_thuc_te_thi_cong/MAU_Xac_nhan_khoi_luong_thi_cong_hang_thang.docx,docx,kinhdoanh,ktt,giamdoc,false,ACTIVE
+CT_05_ATLD,CT-05-ATLD,Thông báo người phụ trách ATLĐ - VSMT,05,05_THI_CONG_QLCL/An_toan_lao_dong_ATLD/MAU_Thong_bao_nguoi_phu_trach_ATLD_VSMT.docx,docx,ktv_ctv,ktt,ktt,false,ACTIVE
+CT_05_BCDVTC,CT-05-BCDVTC,MẪU NGUỒN CHUẨN - Bao cao cua don vi thi cong,05,05_THI_CONG_QLCL/Bao_cao_don_vi_thi_cong/MAU_NGUON_Bao_cao_cua_don_vi_thi_cong.docx,docx,ktv_ctv,ktt,ktt,false,ACTIVE
+CT_05_BCHA,CT-05-BCHA,BÁO CÁO HÌNH ẢNH THI CÔNG,05,05_THI_CONG_QLCL/Hinh_anh_thi_cong/MAU_Bao_cao_hinh_anh_thi_cong.docx,docx,ktv_ctv,ktt,ktt,false,ACTIVE
+CT_05_BCTD,CT-05-BCTD,BÁO CÁO TIẾN ĐỘ TUẦN / THÁNG,05,05_THI_CONG_QLCL/Theo_doi_tien_do/MAU_Bao_cao_tien_do_tuan_thang.docx,docx,ktv_ctv,ktt,ktt,false,ACTIVE
+CT_05_BPTC,CT-05-BPTC,Biện pháp thi công đảm bảo an toàn,05,05_THI_CONG_QLCL/Thuyet_minh_bien_phap_thi_cong/MAU_Bien_phap_thi_cong_dam_bao_an_toan.docx,docx,ktv_ctv,ktt,ktt,false,ACTIVE
+CT_05_BPTC_BIA,CT-05-BPTC-BIA,MẪU NGUỒN CHUẨN - Bia bien phap thi cong,05,05_THI_CONG_QLCL/Thuyet_minh_bien_phap_thi_cong/MAU_NGUON_Bia_bien_phap_thi_cong.docx,docx,ktv_ctv,ktt,ktt,false,ACTIVE
+CT_05_BTBD,CT-05-BTBD,Biên bản bảo trì / bảo dưỡng định kỳ,05,05_THI_CONG_QLCL/Bao_cao_don_vi_thi_cong/MAU_Bien_ban_bao_tri_bao_duong_dinh_ky.docx,docx,ktv_ctv,ktt,ktt,false,ACTIVE
+CT_05_NCR,CT-05-NCR,NCR - Biên bản không phù hợp và hành động khắc phục,05,05_THI_CONG_QLCL/NCR_-_Khong_phu_hop_VA_khac_phuc/MAU_Bien_ban_khong_phu_hop_NCR.docx,docx,ktv_ctv,ktt,ktt,false,ACTIVE
+CT_05_NKTC,CT-05-NKTC,Nhật ký thi công hằng ngày,05,05_THI_CONG_QLCL/Nhat_ky_thi_cong/MAU_Nhat_ky_thi_cong_hang_ngay.docx,docx,ktv_ctv,ktt,ktt,false,ACTIVE
+CT_05_NKTC_BIA,CT-05-NKTC-BIA,MẪU NGUỒN CHUẨN - Bia so nhat ky thi cong,05,05_THI_CONG_QLCL/Nhat_ky_thi_cong/MAU_NGUON_Bia_so_nhat_ky_thi_cong.docx,docx,ktv_ctv,ktt,ktt,false,ACTIVE
+CT_05_NKTC_SO,CT-05-NKTC-SO,MẪU NGUỒN CHUẨN - So nhat ky thi cong,05,05_THI_CONG_QLCL/Nhat_ky_thi_cong/MAU_NGUON_So_nhat_ky_thi_cong.docx,docx,ktv_ctv,ktt,ktt,false,ACTIVE
+CT_05_SCKP,CT-05-SCKP,Biên bản sửa chữa / khắc phục sự cố,05,05_THI_CONG_QLCL/Bao_cao_don_vi_thi_cong/MAU_Bien_ban_sua_chua_khac_phuc_su_co.docx,docx,ktv_ctv,ktt,ktt,false,ACTIVE
+CT_05_VSMT,CT-05-VSMT,Kế hoạch vệ sinh môi trường công trường,05,05_THI_CONG_QLCL/Ve_sinh_moi_truong_VSMT/MAU_Ke_hoach_VSMT_cong_truong.docx,docx,ktv_ctv,ktt,ktt,false,ACTIVE
+CT_06_BBLM,CT-06-BBLM,MẪU NGUỒN CHUẨN - Bien ban lay mau thi nghiem,06,06_NGHIEM_THU/Lay_mau_thi_nghiem/MAU_NGUON_Bien_ban_lay_mau_thi_nghiem.docx,docx,ktt,ktt,ktt,false,ACTIVE
+CT_06_BBNTGD,CT-06-BBNTGD,Biên bản nghiệm thu giai đoạn / bộ phận công trình,06,06_NGHIEM_THU/NT_giai_doan_-_bo_phan/MAU_BBNT_giai_doan_bo_phan.docx,docx,ktt,ktt,ktt,false,ACTIVE
+CT_06_BBNTHH,CT-06-BBNTHH,Biên bản nghiệm thu hoàn thành đưa vào sử dụng,06,06_NGHIEM_THU/NT_hoan_thanh_-_dua_vao_su_dung/MAU_BBNT_hoan_thanh_dua_vao_su_dung.docx,docx,ktt,ktt,ktt,false,ACTIVE
+CT_06_BBNTHH_STD,CT-06-BBNTHH-STD,MẪU NGUỒN CHUẨN - BBNT hoan thanh dua vao su dung,06,06_NGHIEM_THU/NT_hoan_thanh_-_dua_vao_su_dung/MAU_NGUON_BBNT_hoan_thanh_dua_vao_su_dung.docx,docx,ktt,ktt,ktt,false,ACTIVE
+CT_06_KTHS,CT-06-KTHS,MẪU NGUỒN CHUẨN - Bien ban kiem tra ho so nghiem thu,06,06_NGHIEM_THU/Kiem_tra_ho_so_nghiem_thu/MAU_NGUON_Bien_ban_kiem_tra_ho_so_nghiem_thu.docx,docx,ktt,ktt,ktt,false,ACTIVE
+CT_06_PYCNT,CT-06-PYCNT,MẪU NGUỒN CHUẨN - Phieu yeu cau nghiem thu,06,06_NGHIEM_THU/Phieu_yeu_cau_nghiem_thu/MAU_NGUON_Phieu_yeu_cau_nghiem_thu.docx,docx,ktt,ktt,ktt,false,ACTIVE
+CT_06_TC,CT-06-TC,Biên bản nghiệm thu chạy thử và cân chỉnh / T&C,06,06_NGHIEM_THU/NT_chay_thu_VA_can_chinh_T_VA_C/MAU_BBNT_chay_thu_can_chinh_TC.docx,docx,ktt,ktt,ktt,false,ACTIVE
+CT_06_WIR,CT-06-WIR,Biên bản nghiệm thu công việc lắp đặt / WIR,06,06_NGHIEM_THU/NT_cong_viec_-_lap_dat/MAU_BBNT_cong_viec_lap_dat_WIR.docx,docx,ktt,ktt,ktt,false,ACTIVE
+CT_07_BBBG,CT-07-BBBG,Biên bản bàn giao công trình/hạng mục,07,07_HOAN_CONG_BAN_GIAO/Bien_ban_ban_giao/MAU_Bien_ban_ban_giao_cong_trinh.docx,docx,ktt,ktt,giamdoc,false,ACTIVE
+CT_07_BGTL,CT-07-BGTL,"BIÊN BẢN BÀN GIAO TÀI LIỆU, THIẾT BỊ VÀ CHÌA KHÓA",07,07_HOAN_CONG_BAN_GIAO/Bien_ban_ban_giao/MAU_Bien_ban_ban_giao_tai_lieu_thiet_bi_va_chia_khoa.docx,docx,ktt,ktt,giamdoc,false,ACTIVE
+CT_07_DMBVHC,CT-07-DMBVHC,Danh mục bản vẽ hoàn công / As-built Drawing Register,07,07_HOAN_CONG_BAN_GIAO/Ban_ve_hoan_cong_As-built/MAU_Danh_muc_ban_ve_hoan_cong.docx,docx,ktt,ktt,giamdoc,false,ACTIVE
+CT_07_DTVH,CT-07-DTVH,BIÊN BẢN HƯỚNG DẪN VẬN HÀNH VÀ ĐÀO TẠO,07,07_HOAN_CONG_BAN_GIAO/Ho_so_O_VA_M/MAU_Bien_ban_huong_dan_van_hanh_va_dao_tao.docx,docx,ktt,ktt,giamdoc,false,ACTIVE
+CT_07_MLHC,CT-07-MLHC,Mục lục hồ sơ hoàn công,07,07_HOAN_CONG_BAN_GIAO/Ho_so_hoan_cong/MAU_Muc_luc_ho_so_hoan_cong.docx,docx,ktt,ktt,giamdoc,false,ACTIVE
+CT_07_OM,CT-07-OM,MỤC LỤC HỒ SƠ VẬN HÀNH VÀ BẢO TRÌ (O&M),07,07_HOAN_CONG_BAN_GIAO/Ho_so_O_VA_M/MAU_Muc_luc_ho_so_O_VA_M.docx,docx,ktt,ktt,giamdoc,false,ACTIVE
+CT_08_BKHD,CT-08-BKHD,BẢNG KÊ HÓA ĐƠN VÀ CHỨNG TỪ THANH TOÁN,08,08_THANH_QUYET_TOAN/Hoa_don/MAU_Bang_ke_hoa_don_va_chung_tu_thanh_toan.docx,docx,ketoan,ketoan,giamdoc,false,ACTIVE
+CT_08_DCCN,CT-08-DCCN,BIÊN BẢN ĐỐI CHIẾU CÔNG NỢ,08,08_THANH_QUYET_TOAN/Doi_chieu_cong_no/MAU_Bien_ban_doi_chieu_cong_no.docx,docx,ketoan,ketoan,giamdoc,false,ACTIVE
+CT_08_DCHD,CT-08-DCHD,Đối chiếu hóa đơn - sao kê - thanh toán,08,08_THANH_QUYET_TOAN/Hoa_don/MAU_Doi_chieu_hoa_don_sao_ke_thanh_toan.xlsx,xlsx,ketoan,ketoan,giamdoc,true,ACTIVE
+CT_08_HSTT,CT-08-HSTT,Hồ sơ thanh toán giai đoạn,08,08_THANH_QUYET_TOAN/Ho_so_thanh_toan_giai_doan/MAU_Ho_so_thanh_toan_giai_doan.docx,docx,ketoan,ketoan,giamdoc,false,ACTIVE
+CT_08_QTHT,CT-08-QTHT,Bảng giá trị khối lượng quyết toán hoàn thành,08,08_THANH_QUYET_TOAN/Quyet_toan_cong_trinh/MAU_Bang_gia_tri_quyet_toan_hoan_thanh.docx,docx,ketoan,ketoan,giamdoc,false,ACTIVE
+CT_08_TDNTT,CT-08-TDNTT,Thư đề nghị thanh toán công trình,08,08_THANH_QUYET_TOAN/Thu_de_nghi_thanh_toan/MAU_Thu_de_nghi_thanh_toan_cong_trinh.docx,docx,ketoan,ketoan,giamdoc,false,ACTIVE
+CT_09_BBSUCO,CT-09-BBSUCO,Biên bản xử lý sự cố bảo hành,09,09_BAO_HANH/Xu_ly_su_co_bao_hanh/MAU_Bien_ban_xu_ly_su_co_bao_hanh.docx,docx,ktt,ketoan,giamdoc,false,ACTIVE
+CT_09_BGBH,CT-09-BGBH,BIÊN BẢN BÀN GIAO BẢO HÀNH,09,09_BAO_HANH/Cam_ket_VA_bien_ban_bao_hanh/MAU_Bien_ban_ban_giao_bao_hanh.docx,docx,ktt,ketoan,giamdoc,false,ACTIVE
+CT_09_CKBH,CT-09-CKBH,Cam kết bảo hành công trình/hạng mục,09,09_BAO_HANH/Cam_ket_VA_bien_ban_bao_hanh/MAU_Cam_ket_bao_hanh_cong_trinh.docx,docx,ktt,ketoan,giamdoc,false,ACTIVE
+CT_09_KTBH,CT-09-KTBH,BIÊN BẢN KẾT THÚC BẢO HÀNH VÀ ĐỀ NGHỊ HOÀN TRẢ BẢO LÃNH,09,09_BAO_HANH/Ket_thuc_bao_hanh/MAU_Bien_ban_ket_thuc_bao_hanh_va_de_nghi_hoan_B94E0228.docx,docx,kinhdoanh,ketoan,giamdoc,false,ACTIVE

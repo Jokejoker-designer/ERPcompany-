@@ -2,8 +2,9 @@
 """WO-11 — Sinh bo 7 chung tu tu 1 bao gia + Xuat Excel/Word theo template chuan cong ty.
 
 - sinh_bo_chung_tu(conn, sess, quotation_id): tao 7 chung tu NHAP da dien san (khong tu chot).
-- export_doc(conn, loai, id, fmt): tra (filename, bytes) — dien {{placeholder}} vao template
-  chuan tai D:\\Quản trị DOANH NGHIỆP\\Mẫu chứng từ chuẩn\\; thieu template -> dung ban sach.
+- export_doc(conn, loai, id, fmt): tra (filename, bytes) — dien {{placeholder}} vao template.
+  Tim template theo: THANH_HOAI_TPL_ROOT / templates/chung_tu (package) /
+  legacy D:\\…\\Mẫu chứng từ chuẩn; thieu template -> ban sach.
 """
 import glob
 import io
@@ -25,7 +26,43 @@ try:
 except Exception:
     pass
 
-TPL_ROOT = r"D:\Quản trị DOANH NGHIỆP\Mẫu chứng từ chuẩn"
+# Template roots: product package first, then legacy absolute path (production).
+# Override: THANH_HOAI_TPL_ROOT / THANH_HOAI_TPL_ROOT_CT
+_DOCGEN_DIR = os.path.dirname(os.path.abspath(__file__))
+_LEGACY_TPL_ROOT = r"D:\Quản trị DOANH NGHIỆP\Mẫu chứng từ chuẩn"
+_LEGACY_TPL_ROOT_CT = os.path.join(
+    _LEGACY_TPL_ROOT, "_MẪU HỒ SƠ CÔNG TRÌNH", "TH_ERP_V3_1"
+)
+
+
+def _first_existing_dir(*candidates):
+    for path in candidates:
+        if path and os.path.isdir(path):
+            return os.path.abspath(path)
+    for path in candidates:
+        if path:
+            return os.path.abspath(path)
+    return ""
+
+
+def resolve_tpl_root():
+    return _first_existing_dir(
+        os.environ.get("THANH_HOAI_TPL_ROOT"),
+        os.path.join(_DOCGEN_DIR, "templates", "chung_tu"),
+        _LEGACY_TPL_ROOT,
+    )
+
+
+def resolve_tpl_root_ct():
+    return _first_existing_dir(
+        os.environ.get("THANH_HOAI_TPL_ROOT_CT"),
+        os.path.join(_DOCGEN_DIR, "templates", "ho_so_cong_trinh", "TH_ERP_V3_1"),
+        _LEGACY_TPL_ROOT_CT,
+    )
+
+
+# Back-compat names used throughout this module (re-read via property helpers below).
+TPL_ROOT = resolve_tpl_root()
 TPL_GLOB = {
     ("bbnt", "xlsx"): "02*/03_TEMPLATE_BIEN_BAN_NGHIEM_THU*.xlsx",
     ("bbnt", "docx"): "02*/03_TEMPLATE_BIEN_BAN_NGHIEM_THU*.docx",
@@ -48,7 +85,8 @@ def _find_tpl(loai, fmt):
     pat = TPL_GLOB.get((loai, fmt))
     if not pat:
         return None
-    hits = glob.glob(os.path.join(TPL_ROOT, pat))
+    root = resolve_tpl_root()
+    hits = glob.glob(os.path.join(root, pat))
     return hits[0] if hits else None
 
 
@@ -806,10 +844,8 @@ DOC_TABLES = {
 
 # ==================== WO-34A: HO SO CONG TRINH (CT-00..CT-09) =============
 # Nhanh SONG SONG voi DOC_TABLES/_data_map cu (khong dung chung, khong sua cu).
-# Template bundle + mapping 28 ma CT-* doc tu TEMPLATE_MAPPING_CONG_TRINH_APP8777.json.
-TPL_ROOT_CT = (r"D:\Quản trị DOANH NGHIỆP\Mẫu chứng từ chuẩn"
-               r"\_MẪU HỒ SƠ CÔNG TRÌNH"
-               r"\TH_ERP_V3_1")
+# Template bundle + mapping CT-* (V3.1). Public package: templates/ho_so_cong_trinh/TH_ERP_V3_1
+TPL_ROOT_CT = resolve_tpl_root_ct()
 _CT_INTEGRATION_DIR = "90_ERP_INTEGRATION"
 _CT_MAPPING_FILE = "TEMPLATE_MAPPING_CONG_TRINH_APP8777_V3.json"
 _CT_REQUIRED_RULES_FILE = "REQUIRED_DOCUMENT_RULES.json"
@@ -824,12 +860,13 @@ def _resolve_ct_template_path(rel_path):
     duoc dat phang o `Báo giá gửi chủ đầu tư`. Khong sua goi mau cua nguoi dung;
     resolver chi fallback theo basename duy nhat va bao `path_resolved` cho UI.
     """
+    root = resolve_tpl_root_ct()
     rel = (rel_path or "").replace("/", os.sep)
-    direct = os.path.join(TPL_ROOT_CT, rel)
+    direct = os.path.join(root, rel)
     if os.path.isfile(direct):
         return direct
     basename = os.path.basename(rel)
-    hits = glob.glob(os.path.join(TPL_ROOT_CT, "**", basename), recursive=True)
+    hits = glob.glob(os.path.join(root, "**", basename), recursive=True)
     return hits[0] if len(hits) == 1 else direct
 
 
@@ -838,7 +875,7 @@ def _ct_templates_v2_legacy():
     global _CT_TPL_CACHE
     if _CT_TPL_CACHE is None:
         import json
-        mp = os.path.join(TPL_ROOT_CT, "00. HƯỚNG DẪN & CHECKLIST",
+        mp = os.path.join(resolve_tpl_root_ct(), "00. HƯỚNG DẪN & CHECKLIST",
                           "TEMPLATE_MAPPING_CONG_TRINH_APP8777_V2.json")
         try:
             with open(mp, encoding="utf-8") as f:
@@ -869,14 +906,14 @@ def ct_templates():
     global _CT_TPL_CACHE
     if _CT_TPL_CACHE is None:
         import json
-        mapping_path = os.path.join(TPL_ROOT_CT, _CT_INTEGRATION_DIR, _CT_MAPPING_FILE)
+        mapping_path = os.path.join(resolve_tpl_root_ct(), _CT_INTEGRATION_DIR, _CT_MAPPING_FILE)
         try:
             with open(mapping_path, encoding="utf-8") as handle:
                 mapping = json.load(handle)
             quote_contract_by_file = {}
             contract_rel = mapping.get("quotation_dynamic_contract")
             if contract_rel:
-                contract_path = os.path.join(TPL_ROOT_CT, contract_rel.replace("/", os.sep))
+                contract_path = os.path.join(resolve_tpl_root_ct(), contract_rel.replace("/", os.sep))
                 with open(contract_path, encoding="utf-8") as handle:
                     contract = json.load(handle)
                 quote_contract_by_file = {
@@ -920,7 +957,7 @@ def ct_document_requirements(profile_code="INSTALLATION_STANDARD"):
     global _CT_REQUIRED_CACHE
     if _CT_REQUIRED_CACHE is None:
         import json
-        rules_path = os.path.join(TPL_ROOT_CT, _CT_INTEGRATION_DIR,
+        rules_path = os.path.join(resolve_tpl_root_ct(), _CT_INTEGRATION_DIR,
                                   _CT_REQUIRED_RULES_FILE)
         try:
             with open(rules_path, encoding="utf-8") as handle:

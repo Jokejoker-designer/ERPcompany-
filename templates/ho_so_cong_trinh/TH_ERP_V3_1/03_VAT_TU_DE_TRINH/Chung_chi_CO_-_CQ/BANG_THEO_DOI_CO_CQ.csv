@@ -1,0 +1,2 @@
+﻿STT,Mã vật tư,Tên vật tư/thiết bị,Quy cách/Model,Nhà cung cấp,Số lô/Serial,CO,CQ,Ngày nhận,File đính kèm,Trạng thái,Ghi chú
+1,{{MA_VAT_TU}},{{TEN_VAT_TU}},{{QUY_CACH}},{{NCC}},{{SO_LO}},Có/Không,Có/Không,{{NGAY_NHAN}},{{LINK_FILE}},Chờ duyệt,

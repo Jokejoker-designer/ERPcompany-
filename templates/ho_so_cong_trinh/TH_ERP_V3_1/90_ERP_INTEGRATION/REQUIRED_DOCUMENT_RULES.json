@@ -1,0 +1,200 @@
+{
+  "version": "3.1",
+  "generated_at": "2026-07-13",
+  "status_vocabulary": [
+    "REQUIRED",
+    "CONDITIONAL",
+    "OPTIONAL",
+    "NOT_APPLICABLE"
+  ],
+  "project_profiles": {
+    "INSTALLATION_STANDARD": {
+      "required": [
+        "BG-03",
+        "HD-03",
+        "CT-01-BBHKD",
+        "CT-01-DSNS",
+        "CT-02-DMBV",
+        "CT-03-SUB",
+        "CT-03-MIR",
+        "CT-04-BOQ",
+        "CT-05-BPTC",
+        "CT-05-ATLD",
+        "CT-05-NKTC",
+        "CT-05-BCTD",
+        "CT-06-WIR",
+        "CT-06-BBNTGD",
+        "CT-06-BBNTHH",
+        "CT-07-DMBVHC",
+        "CT-07-MLHC",
+        "CT-07-BBBG",
+        "CT-08-HSTT",
+        "CT-08-QTHT",
+        "CT-09-CKBH"
+      ],
+      "conditional": [
+        "CT-01-BLTA",
+        "CT-01-BLTH",
+        "CT-01-BLBH",
+        "CT-02-RFI",
+        "CT-02-PHBV",
+        "CT-02-XREF",
+        "CT-03-CAT",
+        "CT-03-GNCOCQ",
+        "CT-03-PGNVT",
+        "CT-03-PHTVT",
+        "CT-04-VO",
+        "CT-05-NCR",
+        "CT-06-BBLM",
+        "CT-06-TC",
+        "CT-07-OM",
+        "CT-07-DTVH",
+        "CT-08-DCCN",
+        "CT-08-DCHD",
+        "CT-09-BGBH",
+        "CT-09-KTBH"
+      ]
+    },
+    "EQUIPMENT_SUPPLY": {
+      "required": [
+        "BG-02",
+        "HD-02",
+        "CT-03-SUB",
+        "CT-03-CAT",
+        "CT-03-GNCOCQ",
+        "CT-03-MIR",
+        "CT-03-PGNVT",
+        "CT-07-BBBG",
+        "CT-08-TDNTT",
+        "CT-08-DCHD",
+        "CT-09-CKBH",
+        "CT-09-BGBH"
+      ],
+      "conditional": [
+        "CT-04-RFQ",
+        "CT-04-SSBG",
+        "CT-04-PO",
+        "CT-03-DCHDNK",
+        "CT-07-OM",
+        "CT-07-DTVH",
+        "CT-09-KTBH"
+      ]
+    },
+    "MAINTENANCE_PERIODIC": {
+      "required": [
+        "BG-06",
+        "HD-05",
+        "CT-05-BTBD",
+        "CT-05-BCHA",
+        "CT-08-TDNTT",
+        "CT-08-DCHD"
+      ],
+      "conditional": [
+        "CT-03-PGNVT",
+        "CT-03-PHTVT",
+        "CT-09-BGBH",
+        "CT-09-BBSUCO"
+      ]
+    },
+    "REPAIR_SERVICE": {
+      "required": [
+        "BG-07",
+        "CT-05-SCKP",
+        "CT-05-BCHA",
+        "CT-08-TDNTT",
+        "CT-08-DCHD"
+      ],
+      "conditional": [
+        "HD-04",
+        "CT-03-PGNVT",
+        "CT-03-PHTVT",
+        "CT-09-BBSUCO"
+      ]
+    },
+    "VARIATION_WORK": {
+      "required": [
+        "BG-08",
+        "CT-04-VO",
+        "CT-01-PLPS",
+        "CT-04-XNKL"
+      ],
+      "conditional": [
+        "CT-05-NKTC",
+        "CT-05-BCHA",
+        "CT-06-WIR",
+        "CT-06-BBNTGD",
+        "CT-08-HSTT"
+      ]
+    },
+    "FINAL_ACCOUNT_CLOSEOUT": {
+      "required": [
+        "BG-09",
+        "CT-08-QTHT",
+        "CT-08-DCCN",
+        "CT-08-DCHD",
+        "CT-00-CLDH"
+      ],
+      "conditional": [
+        "CT-07-MLHC",
+        "CT-07-BBBG",
+        "CT-09-KTBH"
+      ]
+    }
+  },
+  "conditional_triggers": [
+    {
+      "when": "project.requires_drawings == true",
+      "add": [
+        "CT-02-DMBV",
+        "CT-02-PHBV",
+        "CT-02-XREF"
+      ]
+    },
+    {
+      "when": "project.requires_material_approval == true",
+      "add": [
+        "CT-03-SUB",
+        "CT-03-CAT",
+        "CT-03-MIR",
+        "CT-03-GNCOCQ"
+      ]
+    },
+    {
+      "when": "project.requires_testing_commissioning == true",
+      "add": [
+        "CT-06-BBLM",
+        "CT-06-TC"
+      ]
+    },
+    {
+      "when": "project.uses_subcontractor_or_supplier_selection == true",
+      "add": [
+        "CT-04-RFQ",
+        "CT-04-SSBG",
+        "CT-04-PO"
+      ]
+    },
+    {
+      "when": "project.has_guarantee == true",
+      "add": [
+        "CT-01-BLTA",
+        "CT-01-BLTH",
+        "CT-01-BLBH"
+      ]
+    },
+    {
+      "when": "project.requires_om_manual == true",
+      "add": [
+        "CT-07-OM",
+        "CT-07-DTVH"
+      ]
+    },
+    {
+      "when": "project.has_warranty_retention == true",
+      "add": [
+        "CT-09-BGBH",
+        "CT-09-KTBH"
+      ]
+    }
+  ]
+}

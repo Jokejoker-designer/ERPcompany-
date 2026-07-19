@@ -1,0 +1,2 @@
+﻿STT,Hạng mục,Khu vực/Tầng,Ngày bắt đầu KH,Ngày kết thúc KH,Ngày bắt đầu TT,Ngày kết thúc TT,% hoàn thành,Người phụ trách,Rủi ro/Vướng mắc
+1,{{HANG_MUC}},{{KHU_VUC}},{{START_PLAN}},{{END_PLAN}},,,0%,{{PHU_TRACH}},

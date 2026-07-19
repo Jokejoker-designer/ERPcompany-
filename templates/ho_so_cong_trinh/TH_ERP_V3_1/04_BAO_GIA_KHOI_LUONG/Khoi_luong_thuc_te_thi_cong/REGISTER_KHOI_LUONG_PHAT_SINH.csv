@@ -1,0 +1,2 @@
+﻿STT,Mã VO,Ngày,Hạng mục,Lý do,Giá trị tăng,Giá trị giảm,Người đề nghị,Người duyệt,Trạng thái,File kèm
+1,VO-{{SO}},{{NGAY}},{{HANG_MUC}},{{LY_DO}},0,0,{{NGUOI_DE_NGHI}},{{NGUOI_DUYET}},Draft,{{LINK_FILE}}

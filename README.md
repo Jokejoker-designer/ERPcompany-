@@ -12,11 +12,19 @@
 
 ### Xem trước hình hệ thống (không cần cài)
 
-Trang demo tĩnh (mock UI dashboard / công nợ / báo giá / hồ sơ / sao kê):
+Trang demo tĩnh (mock UI + **bảng 84 mẫu hồ sơ CT V3.1** + 7 chứng từ):
 
-- Local: mở file [`docs/index.html`](docs/index.html)
-- GitHub Pages (sau khi bật trong Settings):  
-  **https://jokejoker-designer.github.io/ERPcompany-/**
+- Local: mở file [`docs/index.html`](docs/index.html) (nên `python -m http.server` trong `docs/` để load registry JSON)
+- GitHub Pages: **https://jokejoker-designer.github.io/ERPcompany-/**
+
+### Bộ template (trong repo)
+
+| Thư mục | Nội dung |
+|---------|----------|
+| `templates/chung_tu/` | BG, BBNT, BQT, ĐCCN, Thư ĐNTT, HĐ, PXK, Checklist |
+| `templates/ho_so_cong_trinh/TH_ERP_V3_1/` | 84 mã CT-00…CT-09 + mapping V3.1 |
+
+Đã **tẩy** MST/SĐT/email/địa chỉ production. Letterhead sau cài: `config.json` + logo.
 
 ---
 

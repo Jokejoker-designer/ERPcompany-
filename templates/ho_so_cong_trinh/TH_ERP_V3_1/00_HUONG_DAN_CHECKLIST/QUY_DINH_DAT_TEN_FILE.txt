@@ -1,0 +1,18 @@
+﻿QUY ĐỊNH ĐẶT TÊN FILE HỒ SƠ CÔNG TRÌNH
+
+Cấu trúc chuẩn:
+YYYYMMDD_[LoaiHoSo]_[TenCongTrinh/TenHangMuc]_[vNN].[ext]
+
+Ví dụ:
+20260710_BBNT_lap_dat_ong_gio_tang_3_v01.docx
+20260710_BBNT_lap_dat_ong_gio_tang_3_v01_signed.pdf
+20260710_CO_CQ_ong_dong_D15.9_v01.pdf
+
+Trạng thái file:
+- draft: đang soạn
+- review: đang gửi duyệt
+- approved: đã được duyệt
+- signed: đã ký/đóng dấu
+- superseded: bị thay thế bởi phiên bản mới
+
+Không xóa bản cũ; chuyển vào thư mục _CU nếu cần.

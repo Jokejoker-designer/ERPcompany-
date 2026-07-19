@@ -1,0 +1,62 @@
+{
+  "version": "3.1",
+  "states": [
+    "DRAFT",
+    "SUBMITTED",
+    "REVIEWED",
+    "APPROVED",
+    "ISSUED",
+    "SIGNED",
+    "SUPERSEDED",
+    "ARCHIVED"
+  ],
+  "transitions": [
+    {
+      "from": "DRAFT",
+      "to": "SUBMITTED",
+      "actor": "owner_role"
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "REVIEWED",
+      "actor": "reviewer_role"
+    },
+    {
+      "from": "REVIEWED",
+      "to": "APPROVED",
+      "actor": "approver_role"
+    },
+    {
+      "from": "APPROVED",
+      "to": "ISSUED",
+      "actor": "owner_role"
+    },
+    {
+      "from": "ISSUED",
+      "to": "SIGNED",
+      "actor": "authorized_signatory"
+    },
+    {
+      "from": "SIGNED",
+      "to": "SUPERSEDED",
+      "actor": "approver_role",
+      "requires": "new_revision_id"
+    },
+    {
+      "from": [
+        "SIGNED",
+        "SUPERSEDED"
+      ],
+      "to": "ARCHIVED",
+      "actor": "records_manager"
+    }
+  ],
+  "hard_guards": [
+    "SIGNED files are immutable.",
+    "A revision must preserve lineage to the superseded artifact.",
+    "NOT_APPLICABLE requires a reason and approver.",
+    "Stock quantity increases only after warehouse receipt confirmation.",
+    "Bank statement matching does not create payment until accounting confirmation.",
+    "Quotation export contains exactly one customer-facing worksheet and exactly N item rows for N quotation items."
+  ]
+}

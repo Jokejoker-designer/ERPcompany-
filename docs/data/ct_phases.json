@@ -1,0 +1,12 @@
+{
+  "00": { "name": "Hướng dẫn & checklist", "color": "info" },
+  "01": { "name": "Pháp lý & hợp đồng", "color": "purple" },
+  "02": { "name": "Thiết kế / bản vẽ", "color": "info" },
+  "03": { "name": "Vật tư đề trình", "color": "warn" },
+  "04": { "name": "Báo giá / khối lượng", "color": "ok" },
+  "05": { "name": "Thi công / QLCL", "color": "info" },
+  "06": { "name": "Nghiệm thu", "color": "ok" },
+  "07": { "name": "Hoàn công / bàn giao", "color": "ok" },
+  "08": { "name": "Thanh quyết toán", "color": "warn" },
+  "09": { "name": "Bảo hành", "color": "neutral" }
+}

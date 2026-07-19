@@ -1,0 +1,150 @@
+{
+  "package": "THANH_HOAI_11_MAU_BAO_GIA_DYNAMIC_V3",
+  "version": "3.0",
+  "generated_at": "2026-07-13T01:48:11",
+  "business_rule": "Số dòng hàng trên bản xuất phải bằng chính xác số quotation_item có dữ liệu.",
+  "templates": [
+    {
+      "template_id": "UNIVERSAL",
+      "sheet": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "first_item_row": 15,
+      "last_item_row": 15,
+      "footer_start_row": 17,
+      "last_used_row": 31,
+      "file": "01_BAO_GIA_DA_NANG.xlsx",
+      "title": "BÁO GIÁ ĐA NĂNG"
+    },
+    {
+      "template_id": "SELL_EQUIPMENT",
+      "sheet": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "first_item_row": 15,
+      "last_item_row": 15,
+      "footer_start_row": 17,
+      "last_used_row": 31,
+      "file": "02_BAO_GIA_CUNG_CAP_THIET_BI.xlsx",
+      "title": "BÁO GIÁ CUNG CẤP THIẾT BỊ"
+    },
+    {
+      "template_id": "INSTALLATION",
+      "sheet": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "first_item_row": 15,
+      "last_item_row": 15,
+      "footer_start_row": 17,
+      "last_used_row": 31,
+      "file": "03_BAO_GIA_THI_CONG_LAP_DAT.xlsx",
+      "title": "BÁO GIÁ THI CÔNG LẮP ĐẶT"
+    },
+    {
+      "template_id": "MATERIAL_LABOR",
+      "sheet": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "first_item_row": 15,
+      "last_item_row": 15,
+      "footer_start_row": 17,
+      "last_used_row": 31,
+      "file": "04_BAO_GIA_VAT_TU_VA_NHAN_CONG.xlsx",
+      "title": "BÁO GIÁ VẬT TƯ VÀ NHÂN CÔNG"
+    },
+    {
+      "template_id": "LABOR_ONLY",
+      "sheet": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "first_item_row": 15,
+      "last_item_row": 15,
+      "footer_start_row": 17,
+      "last_used_row": 31,
+      "file": "05_BAO_GIA_NHAN_CONG_RIENG.xlsx",
+      "title": "BÁO GIÁ NHÂN CÔNG"
+    },
+    {
+      "template_id": "MAINTENANCE",
+      "sheet": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "first_item_row": 15,
+      "last_item_row": 15,
+      "footer_start_row": 17,
+      "last_used_row": 31,
+      "file": "06_BAO_GIA_BAO_TRI_DINH_KY.xlsx",
+      "title": "BÁO GIÁ BẢO TRÌ / BẢO DƯỠNG ĐỊNH KỲ"
+    },
+    {
+      "template_id": "REPAIR",
+      "sheet": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "first_item_row": 15,
+      "last_item_row": 15,
+      "footer_start_row": 17,
+      "last_used_row": 31,
+      "file": "07_BAO_GIA_SUA_CHUA_KHAC_PHUC_SU_CO.xlsx",
+      "title": "BÁO GIÁ SỬA CHỮA / KHẮC PHỤC SỰ CỐ"
+    },
+    {
+      "template_id": "PROJECT_VARIATION",
+      "sheet": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "first_item_row": 15,
+      "last_item_row": 15,
+      "footer_start_row": 17,
+      "last_used_row": 31,
+      "file": "08_BAO_GIA_PHAT_SINH_CONG_TRINH.xlsx",
+      "title": "BÁO GIÁ PHÁT SINH CÔNG TRÌNH"
+    },
+    {
+      "template_id": "FINAL_ACCOUNT_SUPPLEMENT",
+      "sheet": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "first_item_row": 15,
+      "last_item_row": 15,
+      "footer_start_row": 17,
+      "last_used_row": 31,
+      "file": "09_BAO_GIA_QUYET_TOAN_BO_SUNG.xlsx",
+      "title": "BẢNG GIÁ QUYẾT TOÁN / BỔ SUNG"
+    },
+    {
+      "template_id": "PROJECT_SUMMARY",
+      "sheet": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "first_item_row": 15,
+      "last_item_row": 15,
+      "footer_start_row": 17,
+      "last_used_row": 31,
+      "file": "10_BAO_GIA_TONG_HOP_CONG_TRINH.xlsx",
+      "title": "BÁO GIÁ TỔNG HỢP CÔNG TRÌNH"
+    },
+    {
+      "template_id": "JOINT_VENTURE",
+      "sheet": "BAO_GIA",
+      "item_header_row": 14,
+      "item_template_row": 15,
+      "first_item_row": 15,
+      "last_item_row": 15,
+      "footer_start_row": 17,
+      "last_used_row": 31,
+      "file": "11_BAO_GIA_LIEN_DANH_PHAN_CHIA_PHAM_VI.xlsx",
+      "title": "BÁO GIÁ LIÊN DANH / PHÂN CHIA PHẠM VI"
+    }
+  ],
+  "generation_algorithm": [
+    "Load đúng file theo quotation.template_id.",
+    "Hàng 15 là prototype row.",
+    "Với N item, chèn N-1 dòng ngay dưới hàng 15 và sao chép style/validation/formula.",
+    "Điền đúng N item; không giữ dòng trống.",
+    "Cập nhật công thức tổng theo range item thực tế.",
+    "Cập nhật print_area A1:I{last_used_row}.",
+    "Landscape; fitToWidth=1; fitToHeight=0; lặp row 14 mỗi trang.",
+    "Không ép toàn bộ báo giá vào 1 trang."
+  ]
+}

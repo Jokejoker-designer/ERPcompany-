@@ -1,0 +1,819 @@
+{
+  "package": "THANH_HOAI_ERP_V3_1_WINDOWS_SAFE",
+  "version": "3.1",
+  "generated_at": "2026-07-13T11:21:25",
+  "purpose": "Windows-compatible repackaging of V3 with ASCII-only paths",
+  "file_count": 134,
+  "path_policy": {
+    "ascii_only": true,
+    "windows_forbidden_characters": "not present",
+    "max_relative_path_length": 127,
+    "content_unicode_preserved": true
+  },
+  "files": [
+    {
+      "path": "00_HUONG_DAN_CHECKLIST/BIEN_BAN_BAN_GIAO_BO_HO_SO_CONG_TRINH_V3.docx",
+      "size_bytes": 39419,
+      "sha256": "72f51beb40ac88e3fd1b86e2dd071966eaa7438a224d1adee9a4c043a43dc38a",
+      "extension": ".docx"
+    },
+    {
+      "path": "00_HUONG_DAN_CHECKLIST/CHECKLIST_ho_so_cong_trinh_chuan.txt",
+      "size_bytes": 605,
+      "sha256": "abcbac04dd2601fa667c9ad53415d363d5e5f5f54fd8d64470f8d217ffc005d4",
+      "extension": ".txt"
+    },
+    {
+      "path": "00_HUONG_DAN_CHECKLIST/DANH_MUC_TEMPLATE_CONG_TRINH.csv",
+      "size_bytes": 17023,
+      "sha256": "18bcbc4e7957a5cb05a44cdd1ebb3ffc7340f6be5d9ea3aa15876c6a7cc493b8",
+      "extension": ".csv"
+    },
+    {
+      "path": "00_HUONG_DAN_CHECKLIST/DANH_MUC_TEMPLATE_CONG_TRINH_V3.csv",
+      "size_bytes": 17023,
+      "sha256": "18bcbc4e7957a5cb05a44cdd1ebb3ffc7340f6be5d9ea3aa15876c6a7cc493b8",
+      "extension": ".csv"
+    },
+    {
+      "path": "00_HUONG_DAN_CHECKLIST/ERP_PLACEHOLDER_DICTIONARY.csv",
+      "size_bytes": 2191,
+      "sha256": "0e449c4f894bcd738923d871a86f85cdba1da82c400d2d1bac28bab28393275d",
+      "extension": ".csv"
+    },
+    {
+      "path": "00_HUONG_DAN_CHECKLIST/MAU_Checklist_dong_ho_so_cong_trinh.docx",
+      "size_bytes": 39792,
+      "sha256": "82995c6f4afb7b5b00c93ee88c9a963e37a6d98f55f61fd093c415b5371b7508",
+      "extension": ".docx"
+    },
+    {
+      "path": "00_HUONG_DAN_CHECKLIST/MAU_PL_Yeu_cau_chi_tiet_theo_nhom_CT.docx",
+      "size_bytes": 39677,
+      "sha256": "9a88f3d899bd3189d2f5a641ceaebf94300e76c4376338a9dd13e3dc2af8211b",
+      "extension": ".docx"
+    },
+    {
+      "path": "00_HUONG_DAN_CHECKLIST/PACKAGE_FILE_INVENTORY_V3.csv",
+      "size_bytes": 20112,
+      "sha256": "21e5ef11b538b5f7a2baf4ae03aa4358ca3f656d045a18a0dfba52ce06c03b6a",
+      "extension": ".csv"
+    },
+    {
+      "path": "00_HUONG_DAN_CHECKLIST/PACKAGE_MANIFEST_V3.json",
+      "size_bytes": 32457,
+      "sha256": "709c3b8e2aae8551c0c803b179737c5086841c08c9e1526c2498f275feecff76",
+      "extension": ".json"
+    },
+    {
+      "path": "00_HUONG_DAN_CHECKLIST/PATH_MAP_VI_TO_ASCII.csv",
+      "size_bytes": 23384,
+      "sha256": "b25dae1d3df1d384bd3ef473e955e5a4ea439b3dcc12675740423a3055444d84",
+      "extension": ".csv"
+    },
+    {
+      "path": "00_HUONG_DAN_CHECKLIST/PROJECT_DOCUMENT_STATUS_REGISTER.csv",
+      "size_bytes": 162,
+      "sha256": "20b0a65bd68c02cfbaf8344372c2b023eeb8bbd8a7184f4d3ab680cf056abe4d",
+      "extension": ".csv"
+    },
+    {
+      "path": "00_HUONG_DAN_CHECKLIST/PROMPT_TRIEN_KHAI_PAGE_CONG_TRINH_CHO_CLAUDE.md",
+      "size_bytes": 1359,
+      "sha256": "4ee12868328e8607656b949a5b61c7ac0f2d6c9566e289b5e888f08fff88bf76",
+      "extension": ".md"
+    },
+    {
+      "path": "00_HUONG_DAN_CHECKLIST/QUY_DINH_DAT_TEN_FILE.txt",
+      "size_bytes": 541,
+      "sha256": "c51e08ee4f7dd668644cfde981d84a5c7e9afa03df9fd06fc70a66bb8bad3f30",
+      "extension": ".txt"
+    },
+    {
+      "path": "00_HUONG_DAN_CHECKLIST/README_-_Huong_dan_su_dung_bo_mau.txt",
+      "size_bytes": 1659,
+      "sha256": "48e9defd5fe285bb4a58ca417795d9128990a6ee343c74381c9649744cbda1a9",
+      "extension": ".txt"
+    },
+    {
+      "path": "00_HUONG_DAN_CHECKLIST/README_WINDOWS_SAFE.txt",
+      "size_bytes": 823,
+      "sha256": "f6154f3a31733b27ee594d9c5e20e52729acbc06ea68e660b0fe3cd73a42837a",
+      "extension": ".txt"
+    },
+    {
+      "path": "00_HUONG_DAN_CHECKLIST/THONG_TIN_CONG_TY_THANH_HOAI.json",
+      "size_bytes": 332,
+      "sha256": "81816d31968b67e693db2fc56fd134d0f86533b77b36193936fd580c452343cf",
+      "extension": ".json"
+    },
+    {
+      "path": "01_PHAP_LY_HOP_DONG/Bao_lanh_tam_ung_-_thuc_h_44465C71/MAU_Theo_doi_bao_lanh_bao_hanh.docx",
+      "size_bytes": 39278,
+      "sha256": "4d93ff6a9485332a84dba698b1f61605e82cfa5bea6882fa4de4655f12c44b47",
+      "extension": ".docx"
+    },
+    {
+      "path": "01_PHAP_LY_HOP_DONG/Bao_lanh_tam_ung_-_thuc_h_44465C71/MAU_Theo_doi_bao_lanh_tam_ung.docx",
+      "size_bytes": 39293,
+      "sha256": "5259dc127fd645a2d0fa3f425d08124fcb79c7fdbef6da47ede29d6afc37abcb",
+      "extension": ".docx"
+    },
+    {
+      "path": "01_PHAP_LY_HOP_DONG/Bao_lanh_tam_ung_-_thuc_h_44465C71/MAU_Theo_doi_bao_lanh_thuc_hien_hop_dong.docx",
+      "size_bytes": 39268,
+      "sha256": "178b18fb9ebb504593cb0987d8895bdfe948cd4ec5335937a2034c3507f7b2de",
+      "extension": ".docx"
+    },
+    {
+      "path": "01_PHAP_LY_HOP_DONG/Bao_lanh_tam_ung_-_thuc_h_44465C71/README.txt",
+      "size_bytes": 192,
+      "sha256": "df1b0975d3a077ce07cd6a4d64819b8f4c6c136a2ff04bbba8c4b026a9e25c6e",
+      "extension": ".txt"
+    },
+    {
+      "path": "01_PHAP_LY_HOP_DONG/Bien_ban_thong_nhat_cac_ben/MAU_Bien_ban_khoi_dong_cong_trinh.docx",
+      "size_bytes": 39750,
+      "sha256": "d74e24df9b4274e4d77e651e556b9be98558352c9dc6c10b50cccda81d3b7e27",
+      "extension": ".docx"
+    },
+    {
+      "path": "01_PHAP_LY_HOP_DONG/Bien_ban_thong_nhat_cac_ben/MAU_Bien_ban_thong_nhat_cac_ben.docx",
+      "size_bytes": 39585,
+      "sha256": "8836371f00c8041a12a0a1c442022387411aa4603251ebc4352bf5e1bb232a60",
+      "extension": ".docx"
+    },
+    {
+      "path": "01_PHAP_LY_HOP_DONG/CCCD_VA_nhan_su_ra_vao_cong_truong/MAU_Phieu_khai_bao_nhan_vien_thi_cong.docx",
+      "size_bytes": 39647,
+      "sha256": "8d3c333043fba793d3ec476a43e62b4ee45ef7bcd42053f6e8e32c0d0c9f3358",
+      "extension": ".docx"
+    },
+    {
+      "path": "01_PHAP_LY_HOP_DONG/CCCD_VA_nhan_su_ra_vao_cong_truong/MAU_Thong_bao_danh_sach_can_bo_cong_nhan_thi_cong.docx",
+      "size_bytes": 39678,
+      "sha256": "8d3a226d68b4ad8dd0f0ac19c64a1cf6738f64007997f985446669e4d621ff57",
+      "extension": ".docx"
+    },
+    {
+      "path": "01_PHAP_LY_HOP_DONG/Ho_so_nang_luc_nha_thau/MAU_Danh_muc_ho_so_nang_luc_nha_thau.docx",
+      "size_bytes": 39538,
+      "sha256": "24a07798fe6ed8f723fef32c7a3affcb05bb34c2edd6695422554155e74de64b",
+      "extension": ".docx"
+    },
+    {
+      "path": "01_PHAP_LY_HOP_DONG/Ho_so_nang_luc_nha_thau/README.txt",
+      "size_bytes": 163,
+      "sha256": "924be4d247bd857268be9766bbcd59562bfaf0bb5448f80241f0ded8eeb4da56",
+      "extension": ".txt"
+    },
+    {
+      "path": "01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/BO_HOP_DONG_THANH_HOAI_ERP/01_TEMPLATE_HOP_DONG_NGUYEN_TAC_THANH_HOAI.docx",
+      "size_bytes": 43528,
+      "sha256": "1b5e6ea55f89b14b024b2b530b02272250619e29328c3f21bd0f896618d8a6e1",
+      "extension": ".docx"
+    },
+    {
+      "path": "01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/BO_HOP_DONG_THANH_HOAI_ERP/02_TEMPLATE_HOP_DONG_MUA_BAN_HANG_HOA_THANH_HOAI.docx",
+      "size_bytes": 43183,
+      "sha256": "8f41773bf2cb5aa4504f51a8c76ce5adc1257ef7d5cbfbaf413457d2e053b5f6",
+      "extension": ".docx"
+    },
+    {
+      "path": "01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/BO_HOP_DONG_THANH_HOAI_ERP/03_TEMPLATE_HOP_DONG_THI_CONG_LAP_DAT_THANH_HO_BDA9B93A.docx",
+      "size_bytes": 50168,
+      "sha256": "5f2e2158419da56cbfb5848201b900b3b3ad9c5705ad65e458010229cc958bce",
+      "extension": ".docx"
+    },
+    {
+      "path": "01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/BO_HOP_DONG_THANH_HOAI_ERP/04_TEMPLATE_HOP_DONG_KINH_TE_THANH_HOAI.docx",
+      "size_bytes": 42550,
+      "sha256": "b439f33006711561e6b026d53801bf033bb4504292898d636b8a791735a22a1c",
+      "extension": ".docx"
+    },
+    {
+      "path": "01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/BO_HOP_DONG_THANH_HOAI_ERP/05_TEMPLATE_HOP_DONG_BAO_TRI_BAO_DUONG_THANH_H_CB7085C2.docx",
+      "size_bytes": 48341,
+      "sha256": "f8a069c75e9c057d16d0e991db2dac00d6f832d3975b86a376fff8881febe3ca",
+      "extension": ".docx"
+    },
+    {
+      "path": "01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/BO_HOP_DONG_THANH_HOAI_ERP/06_PHU_LUC_DIEU_KHOAN_CHINH_SACH_CHUNG_THANH_HOAI.docx",
+      "size_bytes": 41176,
+      "sha256": "9f50f010a446f1c865fe6684e827324554e1c8f656c6a2b34de85be8e877d025",
+      "extension": ".docx"
+    },
+    {
+      "path": "01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/BO_HOP_DONG_THANH_HOAI_ERP/07_PHU_LUC_BANG_KHOI_LUONG_TIEN_DO_THANH_TOAN_7F689CA9.docx",
+      "size_bytes": 40487,
+      "sha256": "f3f46681052f2993cd247231639274390c9907c5ac08fa724fb6b76447305423",
+      "extension": ".docx"
+    },
+    {
+      "path": "01_PHAP_LY_HOP_DONG/Hop_dong_VA_phu_luc/MAU_Phu_luc_hop_dong_phat_sinh_khoi_luong.docx",
+      "size_bytes": 39840,
+      "sha256": "23d73d795c9f7422a588c958bc7165f1752e0c8ab25fe009e511cbc471fdcaba",
+      "extension": ".docx"
+    },
+    {
+      "path": "02_THIET_KE_BAN_VE/Ban_ve_thi_cong_Shop_drawing/MAU_NGUON_Bang_ke_thay_doi_thiet_ke_duoc_duyet.docx",
+      "size_bytes": 10328,
+      "sha256": "02d6378ed842d643f07300c862b6b7413619149aca687024addca88551761ec2",
+      "extension": ".docx"
+    },
+    {
+      "path": "02_THIET_KE_BAN_VE/Ban_ve_thi_cong_Shop_drawing/MAU_RFI_yeu_cau_thong_tin_thiet_ke.docx",
+      "size_bytes": 39582,
+      "sha256": "60d45d9b5d752e7d78179f20120666cee42f166a683907c25a58c7d063f242ee",
+      "extension": ".docx"
+    },
+    {
+      "path": "02_THIET_KE_BAN_VE/Ban_ve_thiet_ke/MAU_Danh_muc_ban_ve_va_phieu_phat_hanh.docx",
+      "size_bytes": 39677,
+      "sha256": "a68203cc1948c6e39ac2b95343b5d9338470fb7039c3c20fa30e7432e722a8aa",
+      "extension": ".docx"
+    },
+    {
+      "path": "02_THIET_KE_BAN_VE/Ban_ve_thiet_ke/MAU_Phieu_phat_hanh_thu_hoi_ban_ve.docx",
+      "size_bytes": 39356,
+      "sha256": "9bd325121d72fd3f85f1fb039c9a4add18a787608ffdda3afca79c6e8f2f9321",
+      "extension": ".docx"
+    },
+    {
+      "path": "02_THIET_KE_BAN_VE/CAD_VA_XREF/MAU_Danh_muc_CAD_XREF_va_kiem_soat_revision.docx",
+      "size_bytes": 39505,
+      "sha256": "f1c0126d5ea5de3df2e123f0160d0d07868897a4517681226b64da29708dd482",
+      "extension": ".docx"
+    },
+    {
+      "path": "02_THIET_KE_BAN_VE/CAD_VA_XREF/README.txt",
+      "size_bytes": 159,
+      "sha256": "ac7d9957506c5ee1ec0e438c56a69b0be2292b4402a778f2648e66717c09838a",
+      "extension": ".txt"
+    },
+    {
+      "path": "03_VAT_TU_DE_TRINH/Catalogue_VA_thong_so_ky_thuat/MAU_Danh_muc_catalogue_va_thong_so_ky_thuat.docx",
+      "size_bytes": 39490,
+      "sha256": "ccc576dfe5fad3ffe657b57598907903e08f6c4df30feadc2ea51ded2768bc5a",
+      "extension": ".docx"
+    },
+    {
+      "path": "03_VAT_TU_DE_TRINH/Catalogue_VA_thong_so_ky_thuat/README.txt",
+      "size_bytes": 138,
+      "sha256": "a0eb3d53f50a4f051cdcfb9e69e1a4706573eb61b3ebbb27f2f83b4ba31a581c",
+      "extension": ".txt"
+    },
+    {
+      "path": "03_VAT_TU_DE_TRINH/Chung_chi_CO_-_CQ/BANG_THEO_DOI_CO_CQ.csv",
+      "size_bytes": 285,
+      "sha256": "41f19d0a220142faa896edf7a8f3c93a09286f238eb95f23bcd34599ce466193",
+      "extension": ".csv"
+    },
+    {
+      "path": "03_VAT_TU_DE_TRINH/Chung_chi_CO_-_CQ/MAU_Phieu_giao_nhan_CO_CQ_va_ho_so_chat_luong.docx",
+      "size_bytes": 39406,
+      "sha256": "775f9f09b722c0de7591b314c66994e45abadb8446adc6e6daaadd71c255857e",
+      "extension": ".docx"
+    },
+    {
+      "path": "03_VAT_TU_DE_TRINH/Chung_chi_CO_-_CQ/README.txt",
+      "size_bytes": 145,
+      "sha256": "29cecdaf3a164f820e0db1945a0c5ad481bbf70ac4be2300587217ad29c5c4f3",
+      "extension": ".txt"
+    },
+    {
+      "path": "03_VAT_TU_DE_TRINH/Giao_nhan_VA_luan_chuyen_vat_tu/MAU_Doi_chieu_hoa_don_dau_vao_va_nhap_kho.xlsx",
+      "size_bytes": 5948,
+      "sha256": "a600baae13a75c82942ab93bfd14debd7c078e63c65fe5306ac394a2a910f72b",
+      "extension": ".xlsx"
+    },
+    {
+      "path": "03_VAT_TU_DE_TRINH/Giao_nhan_VA_luan_chuyen_vat_tu/MAU_Phieu_giao_nhan_vat_tu_tai_cong_trinh.docx",
+      "size_bytes": 39522,
+      "sha256": "a96f27514fc2da5358641f0bbbb103e2d983c4557fd3e4e484535e1e8d2c3744",
+      "extension": ".docx"
+    },
+    {
+      "path": "03_VAT_TU_DE_TRINH/Giao_nhan_VA_luan_chuyen_vat_tu/MAU_Phieu_hoan_tra_vat_tu.docx",
+      "size_bytes": 39500,
+      "sha256": "f744ed80e77b38c573632cb6da32235314d249de321f05c4a6e23da5bbb70060",
+      "extension": ".docx"
+    },
+    {
+      "path": "03_VAT_TU_DE_TRINH/Giao_nhan_VA_luan_chuyen_vat_tu/REGISTER_GIAO_NHAN_HOAN_TRA_VAT_TU.csv",
+      "size_bytes": 222,
+      "sha256": "6e8ab598e8eedee92807b34182b9016b50bcad148dae060181b7a786f6eeeee6",
+      "extension": ".csv"
+    },
+    {
+      "path": "03_VAT_TU_DE_TRINH/Nghiem_thu_vat_tu_dau_vao/MAU_Bien_ban_nghiem_thu_vat_tu_dau_vao_MIR.docx",
+      "size_bytes": 39755,
+      "sha256": "f62468c757f589819b93266b81ba0a9078939538ece42dbec5379621064d265d",
+      "extension": ".docx"
+    },
+    {
+      "path": "03_VAT_TU_DE_TRINH/Trinh_mau_vat_tu_Submittal/MAU_Phieu_trinh_mau_vat_tu_Submittal.docx",
+      "size_bytes": 39784,
+      "sha256": "bc2be081c65dfedf6f45d4bdca2f4d60bc9fd16b9e60fc77ba084a19bd98235a",
+      "extension": ".docx"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/01_BAO_GIA_DA_NANG.xlsx",
+      "size_bytes": 6724,
+      "sha256": "44b3df346c6df2fbbb8093106d13f4348b3be8bb3ec92a8ae5c8bba668df6e75",
+      "extension": ".xlsx"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/02_BAO_GIA_CUNG_CAP_THIET_BI.xlsx",
+      "size_bytes": 6712,
+      "sha256": "f8ba16cabe7c4fa33ce30ef48fc80b2ee0a78bb8d0acb21a56f589a6b59f55db",
+      "extension": ".xlsx"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/03_BAO_GIA_THI_CONG_LAP_DAT.xlsx",
+      "size_bytes": 6686,
+      "sha256": "33a65fbd29f6a6fac82c323712c899c446f9f03b1ef8fbbd7cdc9ba3a3956c7c",
+      "extension": ".xlsx"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/04_BAO_GIA_VAT_TU_VA_NHAN_CONG.xlsx",
+      "size_bytes": 6700,
+      "sha256": "2a0316944fb69e8b208f90b9e2bdb1d6d268732c287c360eae5baa494bdf1d53",
+      "extension": ".xlsx"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/05_BAO_GIA_NHAN_CONG_RIENG.xlsx",
+      "size_bytes": 6689,
+      "sha256": "884f27f9984df6fb453ac3f24987b3501acc13460544ac5ecbf2f4f485523086",
+      "extension": ".xlsx"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/06_BAO_GIA_BAO_TRI_DINH_KY.xlsx",
+      "size_bytes": 6713,
+      "sha256": "8f6f6448a30816b0fdb416c4f64986c69646c42a310dd6a12561974340f096ed",
+      "extension": ".xlsx"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/07_BAO_GIA_SUA_CHUA_KHAC_PHUC_SU_CO.xlsx",
+      "size_bytes": 6734,
+      "sha256": "d50284f1927a93aeb06e74fef6f2ccf90602100dd7283336c6d0976df5ababbe",
+      "extension": ".xlsx"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/08_BAO_GIA_PHAT_SINH_CONG_TRINH.xlsx",
+      "size_bytes": 6738,
+      "sha256": "7a03cc5c1ef907ff440b34b8f5848e3aca5409ad66895bb77402342d1decb9fc",
+      "extension": ".xlsx"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/09_BAO_GIA_QUYET_TOAN_BO_SUNG.xlsx",
+      "size_bytes": 6738,
+      "sha256": "a4a453db9a48ea4e8aa186347d83a9511a620339497b6a544b2d794e27e3f85e",
+      "extension": ".xlsx"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/10_BAO_GIA_TONG_HOP_CONG_TRINH.xlsx",
+      "size_bytes": 6728,
+      "sha256": "b88ec62758540caeab4a6897d7098f2c6f295a66e4f1e4f417c4b70b8eb6ffe0",
+      "extension": ".xlsx"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/11_BAO_GIA_LIEN_DANH_PHAN_CHIA_PHAM_VI.xlsx",
+      "size_bytes": 6727,
+      "sha256": "c19a1691a0f4833df2f2e42aa597fc714fe695a2e93defb263b5f64a08f6d94c",
+      "extension": ".xlsx"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/BO_11_MAU_BAO_GIA_RIENG/README_DYNAMIC_ROWS.md",
+      "size_bytes": 476,
+      "sha256": "5f94e23730c4dc093b5e9c52981f83a305fb2c6d1677b7b614067e1319d9a560",
+      "extension": ".md"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_gui_chu_dau_tu/README.txt",
+      "size_bytes": 153,
+      "sha256": "f0764c949bb15b77c9e2de96074ca80520e123c8a6e309e7f74a49e3bb9fac72",
+      "extension": ".txt"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_nha_thau_phu_-_NCC/MAU_Bang_so_sanh_bao_gia_NCC.xlsx",
+      "size_bytes": 6027,
+      "sha256": "759e552ec8e92a2bc4156f6030dd6529abe80d6a1b70c1caefa4edfb438f57a8",
+      "extension": ".xlsx"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_nha_thau_phu_-_NCC/MAU_Phieu_yeu_cau_bao_gia_NCC_nha_thau_phu.docx",
+      "size_bytes": 39527,
+      "sha256": "a7f2e4d41a4b78dd0744c144a6c4a2856e0aafe427121289fb83cf478d1b8587",
+      "extension": ".docx"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_nha_thau_phu_-_NCC/README.txt",
+      "size_bytes": 92,
+      "sha256": "445ef94cc985d9bc9207ca15be8e16bb5e641df459d6fd4d28d2bbe6e63a1f4c",
+      "extension": ".txt"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Bao_gia_nha_thau_phu_-_NCC/REGISTER_BAO_GIA_NCC.csv",
+      "size_bytes": 208,
+      "sha256": "592b780694f2fce3e2a3f4794bd69e7ed73ff56f10a13cc22a95ccf047c27fa3",
+      "extension": ".csv"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Khoi_luong_du_thau_-_bao_gia/MAU_Bang_khoi_luong_du_thau_BOQ.xlsx",
+      "size_bytes": 6063,
+      "sha256": "966d728854587cc200402e69441a91f42dd67e509dd0da8820b606306e202032",
+      "extension": ".xlsx"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Khoi_luong_du_thau_-_bao_gia/README.txt",
+      "size_bytes": 108,
+      "sha256": "3f56733ad4c1194cdf5f8875b6d26d9c8989e796b764c643d34497b394f47d96",
+      "extension": ".txt"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Khoi_luong_thuc_te_thi_cong/MAU_De_nghi_phat_sinh_VO.docx",
+      "size_bytes": 39746,
+      "sha256": "e0e450b84c3b882e8164f3fc156a90dad2f5c3688e41e07cb77734d6fdd3514c",
+      "extension": ".docx"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Khoi_luong_thuc_te_thi_cong/MAU_Xac_nhan_khoi_luong_thi_cong_hang_thang.docx",
+      "size_bytes": 39703,
+      "sha256": "bf31e45cbb12f059b6519df702862a8134e9df2f619c2ba8cceabd66fef677e5",
+      "extension": ".docx"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/Khoi_luong_thuc_te_thi_cong/REGISTER_KHOI_LUONG_PHAT_SINH.csv",
+      "size_bytes": 242,
+      "sha256": "38ec917e9947cfdb054568055b6ea3edb639ecc701832761f0f012b29eb42f62",
+      "extension": ".csv"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/PO_-_Don_dat_hang_NCC_-_thau_phu/MAU_Don_dat_hang_PO.docx",
+      "size_bytes": 39679,
+      "sha256": "11f15282dcbb3047ed2f958b415991ea4fd8feb06e77eaf34b6de8ce58b9738b",
+      "extension": ".docx"
+    },
+    {
+      "path": "04_BAO_GIA_KHOI_LUONG/PO_-_Don_dat_hang_NCC_-_thau_phu/README.txt",
+      "size_bytes": 104,
+      "sha256": "8e4d9f4abe2e16956ec4b959b784386599c66155beb87f86fda647be5e0f66d9",
+      "extension": ".txt"
+    },
+    {
+      "path": "05_THI_CONG_QLCL/An_toan_lao_dong_ATLD/MAU_Thong_bao_nguoi_phu_trach_ATLD_VSMT.docx",
+      "size_bytes": 39593,
+      "sha256": "a570054479da9660333b7470e2da7d295051dfafe93c92407e88f7d4344d167e",
+      "extension": ".docx"
+    },
+    {
+      "path": "05_THI_CONG_QLCL/Bao_cao_don_vi_thi_cong/MAU_Bien_ban_bao_tri_bao_duong_dinh_ky.docx",
+      "size_bytes": 39078,
+      "sha256": "99f4af27facc278e1a988ad2610364b113cf8b9c0d7e54cd210320aa9e718d8b",
+      "extension": ".docx"
+    },
+    {
+      "path": "05_THI_CONG_QLCL/Bao_cao_don_vi_thi_cong/MAU_Bien_ban_sua_chua_khac_phuc_su_co.docx",
+      "size_bytes": 39061,
+      "sha256": "b1094b37d89567a493c9b888a034161233de03cb454f308e743269d261c57e6d",
+      "extension": ".docx"
+    },
+    {
+      "path": "05_THI_CONG_QLCL/Bao_cao_don_vi_thi_cong/MAU_NGUON_Bao_cao_cua_don_vi_thi_cong.docx",
+      "size_bytes": 10305,
+      "sha256": "865a369019de4f0a7e05d296b67123ccf19f5e7bf58466355e618ade8b34d6d8",
+      "extension": ".docx"
+    },
+    {
+      "path": "05_THI_CONG_QLCL/Hinh_anh_thi_cong/MAU_Bao_cao_hinh_anh_thi_cong.docx",
+      "size_bytes": 39569,
+      "sha256": "5ba29e887f6c67ec4ab16152b784649260cc204fba26536fbd8bfb92e2a34448",
+      "extension": ".docx"
+    },
+    {
+      "path": "05_THI_CONG_QLCL/Hinh_anh_thi_cong/README.txt",
+      "size_bytes": 123,
+      "sha256": "922420dd30b437297958ef62aa8db5b942f8987881b2eb96594e65bd0273be34",
+      "extension": ".txt"
+    },
+    {
+      "path": "05_THI_CONG_QLCL/Hinh_anh_thi_cong/REGISTER_HINH_ANH_THI_CONG.csv",
+      "size_bytes": 248,
+      "sha256": "eefbdcf8a8d3449613d859e68e282321ec919bd3c8fa4e38402ef4040a8152da",
+      "extension": ".csv"
+    },
+    {
+      "path": "05_THI_CONG_QLCL/NCR_-_Khong_phu_hop_VA_khac_phuc/MAU_Bien_ban_khong_phu_hop_NCR.docx",
+      "size_bytes": 39695,
+      "sha256": "032a3ecb4447804c8ac5e08ab4c697c0c8cd590c2cb4c6170a5f72aca308ec85",
+      "extension": ".docx"
+    },
+    {
+      "path": "05_THI_CONG_QLCL/Nhat_ky_thi_cong/MAU_NGUON_Bia_so_nhat_ky_thi_cong.docx",
+      "size_bytes": 7741,
+      "sha256": "660e67dfe811ace4ff654fa4a0fa7a05e6a331b625a570bab5b7013638b38280",
+      "extension": ".docx"
+    },
+    {
+      "path": "05_THI_CONG_QLCL/Nhat_ky_thi_cong/MAU_NGUON_So_nhat_ky_thi_cong.docx",
+      "size_bytes": 16126,
+      "sha256": "365012f7c3a54d3ca7fc8c7314b2a48a3b0aa40c821e24f7fd271e8df319a3c0",
+      "extension": ".docx"
+    },
+    {
+      "path": "05_THI_CONG_QLCL/Nhat_ky_thi_cong/MAU_Nhat_ky_thi_cong_hang_ngay.docx",
+      "size_bytes": 39846,
+      "sha256": "89b46e0e51ee52d233d3bc86c2fdeba57ecf6aef8a2539fdbbfab000df8fb3fc",
+      "extension": ".docx"
+    },
+    {
+      "path": "05_THI_CONG_QLCL/Theo_doi_tien_do/KE_HOACH_TIEN_DO_VA_THEO_DOI.csv",
+      "size_bytes": 261,
+      "sha256": "98a165964c854a918f1ed7bfd81c8be10a3b85e81558f15755da52e168ff5e22",
+      "extension": ".csv"
+    },
+    {
+      "path": "05_THI_CONG_QLCL/Theo_doi_tien_do/MAU_Bao_cao_tien_do_tuan_thang.docx",
+      "size_bytes": 39570,
+      "sha256": "181b9cbc480003cab470902cd51db20bf80fc9dcf9bc6beb6346b958f1efdfb6",
+      "extension": ".docx"
+    },
+    {
+      "path": "05_THI_CONG_QLCL/Theo_doi_tien_do/README.txt",
+      "size_bytes": 88,
+      "sha256": "fa46dfe8ef8bf9afb69e3efd263633cff08455ac4013dca2f614be8534f8d835",
+      "extension": ".txt"
+    },
+    {
+      "path": "05_THI_CONG_QLCL/Thuyet_minh_bien_phap_thi_cong/MAU_Bien_phap_thi_cong_dam_bao_an_toan.docx",
+      "size_bytes": 39962,
+      "sha256": "0307b86f3ba2c2c873b4f271c6499e22f9490000af22166930b1375c47c3b375",
+      "extension": ".docx"
+    },
+    {
+      "path": "05_THI_CONG_QLCL/Thuyet_minh_bien_phap_thi_cong/MAU_NGUON_Bia_bien_phap_thi_cong.docx",
+      "size_bytes": 11828,
+      "sha256": "f967a4177057068d61d92a48ad41bc6a316209bbde50cb7b738fae4fee7afa08",
+      "extension": ".docx"
+    },
+    {
+      "path": "05_THI_CONG_QLCL/Ve_sinh_moi_truong_VSMT/MAU_Ke_hoach_VSMT_cong_truong.docx",
+      "size_bytes": 39565,
+      "sha256": "17e32945fdc21284704f54f59be4976b153c8f27d1242459ef0c2cfc5e27d5fb",
+      "extension": ".docx"
+    },
+    {
+      "path": "06_NGHIEM_THU/Kiem_tra_ho_so_nghiem_thu/MAU_NGUON_Bien_ban_kiem_tra_ho_so_nghiem_thu.docx",
+      "size_bytes": 10160,
+      "sha256": "49fc3c65b1d6784b5c1145e48f591ef7497b3fd7345e7646ac55fc0570219f5a",
+      "extension": ".docx"
+    },
+    {
+      "path": "06_NGHIEM_THU/Lay_mau_thi_nghiem/MAU_NGUON_Bien_ban_lay_mau_thi_nghiem.docx",
+      "size_bytes": 9379,
+      "sha256": "74e6c3f5a733eb4f644ee249ced4bb718bbbd99cd58cc5842264126aeef2fd75",
+      "extension": ".docx"
+    },
+    {
+      "path": "06_NGHIEM_THU/NT_chay_thu_VA_can_chinh_T_VA_C/MAU_BBNT_chay_thu_can_chinh_TC.docx",
+      "size_bytes": 39615,
+      "sha256": "b064ea0ef9370db4940831a926add6c774d6d76a332012c9623796b8ca78d9ea",
+      "extension": ".docx"
+    },
+    {
+      "path": "06_NGHIEM_THU/NT_cong_viec_-_lap_dat/MAU_BBNT_cong_viec_lap_dat_WIR.docx",
+      "size_bytes": 39667,
+      "sha256": "31e07f62fa08d5c4bea02754d47df3b031c421205c8bdaf9e2acf78556257bb4",
+      "extension": ".docx"
+    },
+    {
+      "path": "06_NGHIEM_THU/NT_giai_doan_-_bo_phan/MAU_BBNT_giai_doan_bo_phan.docx",
+      "size_bytes": 39645,
+      "sha256": "35022a34fbd297a081d9492e74a7d44cd20381c81d6aadeedc69b84eb8c91f8f",
+      "extension": ".docx"
+    },
+    {
+      "path": "06_NGHIEM_THU/NT_hoan_thanh_-_dua_vao_su_dung/MAU_BBNT_hoan_thanh_dua_vao_su_dung.docx",
+      "size_bytes": 39769,
+      "sha256": "7c4ca3bd96bed519c072d21de363376ee5a1f6a861b151ef6b1e496d788e918c",
+      "extension": ".docx"
+    },
+    {
+      "path": "06_NGHIEM_THU/NT_hoan_thanh_-_dua_vao_su_dung/MAU_NGUON_BBNT_hoan_thanh_dua_vao_su_dung.docx",
+      "size_bytes": 11700,
+      "sha256": "84959f0d745fccef1ecfa4fe7aa5dcade0d12572097a63bc1ba2815274d11cc5",
+      "extension": ".docx"
+    },
+    {
+      "path": "06_NGHIEM_THU/Phieu_yeu_cau_nghiem_thu/MAU_NGUON_Phieu_yeu_cau_nghiem_thu.docx",
+      "size_bytes": 8588,
+      "sha256": "1b753c76615229f2718de6adef14bcb5e0a903976940f122bf61d7af6f3a8970",
+      "extension": ".docx"
+    },
+    {
+      "path": "07_HOAN_CONG_BAN_GIAO/Ban_ve_hoan_cong_As-built/MAU_Danh_muc_ban_ve_hoan_cong.docx",
+      "size_bytes": 39595,
+      "sha256": "14d41690a4732b835e64135c1f47c666839e0269e6301713c765c5f2dff77d3e",
+      "extension": ".docx"
+    },
+    {
+      "path": "07_HOAN_CONG_BAN_GIAO/Bien_ban_ban_giao/MAU_Bien_ban_ban_giao_cong_trinh.docx",
+      "size_bytes": 39549,
+      "sha256": "a3e0f9f0e84104ac763b3a17b949765ee0999b7fd48c3d7c4a1a346bfa6fa86f",
+      "extension": ".docx"
+    },
+    {
+      "path": "07_HOAN_CONG_BAN_GIAO/Bien_ban_ban_giao/MAU_Bien_ban_ban_giao_tai_lieu_thiet_bi_va_chia_khoa.docx",
+      "size_bytes": 39559,
+      "sha256": "a8a8b6a2408fda36439c290a323addfee3b077ccd66f7d79e2af8c0be3908315",
+      "extension": ".docx"
+    },
+    {
+      "path": "07_HOAN_CONG_BAN_GIAO/Ho_so_O_VA_M/MAU_Bien_ban_huong_dan_van_hanh_va_dao_tao.docx",
+      "size_bytes": 39356,
+      "sha256": "d0ba9bd7d2372a461a0f2125ad5ffddb4c0786f27000d9a6f6915cc64be5cfe3",
+      "extension": ".docx"
+    },
+    {
+      "path": "07_HOAN_CONG_BAN_GIAO/Ho_so_O_VA_M/MAU_Muc_luc_ho_so_O_VA_M.docx",
+      "size_bytes": 39663,
+      "sha256": "c7216f86cc91aeb07df37639e5d25b0023b1e0f959ac43da10871956799fbd90",
+      "extension": ".docx"
+    },
+    {
+      "path": "07_HOAN_CONG_BAN_GIAO/Ho_so_hoan_cong/MAU_Muc_luc_ho_so_hoan_cong.docx",
+      "size_bytes": 39663,
+      "sha256": "31a1e933253730e8039395739508d9bb1a887db293add565ba946c8b2acdd5ab",
+      "extension": ".docx"
+    },
+    {
+      "path": "08_THANH_QUYET_TOAN/Doi_chieu_cong_no/MAU_Bien_ban_doi_chieu_cong_no.docx",
+      "size_bytes": 39471,
+      "sha256": "25b188e1d353c69adddff6932d0c6110e521770aeb31f394730bb5af29c5aa97",
+      "extension": ".docx"
+    },
+    {
+      "path": "08_THANH_QUYET_TOAN/Ho_so_thanh_toan_giai_doan/MAU_Ho_so_thanh_toan_giai_doan.docx",
+      "size_bytes": 39683,
+      "sha256": "249003ff87ff50b09f9964ade0356cf7f356d6fc709b30203410a41ce11bf84d",
+      "extension": ".docx"
+    },
+    {
+      "path": "08_THANH_QUYET_TOAN/Hoa_don/MAU_Bang_ke_hoa_don_va_chung_tu_thanh_toan.docx",
+      "size_bytes": 39662,
+      "sha256": "dd9b680dec02cf3e91cc20646c40a9e9d55b7d60fb136adeab5822e53d84a0aa",
+      "extension": ".docx"
+    },
+    {
+      "path": "08_THANH_QUYET_TOAN/Hoa_don/MAU_Doi_chieu_hoa_don_sao_ke_thanh_toan.xlsx",
+      "size_bytes": 5945,
+      "sha256": "8711d26b3e43a462222a1650e0c9d075f2082d64fa4a6121d91ba90e06c5d032",
+      "extension": ".xlsx"
+    },
+    {
+      "path": "08_THANH_QUYET_TOAN/Hoa_don/README.txt",
+      "size_bytes": 164,
+      "sha256": "7e25e959cff84505e6e4440ebbf29cea58cd78fe66241c08c6db696a0d30988a",
+      "extension": ".txt"
+    },
+    {
+      "path": "08_THANH_QUYET_TOAN/Hoa_don/REGISTER_HOA_DON_SAO_KE.csv",
+      "size_bytes": 240,
+      "sha256": "03698a88e771a0019f0dd5d2cf0dff2156ca24db4b7d59507bb6465999a62d50",
+      "extension": ".csv"
+    },
+    {
+      "path": "08_THANH_QUYET_TOAN/Quyet_toan_cong_trinh/MAU_Bang_gia_tri_quyet_toan_hoan_thanh.docx",
+      "size_bytes": 39850,
+      "sha256": "0e41a901bbd79b5c55fdd0d5dc49a0f296f54cfa72d5d7f2b323e36d61641f94",
+      "extension": ".docx"
+    },
+    {
+      "path": "08_THANH_QUYET_TOAN/Thu_de_nghi_thanh_toan/MAU_Thu_de_nghi_thanh_toan_cong_trinh.docx",
+      "size_bytes": 39519,
+      "sha256": "f8c097841fa7f4e224020d6158120afbb7644c5803d6e2b0308b28d6c94653a4",
+      "extension": ".docx"
+    },
+    {
+      "path": "09_BAO_HANH/Cam_ket_VA_bien_ban_bao_hanh/MAU_Bien_ban_ban_giao_bao_hanh.docx",
+      "size_bytes": 39471,
+      "sha256": "200e92214911469027a36eaa9001914b34dbbb65b7126167aa3fc24289439040",
+      "extension": ".docx"
+    },
+    {
+      "path": "09_BAO_HANH/Cam_ket_VA_bien_ban_bao_hanh/MAU_Cam_ket_bao_hanh_cong_trinh.docx",
+      "size_bytes": 39553,
+      "sha256": "4969bf9ffbb13febcde88e53daa29f16cc2e578d8890cff3beb85a120412af9f",
+      "extension": ".docx"
+    },
+    {
+      "path": "09_BAO_HANH/Ket_thuc_bao_hanh/MAU_Bien_ban_ket_thuc_bao_hanh_va_de_nghi_hoan_B94E0228.docx",
+      "size_bytes": 39424,
+      "sha256": "f6e33499181fcfd0b7913cd6e39d4186c91b8bd1ec2a5d5f0548dfcd7055779f",
+      "extension": ".docx"
+    },
+    {
+      "path": "09_BAO_HANH/REGISTER_BAO_HANH_THIET_BI.csv",
+      "size_bytes": 167,
+      "sha256": "28a6a13a9b2b28444d8994cc2cd57b14ba768a2d3324a19b7820d56ceb8db977",
+      "extension": ".csv"
+    },
+    {
+      "path": "09_BAO_HANH/Xu_ly_su_co_bao_hanh/MAU_Bien_ban_xu_ly_su_co_bao_hanh.docx",
+      "size_bytes": 39627,
+      "sha256": "1ea5d658d1483e83014994d00d57cea863f35d63624894d5c7a0259541ceff8e",
+      "extension": ".docx"
+    },
+    {
+      "path": "90_ERP_INTEGRATION/APP8777_DOCUMENT_API_CONTRACT.md",
+      "size_bytes": 1017,
+      "sha256": "08daf74ca202b6f1288ca517ee9bd85bce1d6973551c02d6b2483f031391f1b7",
+      "extension": ".md"
+    },
+    {
+      "path": "90_ERP_INTEGRATION/APP8777_DYNAMIC_ROW_EXPORT_CONTRACT.json",
+      "size_bytes": 4677,
+      "sha256": "50eca1c176dfe78e78b06bde7045253d46659df4fa2b80abc256a9d3048997ff",
+      "extension": ".json"
+    },
+    {
+      "path": "90_ERP_INTEGRATION/CLAUDE_DYNAMIC_QUOTATION_IMPLEMENTATION_PROMPT.md",
+      "size_bytes": 742,
+      "sha256": "eba663a05c2a2c98c85d37590b72c1372ea00bdc06f70d4cfe44091608d0fcc6",
+      "extension": ".md"
+    },
+    {
+      "path": "90_ERP_INTEGRATION/FILENAME_RULES.json",
+      "size_bytes": 498,
+      "sha256": "6138f3ff854af4a80c3539322695743b98e898c6b1da29cbb487abb04b6fce5d",
+      "extension": ".json"
+    },
+    {
+      "path": "90_ERP_INTEGRATION/REQUIRED_DOCUMENT_RULES.json",
+      "size_bytes": 3899,
+      "sha256": "406260d547f3694defab7ea085bdc778624b335d784120938e31b7832e0d3a76",
+      "extension": ".json"
+    },
+    {
+      "path": "90_ERP_INTEGRATION/ROLE_MATRIX.json",
+      "size_bytes": 2475,
+      "sha256": "4c684e8eff4823a7525ba39664f4a4f9cf91a56822da906c9e7a4b6b76553e3c",
+      "extension": ".json"
+    },
+    {
+      "path": "90_ERP_INTEGRATION/TEMPLATE_MAPPING_CONG_TRINH_APP8777_V3.json",
+      "size_bytes": 45267,
+      "sha256": "b191fb4b1752568458cc33f3ac83eebf390a7e3e405e090db96db36e0fc5ba42",
+      "extension": ".json"
+    },
+    {
+      "path": "90_ERP_INTEGRATION/TEMPLATE_REGISTRY_V3.json",
+      "size_bytes": 64179,
+      "sha256": "1d870d39205c90be97ca69fa0e3bb2971483bc1a8526373c9968b0a4d0e6b044",
+      "extension": ".json"
+    },
+    {
+      "path": "90_ERP_INTEGRATION/WORKFLOW_RULES.json",
+      "size_bytes": 1375,
+      "sha256": "18e84e2680ed9471d1ddbf683e49d409f824d6afd5492a9ff2df0045c57a1ea4",
+      "extension": ".json"
+    },
+    {
+      "path": "95_QA_TESTS/DEMO_BAO_GIA_31_DONG_HANG.xlsx",
+      "size_bytes": 9131,
+      "sha256": "80d6763a136488c0d26c654cf2e564e69601e0dc7a9e4139257b0dc335a66a79",
+      "extension": ".xlsx"
+    },
+    {
+      "path": "95_QA_TESTS/QA_REPORT_V3.md",
+      "size_bytes": 1357,
+      "sha256": "b74577d9a8cc478d9593a0143a6bf8ade5e604c150db1816be8396f8b2bb8378",
+      "extension": ".md"
+    },
+    {
+      "path": "95_QA_TESTS/VALIDATION_MATRIX.csv",
+      "size_bytes": 11325,
+      "sha256": "15a29a50b595da71fcbe91a7a58cf66dd6dcdb25d86bbbe471c65eb446a32e69",
+      "extension": ".csv"
+    },
+    {
+      "path": "99_MAU_GOC_THAM_CHIEU/MAU_GOC_NGUOI_DUNG_CUNG_CAP.zip",
+      "size_bytes": 9172724,
+      "sha256": "e3575067c52d58fa8b8f102cf7a8a759e4a7605dec129515b90fbadce8caf573",
+      "extension": ".zip"
+    },
+    {
+      "path": "99_MAU_GOC_THAM_CHIEU/README.txt",
+      "size_bytes": 253,
+      "sha256": "f4afb7c9c310dd91ccf619e10ef3dc665cefd991fb1da29282c695c1a2878e5f",
+      "extension": ".txt"
+    },
+    {
+      "path": "README_BAN_GIAO_V3_1_WINDOWS_SAFE.md",
+      "size_bytes": 1243,
+      "sha256": "4901e3bd280892d50214f17428dbccedc55d9a38bfc8cb8df4c016114f943e7b",
+      "extension": ".md"
+    }
+  ]
+}

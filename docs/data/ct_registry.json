@@ -1,0 +1,691 @@
+{
+  "package": "THANH_HOAI_ERP_V3_1_WINDOWS_SAFE",
+  "version": "3.1",
+  "note": "FICTIONAL catalog for demo Pages.",
+  "phases": {
+    "00": "Hướng dẫn & checklist",
+    "01": "Pháp lý & hợp đồng",
+    "02": "Thiết kế / bản vẽ",
+    "03": "Vật tư đề trình",
+    "04": "Báo giá / khối lượng",
+    "05": "Thi công / QLCL",
+    "06": "Nghiệm thu",
+    "07": "Hoàn công / bàn giao",
+    "08": "Thanh quyết toán",
+    "09": "Bảo hành"
+  },
+  "templates": [
+    {
+      "code": "CT-00-CLDH",
+      "title": "CHECKLIST ĐÓNG HỒ SƠ CÔNG TRÌNH",
+      "phase_code": "00",
+      "file_type": "docx",
+      "owner_role": "admin",
+      "exists": true
+    },
+    {
+      "code": "CT-00-PLYC",
+      "title": "Phụ lục yêu cầu chi tiết theo nhóm công trình",
+      "phase_code": "00",
+      "file_type": "docx",
+      "owner_role": "admin",
+      "exists": true
+    },
+    {
+      "code": "CT-01-BBHKD",
+      "title": "Biên bản họp khởi động công trình",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "CT-01-BBTNCB",
+      "title": "Biên bản thống nhất các bên",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "CT-01-BLBH",
+      "title": "PHIẾU THEO DÕI BẢO LÃNH BẢO HÀNH",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "CT-01-BLTA",
+      "title": "PHIẾU THEO DÕI BẢO LÃNH TẠM ỨNG",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "CT-01-BLTH",
+      "title": "PHIẾU THEO DÕI BẢO LÃNH THỰC HIỆN HỢP ĐỒNG",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "CT-01-DSNS",
+      "title": "Thông báo danh sách cán bộ chỉ huy và công nhân thi công",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "CT-01-HSNL",
+      "title": "DANH MỤC HỒ SƠ NĂNG LỰC NHÀ THẦU",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "CT-01-PKBNV",
+      "title": "Phiếu khai báo nhân viên thi công",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "CT-01-PLPS",
+      "title": "Phụ lục hợp đồng phát sinh / điều chỉnh khối lượng",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "HD-01",
+      "title": "01_TEMPLATE_HOP_DONG_NGUYEN_TAC_THANH_HOAI",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "HD-02",
+      "title": "02_TEMPLATE_HOP_DONG_MUA_BAN_HANG_HOA_THANH_HOAI",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "HD-03",
+      "title": "03_TEMPLATE_HOP_DONG_THI_CONG_LAP_DAT_THANH_HOAI_REVISED_LEGAL_v3_LEX_REFERENCES",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "HD-04",
+      "title": "04_TEMPLATE_HOP_DONG_KINH_TE_THANH_HOAI",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "HD-05",
+      "title": "05_TEMPLATE_HOP_DONG_BAO_TRI_BAO_DUONG_THANH_HOAI_REVISED_LEGAL_v2",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "HD-06",
+      "title": "06_PHU_LUC_DIEU_KHOAN_CHINH_SACH_CHUNG_THANH_HOAI",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "HD-07",
+      "title": "07_PHU_LUC_BANG_KHOI_LUONG_TIEN_DO_THANH_TOAN_THANH_HOAI",
+      "phase_code": "01",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "CT-02-DMBV",
+      "title": "Danh mục bản vẽ và phiếu phát hành bản vẽ",
+      "phase_code": "02",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-02-PHBV",
+      "title": "PHIẾU PHÁT HÀNH / THU HỒI BẢN VẼ",
+      "phase_code": "02",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-02-RFI",
+      "title": "RFI - Phiếu yêu cầu làm rõ thông tin thiết kế",
+      "phase_code": "02",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-02-TDTK",
+      "title": "MẪU NGUỒN CHUẨN - Bang ke thay doi thiet ke duoc duyet",
+      "phase_code": "02",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-02-XREF",
+      "title": "DANH MỤC CAD / XREF VÀ KIỂM SOÁT REVISION",
+      "phase_code": "02",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-03-CAT",
+      "title": "DANH MỤC CATALOGUE VÀ THÔNG SỐ KỸ THUẬT",
+      "phase_code": "03",
+      "file_type": "docx",
+      "owner_role": "thukho",
+      "exists": true
+    },
+    {
+      "code": "CT-03-DCHDNK",
+      "title": "Đối chiếu hóa đơn đầu vào - nhập kho - công trình",
+      "phase_code": "03",
+      "file_type": "xlsx",
+      "owner_role": "thukho",
+      "exists": true
+    },
+    {
+      "code": "CT-03-GNCOCQ",
+      "title": "PHIẾU GIAO NHẬN CO/CQ VÀ HỒ SƠ CHẤT LƯỢNG",
+      "phase_code": "03",
+      "file_type": "docx",
+      "owner_role": "thukho",
+      "exists": true
+    },
+    {
+      "code": "CT-03-MIR",
+      "title": "Biên bản nghiệm thu vật tư đầu vào / MIR",
+      "phase_code": "03",
+      "file_type": "docx",
+      "owner_role": "thukho",
+      "exists": true
+    },
+    {
+      "code": "CT-03-PGNVT",
+      "title": "PHIẾU GIAO NHẬN VẬT TƯ TẠI CÔNG TRÌNH",
+      "phase_code": "03",
+      "file_type": "docx",
+      "owner_role": "thukho",
+      "exists": true
+    },
+    {
+      "code": "CT-03-PHTVT",
+      "title": "PHIẾU HOÀN TRẢ VẬT TƯ",
+      "phase_code": "03",
+      "file_type": "docx",
+      "owner_role": "thukho",
+      "exists": true
+    },
+    {
+      "code": "CT-03-SUB",
+      "title": "Phiếu trình mẫu vật tư / Material Submittal",
+      "phase_code": "03",
+      "file_type": "docx",
+      "owner_role": "thukho",
+      "exists": true
+    },
+    {
+      "code": "BG-01",
+      "title": "Báo giá đa năng",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "BG-02",
+      "title": "Báo giá cung cấp thiết bị",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "BG-03",
+      "title": "Báo giá thi công lắp đặt",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "BG-04",
+      "title": "Báo giá vật tư và nhân công",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "BG-05",
+      "title": "Báo giá nhân công riêng",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "BG-06",
+      "title": "Báo giá bảo trì định kỳ",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "BG-07",
+      "title": "Báo giá sửa chữa / khắc phục sự cố",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "BG-08",
+      "title": "Báo giá phát sinh công trình",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "BG-09",
+      "title": "Báo giá quyết toán / bổ sung",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "BG-10",
+      "title": "Báo giá tổng hợp công trình",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "BG-11",
+      "title": "Báo giá liên danh / phân chia phạm vi",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "CT-04-BOQ",
+      "title": "Bảng khối lượng dự thầu / dự toán",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "CT-04-PO",
+      "title": "ĐƠN ĐẶT HÀNG / PURCHASE ORDER",
+      "phase_code": "04",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "CT-04-RFQ",
+      "title": "PHIẾU YÊU CẦU BÁO GIÁ NHÀ CUNG CẤP / NHÀ THẦU PHỤ",
+      "phase_code": "04",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "CT-04-SSBG",
+      "title": "Bảng so sánh báo giá nhà cung cấp",
+      "phase_code": "04",
+      "file_type": "xlsx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "CT-04-VO",
+      "title": "Đề nghị phát sinh / Variation Order",
+      "phase_code": "04",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-04-XNKL",
+      "title": "Xác nhận khối lượng thi công hàng tháng/giai đoạn",
+      "phase_code": "04",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    },
+    {
+      "code": "CT-05-ATLD",
+      "title": "Thông báo người phụ trách ATLĐ - VSMT",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "exists": true
+    },
+    {
+      "code": "CT-05-BCDVTC",
+      "title": "MẪU NGUỒN CHUẨN - Bao cao cua don vi thi cong",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "exists": true
+    },
+    {
+      "code": "CT-05-BCHA",
+      "title": "BÁO CÁO HÌNH ẢNH THI CÔNG",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "exists": true
+    },
+    {
+      "code": "CT-05-BCTD",
+      "title": "BÁO CÁO TIẾN ĐỘ TUẦN / THÁNG",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "exists": true
+    },
+    {
+      "code": "CT-05-BPTC",
+      "title": "Biện pháp thi công đảm bảo an toàn",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "exists": true
+    },
+    {
+      "code": "CT-05-BPTC-BIA",
+      "title": "MẪU NGUỒN CHUẨN - Bia bien phap thi cong",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "exists": true
+    },
+    {
+      "code": "CT-05-BTBD",
+      "title": "Biên bản bảo trì / bảo dưỡng định kỳ",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "exists": true
+    },
+    {
+      "code": "CT-05-NCR",
+      "title": "NCR - Biên bản không phù hợp và hành động khắc phục",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "exists": true
+    },
+    {
+      "code": "CT-05-NKTC",
+      "title": "Nhật ký thi công hằng ngày",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "exists": true
+    },
+    {
+      "code": "CT-05-NKTC-BIA",
+      "title": "MẪU NGUỒN CHUẨN - Bia so nhat ky thi cong",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "exists": true
+    },
+    {
+      "code": "CT-05-NKTC-SO",
+      "title": "MẪU NGUỒN CHUẨN - So nhat ky thi cong",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "exists": true
+    },
+    {
+      "code": "CT-05-SCKP",
+      "title": "Biên bản sửa chữa / khắc phục sự cố",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "exists": true
+    },
+    {
+      "code": "CT-05-VSMT",
+      "title": "Kế hoạch vệ sinh môi trường công trường",
+      "phase_code": "05",
+      "file_type": "docx",
+      "owner_role": "ktv_ctv",
+      "exists": true
+    },
+    {
+      "code": "CT-06-BBLM",
+      "title": "MẪU NGUỒN CHUẨN - Bien ban lay mau thi nghiem",
+      "phase_code": "06",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-06-BBNTGD",
+      "title": "Biên bản nghiệm thu giai đoạn / bộ phận công trình",
+      "phase_code": "06",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-06-BBNTHH",
+      "title": "Biên bản nghiệm thu hoàn thành đưa vào sử dụng",
+      "phase_code": "06",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-06-BBNTHH-STD",
+      "title": "MẪU NGUỒN CHUẨN - BBNT hoan thanh dua vao su dung",
+      "phase_code": "06",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-06-KTHS",
+      "title": "MẪU NGUỒN CHUẨN - Bien ban kiem tra ho so nghiem thu",
+      "phase_code": "06",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-06-PYCNT",
+      "title": "MẪU NGUỒN CHUẨN - Phieu yeu cau nghiem thu",
+      "phase_code": "06",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-06-TC",
+      "title": "Biên bản nghiệm thu chạy thử và cân chỉnh / T&C",
+      "phase_code": "06",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-06-WIR",
+      "title": "Biên bản nghiệm thu công việc lắp đặt / WIR",
+      "phase_code": "06",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-07-BBBG",
+      "title": "Biên bản bàn giao công trình/hạng mục",
+      "phase_code": "07",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-07-BGTL",
+      "title": "BIÊN BẢN BÀN GIAO TÀI LIỆU, THIẾT BỊ VÀ CHÌA KHÓA",
+      "phase_code": "07",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-07-DMBVHC",
+      "title": "Danh mục bản vẽ hoàn công / As-built Drawing Register",
+      "phase_code": "07",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-07-DTVH",
+      "title": "BIÊN BẢN HƯỚNG DẪN VẬN HÀNH VÀ ĐÀO TẠO",
+      "phase_code": "07",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-07-MLHC",
+      "title": "Mục lục hồ sơ hoàn công",
+      "phase_code": "07",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-07-OM",
+      "title": "MỤC LỤC HỒ SƠ VẬN HÀNH VÀ BẢO TRÌ (O&M)",
+      "phase_code": "07",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-08-BKHD",
+      "title": "BẢNG KÊ HÓA ĐƠN VÀ CHỨNG TỪ THANH TOÁN",
+      "phase_code": "08",
+      "file_type": "docx",
+      "owner_role": "ketoan",
+      "exists": true
+    },
+    {
+      "code": "CT-08-DCCN",
+      "title": "BIÊN BẢN ĐỐI CHIẾU CÔNG NỢ",
+      "phase_code": "08",
+      "file_type": "docx",
+      "owner_role": "ketoan",
+      "exists": true
+    },
+    {
+      "code": "CT-08-DCHD",
+      "title": "Đối chiếu hóa đơn - sao kê - thanh toán",
+      "phase_code": "08",
+      "file_type": "xlsx",
+      "owner_role": "ketoan",
+      "exists": true
+    },
+    {
+      "code": "CT-08-HSTT",
+      "title": "Hồ sơ thanh toán giai đoạn",
+      "phase_code": "08",
+      "file_type": "docx",
+      "owner_role": "ketoan",
+      "exists": true
+    },
+    {
+      "code": "CT-08-QTHT",
+      "title": "Bảng giá trị khối lượng quyết toán hoàn thành",
+      "phase_code": "08",
+      "file_type": "docx",
+      "owner_role": "ketoan",
+      "exists": true
+    },
+    {
+      "code": "CT-08-TDNTT",
+      "title": "Thư đề nghị thanh toán công trình",
+      "phase_code": "08",
+      "file_type": "docx",
+      "owner_role": "ketoan",
+      "exists": true
+    },
+    {
+      "code": "CT-09-BBSUCO",
+      "title": "Biên bản xử lý sự cố bảo hành",
+      "phase_code": "09",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-09-BGBH",
+      "title": "BIÊN BẢN BÀN GIAO BẢO HÀNH",
+      "phase_code": "09",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-09-CKBH",
+      "title": "Cam kết bảo hành công trình/hạng mục",
+      "phase_code": "09",
+      "file_type": "docx",
+      "owner_role": "ktt",
+      "exists": true
+    },
+    {
+      "code": "CT-09-KTBH",
+      "title": "BIÊN BẢN KẾT THÚC BẢO HÀNH VÀ ĐỀ NGHỊ HOÀN TRẢ BẢO LÃNH",
+      "phase_code": "09",
+      "file_type": "docx",
+      "owner_role": "kinhdoanh",
+      "exists": true
+    }
+  ]
+}

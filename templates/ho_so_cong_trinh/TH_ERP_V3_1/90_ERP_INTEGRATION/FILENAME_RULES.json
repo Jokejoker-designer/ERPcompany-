@@ -1,0 +1,15 @@
+{
+  "version": "3.1",
+  "pattern": "YYYYMMDD_{PROJECT_CODE}_{TEMPLATE_CODE}_{REFERENCE_NO}_R{NN}.{ext}",
+  "examples": [
+    "20260713_CT-LT-001_CT-06-WIR_WIR-015_R01.pdf",
+    "20260713_CT-LT-001_BG-03_BG-2026-081_R02.xlsx"
+  ],
+  "rules": [
+    "No spaces in generated system filenames.",
+    "Vietnamese display title may be stored in metadata.",
+    "Revision starts at R01.",
+    "SIGNED files are never overwritten.",
+    "Original uploads retain original filename plus immutable hash."
+  ]
+}

@@ -1,0 +1,9 @@
+﻿CHECKLIST HỒ SƠ CÔNG TRÌNH THANH_HOAI_ERP V3
+
+1. Chọn project profile trong REQUIRED_DOCUMENT_RULES.json.
+2. Sinh checklist REQUIRED / CONDITIONAL / OPTIONAL / NOT_APPLICABLE.
+3. Kiểm tra owner, reviewer, approver và deadline.
+4. Không phát hành khi còn placeholder bắt buộc hoặc thiếu file nguồn.
+5. Không ghi đè hồ sơ đã SIGNED; tạo revision mới.
+6. Đóng hồ sơ chỉ khi checklist 00-09 hoàn tất và các mục NOT_APPLICABLE có lý do được duyệt.
+7. Kiểm tra công nợ, vật tư hoàn trả, bảo hành và hồ sơ O&M trước khi ARCHIVED.

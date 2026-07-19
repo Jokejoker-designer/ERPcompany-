@@ -1,0 +1,29 @@
+﻿Placeholder,Ý nghĩa,Nguồn App 8777,Loại
+{{CT}} / {{TEN_CONG_TRINH}},Tên công trình,project/project_name,Động
+{{GOI}},Tên gói thầu/bộ việc,work_package/name,Động
+{{HM}} / {{HANG_MUC_THI_CONG}},Hạng mục thi công,work_package/item,Động
+{{DD}} / {{DIA_DIEM_CONG_TRINH}},Địa điểm công trình,project/location,Động
+{{CDT}} / {{TEN_CHU_DAU_TU}},Chủ đầu tư/Bên giao việc,customer/investor,Động
+{{BQL}},Ban quản lý dự án,project/project_board,Động
+{{TVGS}},Tư vấn giám sát,project/supervision_consultant,Động
+{{TK}},Đơn vị thiết kế,project/designer,Động
+{{SO_HOP_DONG}},Số hợp đồng,contract/code,Động
+{{NGAY_HOP_DONG}},Ngày hợp đồng,contract/date,Động
+{{NGAY_LAP}} / {{NOI}} / {{NAM}},Ngày/nơi/năm lập,system/project,Động
+{{NGUOI_LAP}},Người lập hồ sơ,app_user/nhan_su,Động
+{{TEN_NHA_THAU}},CÔNG TY TNHH MTV CƠ ĐIỆN LẠNH THANH HOÀI,cau_hinh/ten_cong_ty,Tĩnh - đã điền
+{{BQL_REP}},Đại diện BQL dự án,project_party/contact,Động
+{{TVGS_REP}},Đại diện TVGS,project_party/contact,Động
+{{LAB_REP}},Đại diện đơn vị thí nghiệm,project_party/contact,Động
+{{MA_CONG_TRINH}},Mã công trình,project/code,Động
+{{TEN_NHA_CUNG_CAP}},Tên nhà cung cấp,supplier/name,Động
+{{MST_NHA_CUNG_CAP}},MST nhà cung cấp,supplier/tax_id,Động
+{{DIA_CHI_NHA_CUNG_CAP}},Địa chỉ nhà cung cấp,supplier/address,Động
+{{SO_NGAY_CANH_BAO}},Số ngày cảnh báo trước hết hạn,system_config/guarantee_warning_days,Cấu hình
+{{TU_NGAY}},Từ ngày kỳ báo cáo,report/from_date,Động
+{{DEN_NGAY}},Đến ngày kỳ báo cáo,report/to_date,Động
+{{TY_LE_KE_HOACH}},Tỷ lệ tiến độ kế hoạch,project_progress/planned_percent,Động
+{{TY_LE_THUC_TE}},Tỷ lệ tiến độ thực tế,project_progress/actual_percent,Động
+{{THOI_GIAN_TIEP_NHAN}},Khung giờ tiếp nhận bảo hành,warranty/intake_hours,Động
+{{SLA_PHAN_HOI}},Thời gian phản hồi bảo hành,warranty/sla_response,Động
+{{DAU_MOI_BAO_HANH}},Đầu mối tiếp nhận bảo hành,warranty/contact,Động
