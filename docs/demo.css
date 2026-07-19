@@ -296,22 +296,45 @@ code { font-family: ui-monospace, Consolas, monospace; font-size: .9em; backgrou
 .ct-table-wrap .tbl thead th { position: sticky; top: 0; z-index: 1; }
 .ct-table-wrap code { font-size: 11px; background: #eef3f5; padding: 1px 5px; border-radius: 4px; }
 
-/* install */
+/* install — nền navy: chữ sáng; code/pre phải tự set màu rõ, không kế thừa mờ */
 .install { padding: 40px 0 52px; background: linear-gradient(180deg, #10294A, #0B7285); color: #E9EFF8; }
 .install a { color: #9ee7f5; }
+.install a:hover { color: #fff; }
 .install-inner { display: grid; grid-template-columns: 1.2fr .8fr; gap: 22px; }
 .install h2 { margin: 0 0 12px; color: #fff; font-size: 24px; }
-.steps { margin: 0 0 12px; padding-left: 20px; }
+.install strong { color: #fff; font-weight: 700; }
+.steps { margin: 0 0 12px; padding-left: 20px; color: #E9EFF8; }
+.steps li { margin-bottom: 8px; line-height: 1.5; }
+/* inline code trên nền tối: pill teal nhạt + chữ đậm navy — không trắng-on-trắng */
+.install code {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: .92em;
+  font-weight: 700;
+  color: #0a3d45;
+  background: #e6f7f5;
+  border: 1px solid rgba(255, 255, 255, .35);
+  padding: .15em .45em;
+  border-radius: 5px;
+}
 .code {
-  background: rgba(0,0,0,.28); border-radius: 10px; padding: 14px; overflow: auto;
-  font-size: 13px; border: 1px solid rgba(255,255,255,.12); color: #e8f7fa;
+  background: rgba(0, 0, 0, .35);
+  border-radius: 10px;
+  padding: 14px 16px;
+  overflow: auto;
+  font-size: 13px;
+  line-height: 1.55;
+  border: 1px solid rgba(255, 255, 255, .18);
+  color: #f0fbfd;
+  font-family: ui-monospace, Consolas, monospace;
 }
 .install-card {
-  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255, 255, 255, .1);
+  border: 1px solid rgba(255, 255, 255, .2);
   border-radius: 14px; padding: 18px;
 }
 .install-card h3 { margin: 0 0 10px; color: #fff; }
-.install-card ul { margin: 0 0 12px; padding-left: 18px; color: #c9d8e8; font-size: 14px; }
+.install-card ul { margin: 0 0 12px; padding-left: 18px; color: #e2eef5; font-size: 14px; }
+.install-card li { margin-bottom: 6px; }
 .install-card .btn-primary { background: #fff; color: var(--brand-ink); }
 
 .site-foot { border-top: 1px solid var(--line); background: #fff; padding: 16px 0; font-size: 13px; }
