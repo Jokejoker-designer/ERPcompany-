@@ -2,14 +2,15 @@
 (function () {
   "use strict";
 
+  // Số thứ tự 1…7 liên tục cho demo (không dùng mã trang lẻ 1/3/9/10 của app full)
   var NAV = [
-    { id: "dashboard", no: "1", group: "Điều hành", name: "Dashboard điều hành", sub: "KPI điều hành (mẫu)." },
-    { id: "quotation", no: "3", group: "Vận hành", name: "Báo giá", sub: "BOQ / VAT (mẫu)." },
-    { id: "receivable", no: "9", group: "Công nợ", name: "Theo dõi công nợ", sub: "Tên khách giả." },
-    { id: "documents", no: "10", group: "Hồ sơ", name: "Hồ sơ CT V3.1", sub: "84 mẫu CT-00…09." },
-    { id: "chungtu", no: "CT", group: "Hồ sơ", name: "7 chứng từ", sub: "BG·BBNT·BQT·HĐ…" },
-    { id: "bank", no: "SK", group: "Công nợ", name: "Sao kê NH", sub: "Đối soát minh họa." },
-    { id: "roles", no: "TK", group: "Cấu hình", name: "Tài khoản / vai trò", sub: "7 role seed." }
+    { id: "dashboard", no: "1", group: "Điều hành", name: "Dashboard điều hành", sub: "Tổng quan vận hành" },
+    { id: "quotation", no: "2", group: "Vận hành", name: "Báo giá", sub: "BOQ · VAT · revision" },
+    { id: "receivable", no: "3", group: "Công nợ", name: "Theo dõi công nợ", sub: "Phải thu / phải trả" },
+    { id: "documents", no: "4", group: "Hồ sơ", name: "Hồ sơ công trình", sub: "Checklist theo giai đoạn" },
+    { id: "chungtu", no: "5", group: "Hồ sơ", name: "Chứng từ xuất file", sub: "BG · BBNT · BQT · HĐ" },
+    { id: "bank", no: "6", group: "Công nợ", name: "Sao kê ngân hàng", sub: "Đối soát dòng tiền" },
+    { id: "roles", no: "7", group: "Cấu hình", name: "Tài khoản & phân quyền", sub: "Đúng vai · đúng quyền" }
   ];
 
   var META = {
