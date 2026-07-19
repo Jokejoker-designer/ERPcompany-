@@ -1,4 +1,5 @@
 # Deploy docs/ → GitHub Pages (demo tĩnh)
+# Lần đầu: tự bật Pages (enablement: true) nếu repo chưa cấu hình.
 name: Deploy demo Pages
 
 on:
@@ -28,8 +29,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # enablement: true = tự bật site Pages + source = GitHub Actions
+      # (tránh lỗi: Get Pages site failed / Not Found)
       - name: Setup Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Upload docs/
         uses: actions/upload-pages-artifact@v3
