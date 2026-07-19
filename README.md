@@ -158,19 +158,13 @@ Nhiều khách hàng của họ = nhiều **customer** trong cùng DB (không ph
 
 ---
 
-## Bảo mật & truy cập (đúng với code)
+## Bảo mật & truy cập (dành cho người triển khai)
 
-| Có sẵn trong package | Không có sẵn (tự cấu hình ngoài) |
-|----------------------|----------------------------------|
-| Chạy **local** Windows, CSDL SQLite trên máy | Nút “bật Cloudflare / Tailscale” trong app |
-| Mặc định bind **127.0.0.1** | Hosting SaaS multi-tenant |
-| **Nhiều tài khoản** + RBAC chặn ở **API** | |
-| Mật khẩu **scrypt**, bắt đổi lần đầu, force-logout | |
-
-**Dùng chung nhiều người (LAN / remote an toàn):** app chỉ là HTTP trên một cổng.
-Admin có thể **tự** đặt reverse proxy / **Cloudflare Tunnel** / **Tailscale Serve**
-trỏ về `host:port` (ví dụ 127.0.0.1:8777). Đây là hạ tầng mạng do bạn triển khai —
-package không kèm key Tunnel hay app Tailscale.
+- **Local-first:** mặc định bind `127.0.0.1`, CSDL SQLite trên máy cài.
+- **Nhiều tài khoản + RBAC:** phân quyền kiểm tra ở API; mật khẩu scrypt; bắt đổi lần đầu; force-logout / thu hồi phiên.
+- **Cookie phiên:** `HttpOnly`, `SameSite=Strict`, `Secure` khi đi qua HTTPS reverse proxy.
+- **Che dữ liệu tiền** theo vai trò (ví dụ KTV/thủ kho không xem toàn bộ số liệu tài chính công ty).
+- **Truy cập đội ngũ từ xa (tuỳ chọn):** reverse proxy / Cloudflare Tunnel / Tailscale Serve do IT cấu hình trỏ về cổng app — không phải module cloud tích hợp sẵn trong UI.
 
 Kiểm thử trước khi dùng số liệu pháp lý.
 

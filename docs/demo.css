@@ -43,6 +43,9 @@ code { font-family: ui-monospace, Consolas, monospace; font-size: .9em; backgrou
   gap: 14px;
   margin-top: 8px;
 }
+@media (min-width: 921px) {
+  .security-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 .sec-card {
   background: var(--panel);
   border: 1px solid var(--line);

@@ -6,7 +6,7 @@
   <title>Thanh Hoai ERP — Phần mềm quản trị doanh nghiệp SME</title>
   <meta name="description" content="Thanh Hoai ERP — phần mềm quản trị nội bộ chạy local trên Windows: nhiều tài khoản, phân quyền API, dữ liệu trên máy bạn. Báo giá, công trình, công nợ, hồ sơ." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B7285'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='white' font-size='14' font-family='Segoe UI' font-weight='700'%3ETH%3C/text%3E%3C/svg%3E" />
-  <link rel="stylesheet" href="demo.css?v=7" />
+  <link rel="stylesheet" href="demo.css?v=8" />
 </head>
 <body>
   <header class="site-top">
@@ -67,38 +67,64 @@
       </aside>
     </section>
 
-    <!-- Security / multi-user — only facts that exist in product -->
     <section id="security" class="security-section">
       <div class="wrap">
         <div class="section-head">
-          <h2>Local-first · Nhiều người dùng · Kiểm soát truy cập</h2>
-          <p>Những điểm dưới đây có thật trong mã nguồn package — không quảng cáo tính năng chưa có.</p>
+          <h2>Thiết kế cho doanh nghiệp coi trọng bảo mật</h2>
+          <p>
+            Thanh Hoai ERP là hệ quản trị nội bộ chạy trên hạ tầng của bạn —
+            giúp giảm rủi ro lộ dữ liệu so với đưa toàn bộ nghiệp vụ lên dịch vụ cloud công cộng.
+          </p>
         </div>
         <div class="security-grid">
           <article class="sec-card">
-            <h3>Chạy local, dữ liệu ở bạn</h3>
+            <h3>Dữ liệu nằm trong tay doanh nghiệp</h3>
             <p>
-              Ứng dụng là web server nhỏ trên Windows. Mặc định bind
-              <strong>127.0.0.1</strong> (chỉ máy cài). CSDL một file SQLite trong thư mục
-              <span class="file-pill" style="font-size:12px">data/</span> — không đẩy lên cloud của nhà cung cấp.
+              Hệ thống cài và vận hành trên máy Windows của công ty.
+              Hồ sơ, công nợ, báo giá được lưu cục bộ — bạn chủ động sao lưu,
+              phân vùng truy cập và chính sách bảo vệ theo quy trình nội bộ.
             </p>
           </article>
           <article class="sec-card">
-            <h3>Nhiều tài khoản, phân quyền thật</h3>
+            <h3>Mỗi người một tài khoản, đúng vai đúng quyền</h3>
             <p>
-              Seed sẵn các vai trò (admin, giám đốc, kế toán, kinh doanh, KTT, KTV, thủ kho).
-              Có thể cấp thêm tài khoản trong hệ thống. Quyền xem/sửa được
-              <strong>kiểm tra phía API</strong>; mật khẩu dùng scrypt và bắt đổi khi đăng nhập lần đầu.
+              Tạo nhiều tài khoản cho Giám đốc, Kế toán, Kinh doanh, Kỹ thuật trưởng,
+              Kỹ thuật viên, Thủ kho… Mỗi vai trò chỉ xem và thao tác trong phạm vi được phép.
+              Quyền được kiểm soát từ phía máy chủ, không dựa vào việc “giấu nút” trên màn hình.
             </p>
           </article>
           <article class="sec-card">
-            <h3>Dùng chung trong đội — khi bạn tự mở cổng an toàn</h3>
+            <h3>Bảo vệ phiên đăng nhập &amp; mật khẩu</h3>
             <p>
-              Package <strong>không kèm</strong> Cloudflare hay Tailscale sẵn.
-              Vì app chỉ là HTTP trên một cổng, IT / admin <em>có thể</em> tự gắn
-              <strong>Cloudflare Tunnel</strong> hoặc <strong>Tailscale Serve</strong>
-              trỏ về máy cài (HTTPS, kiểm soát ai vào mạng) — giống cách expose mọi dịch vụ local.
-              Cấu hình đó do bạn / đơn vị triển khai, không phải nút “bật cloud” trong ERP.
+              Mật khẩu được băm an toàn, bắt buộc đổi khi đăng nhập lần đầu.
+              Phiên làm việc dùng cookie bảo vệ (HttpOnly, SameSite nghiêm ngặt);
+              quản trị có thể thu hồi phiên khi cần (ví dụ khóa tài khoản / đăng xuất cưỡng bức).
+            </p>
+          </article>
+          <article class="sec-card">
+            <h3>Tách biệt thông tin nhạy cảm theo vai trò</h3>
+            <p>
+              Số liệu tài chính, giá trị hợp đồng, biên lợi nhuận được giới hạn theo quyền.
+              Nhân sự hiện trường và kho không tự động nhìn thấy toàn bộ thông tin tiền bạc
+              của doanh nghiệp — giảm rò rỉ nội bộ không cần thiết.
+            </p>
+          </article>
+          <article class="sec-card">
+            <h3>Làm việc an toàn trong phạm vi máy / mạng công ty</h3>
+            <p>
+              Mặc định hệ thống chỉ phục vụ trên máy cài đặt — phù hợp vận hành nội bộ.
+              Khi cần nhiều máy trong văn phòng, bộ phận IT cấu hình mạng doanh nghiệp
+              theo chính sách sẵn có của bạn.
+            </p>
+          </article>
+          <article class="sec-card">
+            <h3>Mở rộng cho đội ngũ từ xa (tùy chọn)</h3>
+            <p>
+              Cần Giám đốc hoặc kế toán truy cập từ bên ngoài?
+              Có thể kết hợp giải pháp mạng an toàn phổ biến như
+              <strong>Cloudflare Tunnel</strong> hoặc <strong>Tailscale</strong>
+              do đơn vị IT triển khai — HTTPS, kiểm soát người được vào —
+              trong khi dữ liệu nghiệp vụ vẫn lưu tại hệ thống của công ty.
             </p>
           </article>
         </div>
@@ -442,11 +468,11 @@ cd ERPcompany-
 setup.bat</pre>
         </div>
         <div class="install-card">
-          <h3>Đã có trong package</h3>
+          <h3>Doanh nghiệp nhận được</h3>
           <ul>
-            <li>Cài local Windows · CSDL trên máy bạn</li>
-            <li>Nhiều tài khoản · phân quyền theo vai trò (API)</li>
-            <li>Mã nguồn mở (MIT) — tự kiểm soát và tuỳ biến</li>
+            <li>Hệ quản trị nội bộ trên Windows của bạn</li>
+            <li>Nhiều tài khoản — đúng vai, đúng quyền</li>
+            <li>Chủ động dữ liệu, giấy phép MIT linh hoạt</li>
           </ul>
           <a class="btn btn-primary btn-block" href="https://github.com/Jokejoker-designer/ERPcompany-" target="_blank" rel="noopener">Tải trên GitHub</a>
         </div>
