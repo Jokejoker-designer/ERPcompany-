@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Thanh Hoai ERP — Phần mềm quản trị doanh nghiệp SME</title>
-  <meta name="description" content="Thanh Hoai ERP: giải pháp quản trị công trình, báo giá, công nợ, hồ sơ và phân quyền — chạy độc lập trên Windows, cài đặt nhanh, tùy biến thương hiệu công ty." />
+  <meta name="description" content="Thanh Hoai ERP — phần mềm quản trị nội bộ chạy local trên Windows: nhiều tài khoản, phân quyền API, dữ liệu trên máy bạn. Báo giá, công trình, công nợ, hồ sơ." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B7285'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='white' font-size='14' font-family='Segoe UI' font-weight='700'%3ETH%3C/text%3E%3C/svg%3E" />
-  <link rel="stylesheet" href="demo.css?v=6" />
+  <link rel="stylesheet" href="demo.css?v=7" />
 </head>
 <body>
   <header class="site-top">
@@ -15,10 +15,11 @@
         <span class="brand-mark">TH</span>
         <span>
           <strong>Thanh Hoai ERP</strong>
-          <small>Quản trị doanh nghiệp · Công trình · Tài chính</small>
+          <small>Quản trị nội bộ · Chạy local trên Windows</small>
         </span>
       </a>
       <nav class="top-nav">
+        <a href="#security">Bảo mật local</a>
         <a href="#mockapp">Trải nghiệm</a>
         <a href="#install">Triển khai</a>
         <a class="btn btn-primary" href="https://github.com/Jokejoker-designer/ERPcompany-" target="_blank" rel="noopener">Tải miễn phí</a>
@@ -29,21 +30,22 @@
   <main id="top">
     <section class="hero wrap">
       <div>
-        <p class="eyebrow">Dành cho SME · Windows · Không phụ thuộc cloud</p>
-        <h1>Vận hành công ty gọn trong một hệ thống</h1>
+        <p class="eyebrow">Windows · Local · Nhiều tài khoản · Phân quyền theo vai trò</p>
+        <h1>Hệ quản trị nội bộ chạy trên máy bạn</h1>
         <p class="lede">
-          Từ báo giá, tiến độ công trình, hồ sơ chứng từ đến công nợ và sao kê —
-          Thanh Hoai ERP giúp giám đốc, kế toán, kinh doanh và kỹ thuật làm việc trên
-          <strong>cùng một nền tảng</strong>, phân quyền rõ ràng, dữ liệu nằm trên máy của bạn.
+          Thanh Hoai ERP là phần mềm quản trị doanh nghiệp cài <strong>trực tiếp trên Windows</strong>:
+          dữ liệu SQLite nằm tại máy / server nội bộ, mặc định chỉ lắng nghe
+          <strong>localhost</strong>. Tạo nhiều tài khoản (Giám đốc, Kế toán, Kinh doanh, KTT, KTV, Thủ kho…)
+          với phân quyền kiểm soát ở API — không chỉ ẩn nút trên giao diện.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary btn-lg" href="#mockapp">Xem giao diện ngay</a>
-          <a class="btn btn-ghost btn-lg" href="#install">Hướng dẫn cài đặt</a>
+          <a class="btn btn-primary btn-lg" href="#mockapp">Xem giao diện</a>
+          <a class="btn btn-ghost btn-lg" href="#security">Cách bảo vệ &amp; dùng chung</a>
         </div>
         <ul class="checks">
-          <li>Báo giá · BOQ · hợp đồng · nghiệm thu · quyết toán</li>
-          <li>Công nợ, sao kê, phân quyền theo vai trò (GĐ / KT / KTV…)</li>
-          <li>Tùy biến tên công ty &amp; logo — một máy, một doanh nghiệp</li>
+          <li>Chạy local — không bắt buộc cloud hay thuê SaaS</li>
+          <li>Nhiều user, mật khẩu băm scrypt, bắt đổi mật khẩu lần đầu</li>
+          <li>Báo giá · công trình · hồ sơ · công nợ · sao kê trên một nền tảng</li>
         </ul>
       </div>
       <aside class="login-preview" aria-label="Màn đăng nhập">
@@ -63,6 +65,44 @@
           <p class="login-hint">Hình minh họa. Sau khi cài, đăng nhập tại <span class="file-pill" style="font-size:12px">http://127.0.0.1:8777</span></p>
         </div>
       </aside>
+    </section>
+
+    <!-- Security / multi-user — only facts that exist in product -->
+    <section id="security" class="security-section">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Local-first · Nhiều người dùng · Kiểm soát truy cập</h2>
+          <p>Những điểm dưới đây có thật trong mã nguồn package — không quảng cáo tính năng chưa có.</p>
+        </div>
+        <div class="security-grid">
+          <article class="sec-card">
+            <h3>Chạy local, dữ liệu ở bạn</h3>
+            <p>
+              Ứng dụng là web server nhỏ trên Windows. Mặc định bind
+              <strong>127.0.0.1</strong> (chỉ máy cài). CSDL một file SQLite trong thư mục
+              <span class="file-pill" style="font-size:12px">data/</span> — không đẩy lên cloud của nhà cung cấp.
+            </p>
+          </article>
+          <article class="sec-card">
+            <h3>Nhiều tài khoản, phân quyền thật</h3>
+            <p>
+              Seed sẵn các vai trò (admin, giám đốc, kế toán, kinh doanh, KTT, KTV, thủ kho).
+              Có thể cấp thêm tài khoản trong hệ thống. Quyền xem/sửa được
+              <strong>kiểm tra phía API</strong>; mật khẩu dùng scrypt và bắt đổi khi đăng nhập lần đầu.
+            </p>
+          </article>
+          <article class="sec-card">
+            <h3>Dùng chung trong đội — khi bạn tự mở cổng an toàn</h3>
+            <p>
+              Package <strong>không kèm</strong> Cloudflare hay Tailscale sẵn.
+              Vì app chỉ là HTTP trên một cổng, IT / admin <em>có thể</em> tự gắn
+              <strong>Cloudflare Tunnel</strong> hoặc <strong>Tailscale Serve</strong>
+              trỏ về máy cài (HTTPS, kiểm soát ai vào mạng) — giống cách expose mọi dịch vụ local.
+              Cấu hình đó do bạn / đơn vị triển khai, không phải nút “bật cloud” trong ERP.
+            </p>
+          </article>
+        </div>
+      </div>
     </section>
 
     <!-- ===== Mock app shell ===== -->
@@ -402,11 +442,11 @@ cd ERPcompany-
 setup.bat</pre>
         </div>
         <div class="install-card">
-          <h3>Vì sao doanh nghiệp chọn?</h3>
+          <h3>Đã có trong package</h3>
           <ul>
-            <li>Chạy offline — không bắt buộc cloud hay thuê server</li>
-            <li>Đủ nghiệp vụ: công trình, chứng từ, công nợ, phân quyền</li>
-            <li>Mã nguồn mở (MIT) — chủ động kiểm soát và tuỳ biến</li>
+            <li>Cài local Windows · CSDL trên máy bạn</li>
+            <li>Nhiều tài khoản · phân quyền theo vai trò (API)</li>
+            <li>Mã nguồn mở (MIT) — tự kiểm soát và tuỳ biến</li>
           </ul>
           <a class="btn btn-primary btn-block" href="https://github.com/Jokejoker-designer/ERPcompany-" target="_blank" rel="noopener">Tải trên GitHub</a>
         </div>

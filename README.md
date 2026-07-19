@@ -158,12 +158,21 @@ Nhiều khách hàng của họ = nhiều **customer** trong cùng DB (không ph
 
 ---
 
-## Bảo mật & giới hạn
+## Bảo mật & truy cập (đúng với code)
 
-- Phân quyền **chặn ở API** (không chỉ ẩn nút).  
-- Mật khẩu: scrypt + bắt đổi lần đầu.  
-- Mặc định bind **127.0.0.1** — public internet cần reverse proxy + HTTPS (Cloudflare Tunnel / Tailscale… tự cấu hình).  
-- Đây là ERP vận hành SME; kiểm thử trước khi dùng số liệu pháp lý.
+| Có sẵn trong package | Không có sẵn (tự cấu hình ngoài) |
+|----------------------|----------------------------------|
+| Chạy **local** Windows, CSDL SQLite trên máy | Nút “bật Cloudflare / Tailscale” trong app |
+| Mặc định bind **127.0.0.1** | Hosting SaaS multi-tenant |
+| **Nhiều tài khoản** + RBAC chặn ở **API** | |
+| Mật khẩu **scrypt**, bắt đổi lần đầu, force-logout | |
+
+**Dùng chung nhiều người (LAN / remote an toàn):** app chỉ là HTTP trên một cổng.
+Admin có thể **tự** đặt reverse proxy / **Cloudflare Tunnel** / **Tailscale Serve**
+trỏ về `host:port` (ví dụ 127.0.0.1:8777). Đây là hạ tầng mạng do bạn triển khai —
+package không kèm key Tunnel hay app Tailscale.
+
+Kiểm thử trước khi dùng số liệu pháp lý.
 
 ---
 
