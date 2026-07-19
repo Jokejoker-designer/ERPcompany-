@@ -10,6 +10,14 @@
 > Bản public này là **bộ cài sạch** (không kèm dữ liệu sản xuất).  
 > Fork / clone → sửa `config.json` → chạy `setup.bat`.
 
+### Xem trước hình hệ thống (không cần cài)
+
+Trang demo tĩnh (mock UI dashboard / công nợ / báo giá / hồ sơ / sao kê):
+
+- Local: mở file [`docs/index.html`](docs/index.html)
+- GitHub Pages (sau khi bật trong Settings):  
+  **https://jokejoker-designer.github.io/ERPcompany-/**
+
 ---
 
 ## Cài đặt (đơn giản nhất)
