@@ -15,31 +15,31 @@
   var META = {
     dashboard: {
       title: "Dashboard điều hành",
-      note: "Cảnh báo CT, bảo trì, công nợ — số liệu fictional."
+      note: "Tổng quan doanh thu, công nợ, công trình đang chạy và việc cần duyệt."
     },
     receivable: {
       title: "Theo dõi công nợ",
-      note: "Chỉ tên khách giả Mẫu Alpha / Beta / Gamma."
+      note: "Phải thu / phải trả theo hợp đồng — trạng thái thanh toán rõ ràng."
     },
     quotation: {
       title: "Báo giá",
-      note: "BG-DEMO + BOQ mẫu. Export thật dùng templates/chung_tu."
+      note: "Chuỗi phiên bản, BOQ, VAT — xuất chứng từ chuyên nghiệp."
     },
     documents: {
-      title: "Hồ sơ công trình (CT V3.1)",
-      note: "Registry 84 template — giống mapping app. Trạng thái Đủ/Thiếu là demo."
+      title: "Hồ sơ công trình",
+      note: "84 mẫu theo giai đoạn — theo dõi đủ / thiếu từng hạng mục."
     },
     chungtu: {
-      title: "Bộ 7 chứng từ vận hành",
-      note: "Template Word/Excel trong package templates/chung_tu."
+      title: "Chứng từ vận hành",
+      note: "Báo giá, BBNT, BQT, hợp đồng, PXK… xuất Word / Excel."
     },
     bank: {
       title: "Sao kê ngân hàng",
-      note: "Diễn giải CK giả — không phải sao kê production."
+      note: "Đối soát dòng tiền, khớp công nợ và phiếu chi."
     },
     roles: {
       title: "Tài khoản & phân quyền",
-      note: "Seed sau setup.bat — mật khẩu ngẫu nhiên."
+      note: "GĐ, kế toán, kinh doanh, KTT, KTV, thủ kho — đúng vai đúng quyền."
     }
   };
 
