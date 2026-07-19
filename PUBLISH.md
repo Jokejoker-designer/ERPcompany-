@@ -5,7 +5,7 @@ Repo product sạch, **không** dính CSDL / config máy thật.
 ## Local
 
 ```bat
-cd /d "D:\Quản trị DOANH NGHIỆP\thanh-hoai-erp"
+cd /d "D:\Quản trị DOANH NGHIỆP\ERPcompany-"
 git status
 ```
 
@@ -18,16 +18,16 @@ git status
 ```bat
 winget install GitHub.cli
 gh auth login
-gh repo create thanh-hoai-erp --public --source=. --remote=origin --push --description "Thanh Hoai ERP — SME ERP (Windows, SQLite, no AI)"
+gh repo create ERPcompany- --public --source=. --remote=origin --push --description "Thanh Hoai ERP — SME ERP (Windows, SQLite, no AI)"
 ```
 
 ### Cách 2 — Web UI
 
-1. https://github.com/new → name `thanh-hoai-erp` → **Public** → Create (không tick README).
+1. https://github.com/new → name `ERPcompany-` → **Public** → Create (không tick README).
 2. Local:
 
 ```bat
-git remote add origin https://github.com/Jokejoker-designer/thanh-hoai-erp.git
+git remote add origin https://github.com/Jokejoker-designer/ERPcompany-.git
 git branch -M main
 git push -u origin main
 ```

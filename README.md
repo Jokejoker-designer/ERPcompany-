@@ -154,8 +154,8 @@ Nhiều khách hàng của họ = nhiều **customer** trong cùng DB (không ph
 ## Phát triển
 
 ```bat
-git clone https://github.com/Jokejoker-designer/thanh-hoai-erp.git
-cd thanh-hoai-erp
+git clone https://github.com/Jokejoker-designer/ERPcompany-.git
+cd ERPcompany-
 setup.bat
 ```
 

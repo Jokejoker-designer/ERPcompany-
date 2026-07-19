@@ -4,7 +4,7 @@
 
 | Ô | Giá trị |
 |---|--------|
-| **Repository name** | `thanh-hoai-erp` |
+| **Repository name** | `ERPcompany-` |
 | **Description** | `Thanh Hoai ERP — SME ERP for Windows (SQLite, no AI, 1-click setup)` |
 | **Public** | chọn **Public** |
 | Add README | **không** tick |
@@ -18,9 +18,9 @@ Bấm **Create repository**.
 Mở PowerShell:
 
 ```powershell
-cd "D:\Quản trị DOANH NGHIỆP\thanh-hoai-erp"
+cd "D:\Quản trị DOANH NGHIỆP\ERPcompany-"
 git remote remove origin 2>$null
-git remote add origin https://github.com/Jokejoker-designer/thanh-hoai-erp.git
+git remote add origin https://github.com/Jokejoker-designer/ERPcompany-.git
 git push -u origin main
 ```
 
@@ -32,8 +32,8 @@ Khi Git hỏi đăng nhập: dùng **browser** / Personal Access Token (không d
 ## Người khác tải về dùng
 
 ```bat
-git clone https://github.com/Jokejoker-designer/thanh-hoai-erp.git
-cd thanh-hoai-erp
+git clone https://github.com/Jokejoker-designer/ERPcompany-.git
+cd ERPcompany-
 setup.bat
 ```
 
