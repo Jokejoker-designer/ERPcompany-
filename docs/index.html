@@ -3,375 +3,376 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Thanh Hoai ERP — Xem trước hệ thống (Demo)</title>
-  <meta name="description" content="Demo giao diện ERP SME Windows: báo giá, công trình, công nợ, sao kê, hồ sơ. Không cần cài đặt để xem hình hệ thống." />
-  <meta property="og:title" content="Thanh Hoai ERP — Demo giao diện" />
-  <meta property="og:description" content="Chương trình giới thiệu hình ảnh hệ thống cho công ty chưa setup. 1 máy = 1 công ty, không AI." />
-  <meta property="og:type" content="website" />
+  <title>Thanh Hoai ERP — Demo giao diện (dữ liệu mẫu)</title>
+  <meta name="description" content="Xem trước giao diện ERP SME. Toàn bộ số liệu/tên khách trên trang này là FICTIONAL DEMO — không phải dữ liệu công ty thật." />
+  <meta name="robots" content="noindex,nofollow" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B7285'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='white' font-size='14' font-family='Segoe UI' font-weight='700'%3ETH%3C/text%3E%3C/svg%3E" />
   <link rel="stylesheet" href="demo.css" />
 </head>
 <body>
+  <!-- Privacy strip — luôn hiện -->
+  <div class="privacy-bar" role="status">
+    <strong>DỮ LIỆU MẪU (FICTIONAL)</strong>
+    — Tên khách, mã CT, số tiền trên trang này <u>không</u> phải dữ liệu công ty/khách thật.
+    Chỉ minh họa giao diện. Không đăng nhập, không kết nối CSDL.
+  </div>
+
   <header class="site-top">
     <div class="wrap top-inner">
-      <a class="brand" href="#top">
+      <a class="brand-link" href="#top">
         <span class="brand-mark">TH</span>
         <span>
           <strong>Thanh Hoai ERP</strong>
-          <small>Demo hình hệ thống · không cần cài</small>
+          <small>Demo UI tĩnh · bảo mật: zero data thật</small>
         </span>
       </a>
       <nav class="top-nav">
-        <a href="#gallery">Hình hệ thống</a>
-        <a href="#modules">Module</a>
+        <a href="#mockapp">Xem app</a>
         <a href="#install">Cài đặt</a>
-        <a class="btn btn-primary" href="https://github.com/Jokejoker-designer/ERPcompany-" target="_blank" rel="noopener">Tải source (GitHub)</a>
+        <a class="btn btn-primary" href="https://github.com/Jokejoker-designer/ERPcompany-" target="_blank" rel="noopener">Tải source</a>
       </nav>
     </div>
   </header>
 
   <main id="top">
     <section class="hero wrap">
-      <div class="hero-copy">
-        <p class="eyebrow">Model A · 1 máy = 1 công ty</p>
-        <h1>ERP SME Windows — xem trước giao diện trước khi cài</h1>
+      <div>
+        <p class="eyebrow">Model A · 1 máy = 1 công ty · không AI</p>
+        <h1>Xem giao diện hệ thống trước khi cài</h1>
         <p class="lede">
-          Trang này là <strong>chương trình giới thiệu tĩnh</strong>: công ty chưa setup gì vẫn thấy
-          dashboard, công nợ, báo giá, hồ sơ… giống app thật. Không cần Python, không cần AI, không cần cloud.
+          Khung dưới mô phỏng app thật (sidebar navy, KPI, bảng, chứng từ) theo design system
+          <code>#0B7285</code>. Mọi nhãn khách / HĐ / số tiền là <strong>tên giả DEMO-*</strong>.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary btn-lg" href="#gallery">Xem hình hệ thống</a>
-          <a class="btn btn-ghost btn-lg" href="#install">Hướng dẫn cài 1-click</a>
+          <a class="btn btn-primary btn-lg" href="#mockapp">Mở mock app</a>
+          <a class="btn btn-ghost btn-lg" href="#install">Cài 1-click</a>
         </div>
-        <ul class="hero-bullets">
-          <li>Không AI · chạy offline trên Windows</li>
-          <li>Tự đặt tên công ty + logo</li>
-          <li>Quét folder hồ sơ khách (PDF, Word, Excel…)</li>
+        <ul class="checks">
+          <li>Không lộ MST / SĐT / địa chỉ / khách thật</li>
+          <li>Menu &amp; vai trò bám app public package</li>
+          <li>Sau cài: tự đặt logo + tên công ty của bạn</li>
         </ul>
       </div>
-      <div class="hero-visual" aria-hidden="true">
-        <div class="float-card c1">
-          <span class="chip ok">Đã TT</span>
-          <strong>1,2 tỷ</strong>
-          <small>Thu tháng này</small>
-        </div>
-        <div class="float-card c2">
-          <span class="chip warn">Chờ TT</span>
-          <strong>18 HĐ</strong>
-          <small>Công nợ phải thu</small>
-        </div>
-        <div class="float-card c3">
-          <span class="chip info">CT-0061</span>
-          <strong>BOQ + VAT</strong>
-          <small>Báo giá revision</small>
-        </div>
-      </div>
-    </section>
-
-    <section class="stats wrap" aria-label="Điểm nổi bật">
-      <article><strong>7+</strong><span>Vai trò RBAC</span></article>
-      <article><strong>1 file</strong><span>SQLite CSDL</span></article>
-      <article><strong>3 bước</strong><span>setup.bat là xong</span></article>
-      <article><strong>0 AI</strong><span>Không phụ thuộc API</span></article>
-    </section>
-
-    <!-- ===== Interactive app mock ===== -->
-    <section id="gallery" class="gallery-section">
-      <div class="wrap section-head">
-        <h2>Hình ảnh hệ thống (demo tương tác)</h2>
-        <p>Chọn màn bên dưới — khung mô phỏng app thật (sidebar navy + brand teal #0B7285). Dữ liệu minh họa, không phải server live.</p>
-      </div>
-
-      <div class="wrap demo-shell">
-        <div class="screen-tabs" role="tablist" aria-label="Màn hình demo">
-          <button type="button" class="screen-tab active" data-screen="dash" role="tab" aria-selected="true">1. Dashboard GĐ</button>
-          <button type="button" class="screen-tab" data-screen="debt" role="tab">2. Công nợ</button>
-          <button type="button" class="screen-tab" data-screen="quote" role="tab">3. Báo giá / BOQ</button>
-          <button type="button" class="screen-tab" data-screen="dossier" role="tab">4. Hồ sơ CT</button>
-          <button type="button" class="screen-tab" data-screen="bank" role="tab">5. Sao kê</button>
-          <button type="button" class="screen-tab" data-screen="roles" role="tab">6. Phân quyền</button>
-        </div>
-
-        <div class="app-frame" id="app-frame">
-          <!-- Sidebar -->
-          <aside class="app-side">
-            <div class="side-brand">
-              <div class="side-logo">TH</div>
-              <div>
-                <div class="side-name">CÔNG TY DEMO</div>
-                <div class="side-sub">Thanh Hoai ERP</div>
-              </div>
+      <aside class="login-preview" aria-label="Màn đăng nhập mẫu">
+        <div class="login-card">
+          <div class="lc-brand">
+            <div class="lc-mark">TH</div>
+            <div>
+              <h2>Thanh Hoai ERP</h2>
+              <div class="lc-sub">Hệ quản trị nội bộ SME</div>
             </div>
-            <div class="side-group">Vận hành</div>
-            <a class="side-item active" data-nav="dash" href="javascript:void(0)">01 Dashboard</a>
-            <a class="side-item" data-nav="debt" href="javascript:void(0)">02 Công nợ</a>
-            <a class="side-item" data-nav="quote" href="javascript:void(0)">03 Báo giá</a>
-            <a class="side-item" data-nav="dossier" href="javascript:void(0)">04 Hồ sơ CT</a>
-            <div class="side-group">Tài chính</div>
-            <a class="side-item" data-nav="bank" href="javascript:void(0)">05 Sao kê NH</a>
-            <div class="side-group">Hệ thống</div>
-            <a class="side-item" data-nav="roles" href="javascript:void(0)">06 Tài khoản</a>
-            <div class="side-foot">Demo tĩnh · không login</div>
+          </div>
+          <label>Tài khoản</label>
+          <input disabled placeholder="vd: giamdoc" value="" />
+          <label>Mật khẩu</label>
+          <input disabled type="password" placeholder="••••••" />
+          <button class="login-btn" type="button" disabled>Đăng nhập</button>
+          <p class="login-hint">Demo tĩnh — không nhập được. App thật sau <code>setup.bat</code>.</p>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ===== Mock app shell (bám class app thật) ===== -->
+    <section id="mockapp" class="mock-section">
+      <div class="wrap section-head">
+        <h2>Mock ứng dụng (tương tác)</h2>
+        <p>Sidebar / topbar / KPI / bảng giống package <code>web/</code>. Click menu hoặc tab để đổi màn.</p>
+      </div>
+
+      <div class="wrap">
+        <div class="screen-tabs" role="tablist">
+          <button type="button" class="screen-tab active" data-screen="dashboard">Dashboard</button>
+          <button type="button" class="screen-tab" data-screen="receivable">Công nợ</button>
+          <button type="button" class="screen-tab" data-screen="quotation">Báo giá</button>
+          <button type="button" class="screen-tab" data-screen="documents">Hồ sơ</button>
+          <button type="button" class="screen-tab" data-screen="bank">Sao kê</button>
+          <button type="button" class="screen-tab" data-screen="roles">Tài khoản</button>
+        </div>
+
+        <div class="app" id="app-frame">
+          <aside class="sidebar">
+            <div class="brand">
+              <div class="brand-title"><span class="brand-mark">TH</span> Thanh Hoai ERP</div>
+              <div class="brand-subtitle">CÔNG TY DEMO SME — bản mẫu public</div>
+            </div>
+            <nav class="nav" id="demo-nav">
+              <!-- filled by demo.js from PAGES-like list -->
+            </nav>
+            <div class="sidebar-foot">
+              <div class="user-name">Người dùng Demo</div>
+              <div class="user-role">Vai trò: Giám đốc (mẫu)</div>
+              <div class="muted">Phiên demo · không session thật</div>
+            </div>
           </aside>
 
-          <!-- Main panes -->
-          <div class="app-main">
-            <header class="app-topbar">
+          <div class="main">
+            <div class="topbar">
               <div>
-                <div class="crumb" id="crumb">Giám đốc / Dashboard</div>
-                <h3 class="page-title" id="page-title">Tổng quan điều hành</h3>
+                <div class="page-note-top" id="page-note">Cảnh báo từ công trình, bảo trì, KTV, công nợ và giá vật tư.</div>
+                <h1 id="page-title">Dashboard điều hành</h1>
               </div>
-              <div class="top-actions">
-                <span class="user-pill">GĐ · Demo</span>
-                <button type="button" class="mini-btn" disabled>Xuất báo cáo</button>
+              <div class="topbar-right">
+                <div class="topbar-user">
+                  <div class="tu-avatar">GD</div>
+                  <div>
+                    <div class="tu-name">Demo Giamdoc</div>
+                    <div class="tu-role">Giam doc</div>
+                  </div>
+                </div>
               </div>
-            </header>
+            </div>
 
-            <!-- SCREEN: Dashboard -->
-            <div class="screen active" data-pane="dash">
-              <div class="metrics">
-                <div class="metric">
-                  <div class="m-label">Doanh thu ký HĐ</div>
-                  <div class="m-val">4.850.000.000</div>
-                  <div class="m-foot"><span class="chip ok">+12%</span> so với quý trước</div>
+            <div class="content">
+              <!-- dashboard -->
+              <div class="screen active" data-pane="dashboard">
+                <div class="grid metrics">
+                  <div class="metric panel has-ico info">
+                    <div class="metric-ico">◆</div>
+                    <div class="metric-label">Doanh thu ký HĐ (mẫu)</div>
+                    <div class="metric-value money-kpi">12.500.000.000 đ</div>
+                    <div class="metric-foot"><span class="chip ok">+8%</span> so kỳ trước (số giả)</div>
+                  </div>
+                  <div class="metric panel has-ico warn">
+                    <div class="metric-ico">◆</div>
+                    <div class="metric-label">Phải thu còn lại</div>
+                    <div class="metric-value money-kpi">3.420.000.000 đ</div>
+                    <div class="metric-foot"><span class="chip warn">12 HĐ mẫu</span></div>
+                  </div>
+                  <div class="metric panel has-ico">
+                    <div class="metric-ico">◆</div>
+                    <div class="metric-label">Công trình đang chạy</div>
+                    <div class="metric-value">14</div>
+                    <div class="metric-foot"><span class="chip info">2 trễ (mẫu)</span></div>
+                  </div>
+                  <div class="metric panel has-ico danger">
+                    <div class="metric-ico">◆</div>
+                    <div class="metric-label">Tồn kho cảnh báo</div>
+                    <div class="metric-value">5 SKU</div>
+                    <div class="metric-foot"><span class="chip danger">dưới min</span></div>
+                  </div>
                 </div>
-                <div class="metric">
-                  <div class="m-label">Phải thu còn lại</div>
-                  <div class="m-val warn">2.130.400.000</div>
-                  <div class="m-foot"><span class="chip warn">18 khách</span> chờ thanh toán</div>
-                </div>
-                <div class="metric">
-                  <div class="m-label">Công trình đang chạy</div>
-                  <div class="m-val">27</div>
-                  <div class="m-foot"><span class="chip info">5 trễ tiến độ</span></div>
-                </div>
-                <div class="metric">
-                  <div class="m-label">Tồn kho vật tư</div>
-                  <div class="m-val">186 SKU</div>
-                  <div class="m-foot"><span class="chip danger">3 dưới min</span></div>
-                </div>
-              </div>
-              <div class="panels two">
-                <div class="panel">
-                  <div class="panel-head">Pipeline công trình</div>
-                  <div class="panel-body">
-                    <div class="pipe">
-                      <div class="pipe-col">
-                        <div class="pipe-h">Báo giá</div>
-                        <div class="task">CT-0072 · Kho lạnh ABC</div>
-                        <div class="task">CT-0075 · Văn phòng XYZ</div>
-                      </div>
-                      <div class="pipe-col">
-                        <div class="pipe-h">Thi công</div>
-                        <div class="task hot">CT-0061 · MEP tòa A</div>
-                        <div class="task">CT-0068 · AHU tầng 3</div>
-                      </div>
-                      <div class="pipe-col">
-                        <div class="pipe-h">Nghiệm thu</div>
-                        <div class="task">CT-0054 · Bảo trì Q2</div>
+                <div class="grid cols-2">
+                  <div class="panel">
+                    <div class="panel-head"><h3 class="panel-title">Pipeline công trình (mẫu)</h3></div>
+                    <div class="panel-body">
+                      <div class="pipe">
+                        <div>
+                          <div class="pipe-h">Báo giá</div>
+                          <div class="task">DEMO-CT-12 · Kho lạnh mẫu A</div>
+                          <div class="task">DEMO-CT-15 · VP mẫu B</div>
+                        </div>
+                        <div>
+                          <div class="pipe-h">Thi công</div>
+                          <div class="task hot">DEMO-CT-07 · MEP tòa mẫu</div>
+                          <div class="task">DEMO-CT-09 · AHU demo</div>
+                        </div>
+                        <div>
+                          <div class="pipe-h">Nghiệm thu</div>
+                          <div class="task">DEMO-CT-03 · Bảo trì Q-demo</div>
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <div class="panel">
+                    <div class="panel-head"><h3 class="panel-title">Việc cần duyệt (mẫu)</h3></div>
+                    <div class="panel-body">
+                      <table class="tbl">
+                        <thead><tr><th>Loại</th><th>Mô tả</th><th>Hạn</th></tr></thead>
+                        <tbody>
+                          <tr><td><span class="chip warn">UNC</span></td><td>Chi vật tư NCC-Demo 52,1tr</td><td>Hôm nay</td></tr>
+                          <tr><td><span class="chip info">BG</span></td><td>Revision VAT DEMO-CT-07</td><td>2 ngày</td></tr>
+                          <tr><td><span class="chip purple">HS</span></td><td>BBNT đợt 2 — ký (mẫu)</td><td>Tuần này</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- receivable / công nợ -->
+              <div class="screen" data-pane="receivable">
+                <p class="page-note">Theo dõi công nợ — hóa đơn còn nợ + nhật ký nhắc (UI mẫu, số liệu giả).</p>
+                <div class="grid metrics three">
+                  <div class="metric panel"><div class="metric-label">Phải thu</div><div class="metric-value money-kpi">3.420.000.000 đ</div></div>
+                  <div class="metric panel"><div class="metric-label">Phải trả NCC</div><div class="metric-value money-kpi">890.000.000 đ</div></div>
+                  <div class="metric panel"><div class="metric-label">Quá hạn (mẫu)</div><div class="metric-value danger">2 HĐ</div></div>
                 </div>
                 <div class="panel">
-                  <div class="panel-head">Việc cần GĐ duyệt</div>
+                  <div class="panel-head"><h3 class="panel-title">Bảng công nợ khách — FICTIONAL ONLY</h3></div>
                   <div class="panel-body">
                     <table class="tbl">
-                      <thead><tr><th>Loại</th><th>Mô tả</th><th>Hạn</th></tr></thead>
+                      <thead>
+                        <tr>
+                          <th>Khách (tên giả)</th><th>Hợp đồng</th>
+                          <th class="num">Giá trị</th><th class="num">Đã thu</th><th class="num">Còn lại</th><th>TT</th>
+                        </tr>
+                      </thead>
                       <tbody>
-                        <tr><td><span class="chip warn">UNC</span></td><td>Chi vật tư Daikan 48,6tr</td><td>Hôm nay</td></tr>
-                        <tr><td><span class="chip info">BG</span></td><td>Revision VAT 8% CT-0061</td><td>2 ngày</td></tr>
-                        <tr><td><span class="chip purple">HS</span></td><td>BBNT đợt 2 — ký số</td><td>Tuần này</td></tr>
+                        <tr>
+                          <td>Công ty Mẫu Alpha</td><td>HĐ-DEMO-014</td>
+                          <td class="num">1.100.000.000</td><td class="num">700.000.000</td><td class="num">400.000.000</td>
+                          <td><span class="chip warn">Chờ TT</span></td>
+                        </tr>
+                        <tr>
+                          <td>Beta HVAC Demo Co.</td><td>HĐ-DEMO-009</td>
+                          <td class="num">620.000.000</td><td class="num">620.000.000</td><td class="num">0</td>
+                          <td><span class="chip ok">Đã TT</span></td>
+                        </tr>
+                        <tr>
+                          <td>Gamma Facility Demo</td><td>HĐ-DEMO-088</td>
+                          <td class="num">1.900.000.000</td><td class="num">1.050.000.000</td><td class="num">850.000.000</td>
+                          <td><span class="chip danger">Quá hạn</span></td>
+                        </tr>
                       </tbody>
                     </table>
+                    <p class="hint">
+                      Tên trên bảng là <strong>placeholder</strong> (Alpha / Beta / Gamma).
+                      Không khớp khách hàng thật của bất kỳ cài đặt production nào.
+                    </p>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <!-- SCREEN: Debt -->
-            <div class="screen" data-pane="debt">
-              <div class="metrics three">
-                <div class="metric"><div class="m-label">Phải thu</div><div class="m-val warn">2,13 tỷ</div></div>
-                <div class="metric"><div class="m-label">Phải trả NCC</div><div class="m-val">640 tr</div></div>
-                <div class="metric"><div class="m-label">Quá hạn</div><div class="m-val danger">3 HĐ</div></div>
-              </div>
-              <div class="panel">
-                <div class="panel-head">Bảng công nợ khách (minh họa)</div>
-                <div class="panel-body">
-                  <table class="tbl">
-                    <thead>
-                      <tr><th>Khách</th><th>Hợp đồng</th><th class="num">Giá trị</th><th class="num">Đã thu</th><th class="num">Còn lại</th><th>TT</th></tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Công ty Daikan VN</td><td>HĐ-2026-014</td><td class="num">1.200.000.000</td><td class="num">800.000.000</td><td class="num">400.000.000</td>
-                        <td><span class="chip warn">Chờ TT</span></td>
-                      </tr>
-                      <tr>
-                        <td>ABC Refrigeration</td><td>HĐ-2026-009</td><td class="num">680.000.000</td><td class="num">680.000.000</td><td class="num">0</td>
-                        <td><span class="chip ok">Đã TT</span></td>
-                      </tr>
-                      <tr>
-                        <td>XYZ Building</td><td>HĐ-2025-088</td><td class="num">2.050.000.000</td><td class="num">1.200.000.000</td><td class="num">850.000.000</td>
-                        <td><span class="chip danger">Quá hạn</span></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <p class="hint">GĐ xác nhận sao kê → cập nhật công nợ; có luồng “TT ngoài công ty” tách bạch.</p>
+              <!-- quotation -->
+              <div class="screen" data-pane="quotation">
+                <p class="page-note">Báo giá — chuỗi phiên bản, nhóm dịch vụ, nguồn giá vật tư (mẫu).</p>
+                <div class="grid cols-2">
+                  <div class="panel">
+                    <div class="panel-head"><h3 class="panel-title">BG-DEMO-061 · Revision #2</h3></div>
+                    <div class="panel-body">
+                      <div class="form-grid">
+                        <div><span class="fl">Khách</span><div class="fv">Công ty Mẫu Alpha</div></div>
+                        <div><span class="fl">VAT</span><div class="fv">8%</div></div>
+                        <div><span class="fl">Trạng thái</span><div class="fv"><span class="chip info">Chờ duyệt</span></div></div>
+                      </div>
+                      <table class="tbl compact">
+                        <thead><tr><th>Hạng mục BOQ (mẫu)</th><th class="num">SL</th><th class="num">Đơn giá</th><th class="num">Thành tiền</th></tr></thead>
+                        <tbody>
+                          <tr><td>Ống đồng demo Ø19</td><td class="num">100</td><td class="num">180.000</td><td class="num">18.000.000</td></tr>
+                          <tr><td>AHU demo 12k CMH</td><td class="num">2</td><td class="num">88.000.000</td><td class="num">176.000.000</td></tr>
+                          <tr><td>Nhân công lắp (mẫu)</td><td class="num">1</td><td class="num">42.000.000</td><td class="num">42.000.000</td></tr>
+                        </tbody>
+                      </table>
+                      <div class="totals">
+                        <div>Chưa VAT <strong>236.000.000</strong></div>
+                        <div>VAT 8% <strong>18.880.000</strong></div>
+                        <div class="grand">Tổng <strong>254.880.000 đ</strong></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel doc-preview">
+                    <div class="panel-body">
+                      <div class="doc-head">
+                        <div class="doc-logo">TH</div>
+                        <div>
+                          <strong>CÔNG TY DEMO SME</strong>
+                          <div class="muted">BÁO GIÁ · Số BG-DEMO-061</div>
+                        </div>
+                      </div>
+                      <div class="doc-body">
+                        Kính gửi: Quý khách <em>Công ty Mẫu Alpha</em><br />
+                        Công trình: DEMO-CT-07 — MEP tòa mẫu<br /><br />
+                        Bản in chứng từ trên app thật xuất từ template (Word/Excel).
+                        Letterhead lấy từ <code>config.json</code> của từng cài đặt.
+                      </div>
+                      <div class="doc-sign">
+                        <div>Bên A<br /><span class="muted">Ký, ghi rõ họ tên</span></div>
+                        <div>Bên B<br /><span class="muted">Ký, ghi rõ họ tên</span></div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <!-- SCREEN: Quote -->
-            <div class="screen" data-pane="quote">
-              <div class="panels two">
+              <!-- documents -->
+              <div class="screen" data-pane="documents">
+                <p class="page-note">Kho hồ sơ / Tài liệu — index, phân loại (mẫu checklist).</p>
                 <div class="panel">
-                  <div class="panel-head">Báo giá CT-0061 · Revision #3</div>
+                  <div class="panel-head"><h3 class="panel-title">Checklist hồ sơ DEMO-CT-07</h3></div>
                   <div class="panel-body">
-                    <div class="form-grid">
-                      <div><span class="fl">Khách</span><div class="fv">Daikan Vietnam</div></div>
-                      <div><span class="fl">VAT</span><div class="fv">8%</div></div>
-                      <div><span class="fl">Trạng thái</span><div class="fv"><span class="chip info">Chờ duyệt</span></div></div>
+                    <div class="dossier-grid">
+                      <div class="dos-card done"><strong>01</strong> Hợp đồng gốc<span class="chip ok">Đủ</span></div>
+                      <div class="dos-card done"><strong>02</strong> Báo giá chốt<span class="chip ok">Đủ</span></div>
+                      <div class="dos-card mid"><strong>03</strong> BBNT đợt 1<span class="chip warn">Thiếu ký</span></div>
+                      <div class="dos-card"><strong>04</strong> CO/CQ vật tư<span class="chip info">2 file</span></div>
+                      <div class="dos-card"><strong>05</strong> Nhật ký thi công<span class="chip">KTV</span></div>
+                      <div class="dos-card"><strong>06</strong> Bảng QT<span class="chip">—</span></div>
                     </div>
-                    <table class="tbl compact">
-                      <thead><tr><th>Hạng mục BOQ</th><th class="num">SL</th><th class="num">Đơn giá</th><th class="num">Thành tiền</th></tr></thead>
+                    <p class="hint">Quét folder: cấu hình <code>scan_roots</code> trên máy cài — chỉ index metadata, không upload cloud.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- bank -->
+              <div class="screen" data-pane="bank">
+                <p class="page-note">Sao kê ngân hàng — đối soát minh họa (diễn giải giả).</p>
+                <div class="panel">
+                  <div class="panel-head"><h3 class="panel-title">Dòng sao kê mẫu</h3></div>
+                  <div class="panel-body">
+                    <table class="tbl">
+                      <thead><tr><th>Ngày</th><th>Diễn giải (giả)</th><th class="num">Số tiền</th><th>Gợi ý khớp</th><th></th></tr></thead>
                       <tbody>
-                        <tr><td>Ống đồng Ø19.05</td><td class="num">120</td><td class="num">185.000</td><td class="num">22.200.000</td></tr>
-                        <tr><td>AHU 15.000 CMH</td><td class="num">2</td><td class="num">95.000.000</td><td class="num">190.000.000</td></tr>
-                        <tr><td>Nhân công lắp đặt</td><td class="num">1</td><td class="num">48.000.000</td><td class="num">48.000.000</td></tr>
+                        <tr>
+                          <td>01/06/2026</td><td>CK Công ty Mẫu Alpha đợt 2</td><td class="num ok-t">+400.000.000</td>
+                          <td>HĐ-DEMO-014</td><td><span class="chip ok">Khớp</span></td>
+                        </tr>
+                        <tr>
+                          <td>02/06/2026</td><td>UNC vật tư NCC-Demo</td><td class="num danger-t">−52.100.000</td>
+                          <td>Phiếu chi #DEMO-12</td><td><span class="chip warn">Chờ GĐ</span></td>
+                        </tr>
+                        <tr>
+                          <td>03/06/2026</td><td>Phí chuyển khoản</td><td class="num danger-t">−11.000</td>
+                          <td>—</td><td><span class="chip">Bỏ qua</span></td>
+                        </tr>
                       </tbody>
                     </table>
-                    <div class="totals">
-                      <div>Chưa VAT <strong>260.200.000</strong></div>
-                      <div>VAT 8% <strong>20.816.000</strong></div>
-                      <div class="grand">Tổng <strong>281.016.000 đ</strong></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="panel doc-preview">
-                  <div class="doc-head">
-                    <div class="doc-logo">TH</div>
-                    <div>
-                      <strong>CÔNG TY DEMO</strong>
-                      <div class="muted">BÁO GIÁ · Số BG-2026-061</div>
-                    </div>
-                  </div>
-                  <div class="doc-body">
-                    Kính gửi: Quý khách Daikan Vietnam<br />
-                    Công trình: MEP tòa A — CT-0061<br /><br />
-                    <em>Bản in chứng từ bám template chuẩn (Word/Excel export từ app).</em>
-                  </div>
-                  <div class="doc-sign">
-                    <div>Bên A<br /><span class="muted">Ký, ghi rõ họ tên</span></div>
-                    <div>Bên B<br /><span class="muted">Ký, ghi rõ họ tên</span></div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <!-- SCREEN: Dossier -->
-            <div class="screen" data-pane="dossier">
-              <div class="panel">
-                <div class="panel-head">Hồ sơ công trình · checklist xuất file</div>
-                <div class="panel-body">
-                  <div class="dossier-grid">
-                    <div class="dos-card done"><strong>01</strong> Hợp đồng gốc<span class="chip ok">Đủ</span></div>
-                    <div class="dos-card done"><strong>02</strong> Báo giá chốt<span class="chip ok">Đủ</span></div>
-                    <div class="dos-card mid"><strong>03</strong> BBNT đợt 1<span class="chip warn">Thiếu ký</span></div>
-                    <div class="dos-card"><strong>04</strong> CO/CQ vật tư<span class="chip info">3 file</span></div>
-                    <div class="dos-card"><strong>05</strong> Nhật ký thi công<span class="chip neutral">KTV</span></div>
-                    <div class="dos-card"><strong>06</strong> Bảng QT<span class="chip">—</span></div>
-                  </div>
-                  <p class="hint">Có thể <strong>quét ổ cứng / folder khách</strong> (config <code>scan_roots</code>) để index PDF, Word, Excel, ảnh — không AI.</p>
+              <!-- roles -->
+              <div class="screen" data-pane="roles">
+                <p class="page-note">Tài khoản seed_fresh — mật khẩu ngẫu nhiên mỗi lần cài, bắt đổi lần đầu.</p>
+                <div class="role-grid">
+                  <div class="role-card"><strong>admin</strong><span>Quản trị hệ thống</span></div>
+                  <div class="role-card"><strong>giamdoc</strong><span>Giám đốc</span></div>
+                  <div class="role-card"><strong>ketoan</strong><span>Kế toán</span></div>
+                  <div class="role-card"><strong>kinhdoanh</strong><span>Kinh doanh</span></div>
+                  <div class="role-card"><strong>ktt</strong><span>Kỹ thuật trưởng</span></div>
+                  <div class="role-card"><strong>ktv</strong><span>Kỹ thuật viên</span></div>
+                  <div class="role-card"><strong>thukho</strong><span>Thủ kho</span></div>
                 </div>
+                <p class="hint">Phân quyền chặn ở API. KTV không thấy giá vốn / lãi lỗ. UI ẩn + server 403.</p>
               </div>
-            </div>
-
-            <!-- SCREEN: Bank -->
-            <div class="screen" data-pane="bank">
-              <div class="panel">
-                <div class="panel-head">Sao kê ngân hàng · đối soát 1-click</div>
-                <div class="panel-body">
-                  <table class="tbl">
-                    <thead><tr><th>Ngày</th><th>Diễn giải</th><th class="num">Số tiền</th><th>Gợi ý khớp</th><th></th></tr></thead>
-                    <tbody>
-                      <tr>
-                        <td>18/07/2026</td><td>CK Daikan HĐ-014 đợt 2</td><td class="num ok-t">+400.000.000</td>
-                        <td>Daikan · HĐ-2026-014</td><td><span class="chip ok">Khớp</span></td>
-                      </tr>
-                      <tr>
-                        <td>17/07/2026</td><td>UNC vật tư NCC Hòa Phát</td><td class="num danger-t">−48.613.600</td>
-                        <td>Phiếu chi #882</td><td><span class="chip warn">Chờ GĐ</span></td>
-                      </tr>
-                      <tr>
-                        <td>16/07/2026</td><td>Phí CK</td><td class="num danger-t">−11.000</td>
-                        <td>—</td><td><span class="chip neutral">Bỏ qua</span></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-
-            <!-- SCREEN: Roles -->
-            <div class="screen" data-pane="roles">
-              <div class="role-grid">
-                <div class="role-card"><strong>admin</strong><span>Quản trị hệ thống</span></div>
-                <div class="role-card"><strong>giamdoc</strong><span>Giám đốc · duyệt tiền</span></div>
-                <div class="role-card"><strong>ketoan</strong><span>Kế toán · sao kê</span></div>
-                <div class="role-card"><strong>kinhdoanh</strong><span>Báo giá · HĐ</span></div>
-                <div class="role-card"><strong>ktt</strong><span>Kỹ thuật trưởng</span></div>
-                <div class="role-card"><strong>ktv</strong><span>Nhật ký · hiện trường</span></div>
-                <div class="role-card"><strong>thukho</strong><span>Xuất nhập kho</span></div>
-              </div>
-              <p class="hint">Phân quyền chặn ở <strong>API</strong> (không chỉ ẩn nút). Seed lần đầu: mật khẩu ngẫu nhiên in ra console → bắt đổi khi login.</p>
             </div>
           </div>
         </div>
-        <p class="demo-note wrap">Ảnh trên là <strong>mockup tương tác trong trình duyệt</strong> (HTML/CSS). App thật sau khi <code>setup.bat</code> chạy tại <code>http://127.0.0.1:8777</code>.</p>
-      </div>
-    </section>
-
-    <section id="modules" class="modules wrap">
-      <div class="section-head">
-        <h2>Module nghiệp vụ</h2>
-        <p>Một bản cài phục vụ cả văn phòng kỹ thuật, kế toán và giám đốc.</p>
-      </div>
-      <div class="mod-grid">
-        <article><h3>Báo giá &amp; BOQ</h3><p>Revision, VAT footer, chuẩn hóa hạng mục, xuất chứng từ.</p></article>
-        <article><h3>Công trình &amp; nhật ký</h3><p>Pipeline CT, KTV ghi nhật ký, KTT theo dõi tiến độ.</p></article>
-        <article><h3>Công nợ &amp; TT</h3><p>Phải thu/trả, xác nhận sao kê, TT ngoài công ty có vết.</p></article>
-        <article><h3>Hồ sơ CT</h3><p>Checklist, export bộ hồ sơ, quét folder khách trên ổ đĩa.</p></article>
-        <article><h3>Kho &amp; vật tư</h3><p>Xuất nhập, tồn, giá vật tư — thủ kho / kỹ thuật.</p></article>
-        <article><h3>RBAC &amp; audit</h3><p>7+ vai trò, đổi mật khẩu bắt buộc, force-logout.</p></article>
+        <p class="demo-note">App thật: <code>setup.bat</code> → <code>http://127.0.0.1:8777</code>. Trang này không có backend.</p>
       </div>
     </section>
 
     <section id="install" class="install">
       <div class="wrap install-inner">
         <div>
-          <h2>Cài &amp; chạy (máy Windows)</h2>
+          <h2>Cài bản thật (Windows)</h2>
           <ol class="steps">
-            <li>Cài <a href="https://www.python.org/downloads/" target="_blank" rel="noopener">Python 3.11+</a> (tick <em>Add to PATH</em>)</li>
-            <li>Tải / clone repo GitHub</li>
-            <li>Double-click <strong>setup.bat</strong> → ghi mật khẩu in ra màn hình</li>
-            <li>Mở <code>http://127.0.0.1:8777</code> → đổi mật khẩu → sửa <code>config.json</code> (tên + logo)</li>
+            <li>Python 3.11+ (Add to PATH)</li>
+            <li>Clone / ZIP repo</li>
+            <li><strong>setup.bat</strong> → lưu mật khẩu in ra console</li>
+            <li>Sửa <code>config.json</code>: tên công ty + logo của bạn</li>
           </ol>
           <pre class="code">git clone https://github.com/Jokejoker-designer/ERPcompany-.git
 cd ERPcompany-
 setup.bat</pre>
         </div>
         <div class="install-card">
-          <h3>Sau khi cài</h3>
+          <h3>Cam kết demo public</h3>
           <ul>
-            <li>Logo: <code>web/branding/logo.svg</code> (hoặc PNG)</li>
-            <li>Tên công ty: <code>config.json</code></li>
-            <li>Quét hồ sơ: <code>scan_roots</code></li>
-            <li>Lần sau: chỉ cần <code>start.bat</code></li>
+            <li>Không nhúng CSDL production</li>
+            <li>Không screenshot khách thật</li>
+            <li>Chỉ tên giả DEMO / Mẫu Alpha–Gamma</li>
           </ul>
-          <a class="btn btn-primary btn-block" href="https://github.com/Jokejoker-designer/ERPcompany-" target="_blank" rel="noopener">Mở repo GitHub</a>
-          <a class="btn btn-ghost btn-block" href="https://github.com/Jokejoker-designer/ERPcompany-/archive/refs/heads/main.zip" target="_blank" rel="noopener">Download ZIP</a>
+          <a class="btn btn-primary btn-block" href="https://github.com/Jokejoker-designer/ERPcompany-" target="_blank" rel="noopener">GitHub source</a>
         </div>
       </div>
     </section>
@@ -379,18 +380,10 @@ setup.bat</pre>
 
   <footer class="site-foot">
     <div class="wrap foot-inner">
-      <div>
-        <strong>Thanh Hoai ERP</strong>
-        <span class="muted"> · MIT License · Demo tĩnh cho GitHub Pages</span>
-      </div>
-      <div class="foot-links">
-        <a href="https://github.com/Jokejoker-designer/ERPcompany-">Source</a>
-        <a href="#gallery">Demo UI</a>
-        <a href="#install">Cài đặt</a>
-      </div>
+      <span><strong>Thanh Hoai ERP</strong> · MIT · Demo UI · dữ liệu fictional</span>
+      <a href="https://github.com/Jokejoker-designer/ERPcompany-">Source</a>
     </div>
   </footer>
-
   <script src="demo.js"></script>
 </body>
 </html>
