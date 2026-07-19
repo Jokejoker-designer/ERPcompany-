@@ -151,6 +151,69 @@ code { font-family: ui-monospace, Consolas, monospace; font-size: .9em; backgrou
   .quick-grid { grid-template-columns: 1fr; }
 }
 
+/* scan folder guide */
+.scan-guide-section {
+  padding: 40px 0 36px;
+  background: #fff;
+  border-bottom: 1px solid var(--line-soft);
+}
+.scan-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 16px;
+  align-items: start;
+}
+.scan-tree-card {
+  background: #0c2038;
+  color: #e8f0f7;
+  border-radius: 14px;
+  padding: 18px 18px 14px;
+  box-shadow: var(--shadow);
+}
+.scan-tree-card h3 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  color: #fff;
+}
+.scan-tree {
+  margin: 0;
+  padding: 14px 16px;
+  background: rgba(0, 0, 0, .28);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  font-family: Consolas, "Courier New", ui-monospace, monospace;
+  font-size: 12.5px;
+  line-height: 1.45;
+  overflow: auto;
+  color: #d6f5ef;
+  white-space: pre;
+}
+.scan-tree-card .hint { color: #9bb0c4 !important; }
+.scan-rules {
+  display: grid;
+  gap: 12px;
+}
+.steps-plain {
+  margin: 0;
+  padding-left: 20px;
+  color: #3a4650;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.steps-plain li { margin-bottom: 8px; }
+.scan-guide-section .panel .hint code,
+.scan-guide-section code {
+  font-family: Consolas, ui-monospace, monospace;
+  font-size: .9em;
+  background: #eef3f5;
+  color: #172026;
+  padding: .1em .35em;
+  border-radius: 4px;
+}
+@media (max-width: 920px) {
+  .scan-layout { grid-template-columns: 1fr; }
+}
+
 /* chips / btn */
 .chip {
   display: inline-flex; align-items: center; border-radius: 999px; padding: 3px 8px;

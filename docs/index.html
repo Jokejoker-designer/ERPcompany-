@@ -6,7 +6,7 @@
   <title>Thanh Hoai ERP — Phần mềm quản trị doanh nghiệp SME</title>
   <meta name="description" content="Thanh Hoai ERP — phần mềm quản trị nội bộ chạy local trên Windows: nhiều tài khoản, phân quyền API, dữ liệu trên máy bạn. Báo giá, công trình, công nợ, hồ sơ." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B7285'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='white' font-size='14' font-family='Segoe UI' font-weight='700'%3ETH%3C/text%3E%3C/svg%3E" />
-  <link rel="stylesheet" href="demo.css?v=9" />
+  <link rel="stylesheet" href="demo.css?v=10" />
 </head>
 <body>
   <header class="site-top">
@@ -21,6 +21,7 @@
       <nav class="top-nav">
         <a href="#security">Bảo mật</a>
         <a href="#onboarding">Quy trình</a>
+        <a href="#scan-guide">Bố cục hồ sơ</a>
         <a href="#mockapp">Giao diện</a>
         <a href="#install">Cài đặt</a>
         <a class="btn btn-primary" href="https://github.com/Jokejoker-designer/ERPcompany-" target="_blank" rel="noopener">Tải miễn phí</a>
@@ -206,6 +207,140 @@
               <li>Luồng báo giá &amp; chứng từ dự án</li>
               <li><em>Không</em> tự sinh từ HĐ mua NCC</li>
             </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hướng dẫn bố cục folder quét hồ sơ — bám scan_source.py -->
+    <section id="scan-guide" class="scan-guide-section">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Tổ chức folder hồ sơ khách — để quét chuẩn</h2>
+          <p>
+            Hệ thống <strong>quét ổ đĩa / thư mục</strong> bạn chỉ định trong cấu hình,
+            chỉ đọc tên file và ngày sửa — <strong>không copy, không sửa file gốc</strong>.
+            Càng đúng cấu trúc dưới đây, danh mục khách và loại tài liệu càng chính xác.
+          </p>
+        </div>
+
+        <div class="scan-layout">
+          <div class="scan-tree-card">
+            <h3>Cấu trúc khuyến nghị</h3>
+            <pre class="scan-tree" aria-label="Cây thư mục mẫu">D:\HoSoKhach\                 ← thư mục gốc (đưa vào scan_roots)
+│
+├── 2025\                     ← có thể tách theo năm
+│   └── Cong ty Alpha\        ← 1 folder = 1 khách hàng
+│       ├── Bao gia\
+│       ├── Hop dong\
+│       ├── Bien ban nghiem thu\
+│       ├── Bang quyet toan\
+│       ├── Hoa don\
+│       ├── Thu de nghi thanh toan\
+│       ├── Ho so cong trinh\
+│       └── Ban ve\
+│
+└── 2026\
+    └── Cong ty Beta HVAC\
+        ├── Bao gia\
+        ├── Hop dong\
+        └── ...</pre>
+            <p class="hint" style="margin-top:12px">
+              Tên folder con có thể viết có dấu hoặc không dấu
+              (<em>Báo giá</em> / <em>Bao gia</em> đều được). Hệ thống chuẩn hóa trước khi nhận diện.
+            </p>
+          </div>
+
+          <div class="scan-rules">
+            <article class="sec-card">
+              <h3>1. Một khách = một thư mục</h3>
+              <p>
+                Đặt tên folder bằng <strong>tên doanh nghiệp / khách hàng</strong> dễ đọc
+                (ví dụ <em>Cong ty Alpha Refrigeration</em>).
+                Tránh gộp nhiều khách trong một folder, tránh tên mơ hồ như <em>New folder</em>, <em>Temp</em>.
+              </p>
+            </article>
+            <article class="sec-card">
+              <h3>2. Bên trong phải có thư mục loại chứng từ</h3>
+              <p>
+                Hệ thống chỉ coi là “folder khách” khi có ít nhất một thư mục con chuẩn, ví dụ:
+                <strong>Bao gia</strong>, <strong>Hop dong</strong>, <strong>Hoa don</strong>,
+                <strong>Bien ban nghiem thu</strong>, <strong>Ho so cong trinh</strong>, <strong>Ban ve</strong>…
+                File rải lung tung ngay dưới tên khách (không có thư mục con) sẽ khó phân loại.
+              </p>
+            </article>
+            <article class="sec-card">
+              <h3>3. Đặt file đúng “ngăn”</h3>
+              <p>
+                Báo giá vào <em>Bao gia</em>, hợp đồng vào <em>Hop dong</em>, hóa đơn vào <em>Hoa don</em>…
+                Phần mềm gán loại tài liệu theo <strong>tên thư mục con</strong> — không đọc nội dung AI.
+              </p>
+            </article>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top:16px">
+          <div class="panel-head"><h3 class="panel-title">Bảng map thư mục → loại tài liệu</h3></div>
+          <div class="panel-body">
+            <table class="tbl">
+              <thead>
+                <tr><th>Tên thư mục con (gợi ý)</th><th>Hệ thống nhận là</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Bao gia · Bang gia</td><td>Báo giá</td></tr>
+                <tr><td>Hop dong</td><td>Hợp đồng</td></tr>
+                <tr><td>Bien ban nghiem thu</td><td>BBNT</td></tr>
+                <tr><td>Bang quyet toan · Quyet toan</td><td>BQT</td></tr>
+                <tr><td>Hoa don</td><td>Hóa đơn</td></tr>
+                <tr><td>Thu de nghi thanh toan · De nghi thanh toan</td><td>Đề nghị thanh toán</td></tr>
+                <tr><td>Ho so cong trinh · Ho so</td><td>Hồ sơ</td></tr>
+                <tr><td>Ban ve</td><td>Bản vẽ</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="scan-tips grid cols-2" style="margin-top:14px">
+          <div class="panel">
+            <div class="panel-head"><h3 class="panel-title">Định dạng file được index</h3></div>
+            <div class="panel-body">
+              <p class="hint" style="margin:0">
+                PDF, Word (<code>.doc/.docx</code>), Excel (<code>.xls/.xlsx/.xlsm</code>),
+                PowerPoint, ảnh JPG/PNG/WEBP.
+                File kỹ thuật thuần (ví dụ một số <code>.dwg</code> không nằm trong danh sách)
+                có thể không vào chỉ mục — ưu tiên PDF/Office cho chứng từ.
+              </p>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3 class="panel-title">Đặt tên file thông minh (tuỳ chọn)</h3></div>
+            <div class="panel-body">
+              <p class="hint" style="margin:0">
+                Nếu tên file có ngày dạng <strong>25-07-2026</strong>, <strong>25/07/2026</strong>
+                hoặc <strong>20260725</strong>, hệ thống có thể lấy ngày đó làm mốc tài liệu
+                (bổ sung cho ngày sửa file). Ví dụ:
+                <em>BG_Alpha_25-07-2026.pdf</em>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top:14px;border-top:3px solid var(--brand)">
+          <div class="panel-head"><h3 class="panel-title">Cách bật quét trên phần mềm</h3></div>
+          <div class="panel-body">
+            <ol class="steps-plain">
+              <li>Mở <span class="file-pill" style="font-size:12px">config.json</span> — khai báo
+                <code>scan_roots</code> trỏ tới thư mục gốc (ví dụ <code>D:\\HoSoKhach\\2026</code>).</li>
+              <li>Khởi động lại app (<span class="file-pill" style="font-size:12px">start.bat</span>).</li>
+              <li>Đăng nhập tài khoản <strong>Giám đốc / Quản trị</strong>.</li>
+              <li>Bấm <strong>Quét hồ sơ (ổ đĩa)</strong> trên thanh bên — chờ hoàn tất.</li>
+              <li>Vào danh mục khách hàng / kho tài liệu để kiểm tra kết quả.</li>
+            </ol>
+            <p class="flow-note" style="margin-top:12px">
+              <strong>Mẹo:</strong> Giữ cùng một quy ước tên cho mọi khách.
+              Folder rác, lab, “New folder”, archive gộp lung tung nên để ngoài cây quét
+              hoặc đặt tên không trùng quy ước khách hàng.
+            </p>
           </div>
         </div>
       </div>

@@ -97,27 +97,52 @@ Sau khi sửa config: **khởi động lại** `start.bat`.
 
 ## Quét hồ sơ từ ổ cứng (không AI)
 
-1. Tổ chức folder khách (gợi ý):
+Hệ thống nhận diện **1 folder khách** khi bên trong có ít nhất một thư mục con chuẩn
+(`Bao gia`, `Hop dong`, `Hoa don`, `Bien ban nghiem thu`, `Ho so cong trinh`, `Ban ve`, …).
+Loại tài liệu gán theo **tên thư mục con** (chuẩn hóa không dấu). Chỉ index metadata — không sửa file gốc.
+
+### Bố cục khuyến nghị
 
 ```text
-D:\2026\
-  Cong ty ABC\
-    Bao gia\
-    Hop dong\
-    Bien ban nghiem thu\
-    Hoa don\
-    Ho so cong trinh\
-    Ban ve\
+D:\HoSoKhach\                    ← khai báo trong config.json → scan_roots
+  2026\
+    Cong ty Alpha\
+      Bao gia\
+      Hop dong\
+      Bien ban nghiem thu\
+      Bang quyet toan\
+      Hoa don\
+      Thu de nghi thanh toan\
+      Ho so cong trinh\
+      Ban ve\
+    Cong ty Beta\
+      Bao gia\
+      Hop dong\
+      ...
 ```
 
-2. Đăng nhập **Giám đốc / Quản trị** → sidebar → **Quét hồ sơ (ổ đĩa)**  
-3. Hệ thống **chỉ index metadata** (không copy/sửa file gốc) → danh mục khách + tài liệu trong ERP.
+| Thư mục con | Loại trong ERP |
+|-------------|----------------|
+| Bao gia / Bang gia | Báo giá |
+| Hop dong | Hợp đồng |
+| Bien ban nghiem thu | BBNT |
+| Bang quyet toan / Quyet toan | BQT |
+| Hoa don | Hóa đơn |
+| Thu de nghi thanh toan | Đề nghị TT |
+| Ho so cong trinh / Ho so | Hồ sơ |
+| Ban ve | Bản vẽ |
+
+**File:** ưu tiên PDF, Word, Excel, ảnh. Tên file có ngày `dd-mm-yyyy` / `yyyymmdd` giúp gán mốc ngày tốt hơn.
+
+**Trong app:** GĐ/Quản trị → **Quét hồ sơ (ổ đĩa)** (sau khi set `scan_roots` và restart).
 
 CLI:
 
 ```bat
-.venv\Scripts\python.exe scan_source.py "D:\2026"
+.venv\Scripts\python.exe scan_source.py "D:\HoSoKhach\2026"
 ```
+
+Hướng dẫn khách hàng (trang demo): [docs — Bố cục hồ sơ](https://jokejoker-designer.github.io/ERPcompany-/#scan-guide)
 
 ---
 
