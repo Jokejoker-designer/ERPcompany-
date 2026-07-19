@@ -92,6 +92,35 @@ def branding_public():
     }
 
 
+def save_scan_roots(roots):
+    """Persist scan_roots list into config.json (absolute paths)."""
+    ensure_config()
+    data = load(force=True)
+    cleaned = []
+    for r in roots or []:
+        s = str(r or "").strip()
+        if not s:
+            continue
+        cleaned.append(os.path.abspath(s))
+    # unique, keep order
+    seen = set()
+    uniq = []
+    for p in cleaned:
+        key = p.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        uniq.append(p)
+    data["scan_roots"] = uniq
+    path = config_path()
+    with open(path, "w", encoding="utf-8") as fh:
+        json.dump(data, fh, ensure_ascii=False, indent=2)
+        fh.write("\n")
+    global _cache
+    _cache = None
+    return uniq
+
+
 def apply_to_cau_hinh(conn):
     """Upsert cau_hinh id=1 from config (first-run + when company_name set)."""
     cfg = load()

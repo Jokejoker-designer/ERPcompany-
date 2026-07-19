@@ -134,7 +134,11 @@ D:\HoSoKhach\                    ← khai báo trong config.json → scan_roots
 
 **File:** ưu tiên PDF, Word, Excel, ảnh. Tên file có ngày `dd-mm-yyyy` / `yyyymmdd` giúp gán mốc ngày tốt hơn.
 
-**Trong app:** GĐ/Quản trị → **Quét hồ sơ (ổ đĩa)** (sau khi set `scan_roots` và restart).
+**Trong app (đơn giản nhất):** đăng nhập GĐ/Quản trị → góc dưới sidebar:
+
+1. Gõ đường dẫn thư mục (mỗi dòng một path, vd `D:\2026`)  
+2. Bấm **Quét ngay**  
+3. (Tuỳ chọn) tick *Lưu path cho lần sau* → ghi vào `config.json`
 
 CLI:
 
@@ -142,7 +146,7 @@ CLI:
 .venv\Scripts\python.exe scan_source.py "D:\HoSoKhach\2026"
 ```
 
-Hướng dẫn khách hàng (trang demo): [docs — Bố cục hồ sơ](https://jokejoker-designer.github.io/ERPcompany-/#scan-guide)
+Hướng dẫn + mock UI: [Quét hồ sơ trên GitHub Pages](https://jokejoker-designer.github.io/ERPcompany-/#scan-guide)
 
 ---
 

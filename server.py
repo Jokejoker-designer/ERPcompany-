@@ -1151,14 +1151,42 @@ class Handler(BaseHTTPRequestHandler):
     def _scan_now(self, role, body):
         if role not in ("Giam doc", "Quan tri he thong"):
             return self._send_json({"error": "Chi Giam doc/Quan tri duoc quet nguon."}, status=403)
-        source = body.get("source_dir") or SCAN.get_default_sources()
+        body = body or {}
+        source = body.get("source_dirs") or body.get("source_dir") or SCAN.get_default_sources()
+        if isinstance(source, str):
+            source = [source.strip()] if source.strip() else SCAN.get_default_sources()
+        elif not isinstance(source, (list, tuple)):
+            source = SCAN.get_default_sources()
+        source = [str(s).strip() for s in source if str(s or "").strip()]
+        if not source:
+            return self._send_json(
+                {"error": "Chua co thu muc quet. Nhap duong dan (vd D:\\\\2026) roi bam Quet ngay."},
+                status=400,
+            )
+        missing = [p for p in source if not os.path.isdir(p)]
+        if missing:
+            return self._send_json(
+                {"error": "Thu muc khong ton tai: " + "; ".join(missing)},
+                status=400,
+            )
+        if body.get("save_roots"):
+            try:
+                import app_config
+                source = app_config.save_scan_roots(source)
+            except Exception as e:
+                return self._send_json({"error": "Khong luu duoc config: " + str(e)}, status=500)
         conn = D.get_conn()
         try:
             D.init_schema(conn)
             stats = SCAN.scan(conn, source)
             merged = SCAN.merge_duplicates(conn)
             stats.update(merged)
-            return self._send_json({"ok": True, "stats": stats, "source_dir": source})
+            return self._send_json({
+                "ok": True,
+                "stats": stats,
+                "source_dir": " + ".join(source),
+                "scan_roots": source,
+            })
         except FileNotFoundError as e:
             return self._send_json({"error": str(e)}, status=400)
         except Exception as e:

@@ -989,17 +989,37 @@ async function startApp(user) {
     tu.innerHTML = `<div class="tu-avatar">${esc(initials)}</div>
       <div><div class="tu-name">${esc(user.full_name || user.username)}</div><div class="tu-role">${esc(user.role)}</div></div>`;
   }
-  // trang thai quet nguon D:\2026
+  // Quét hồ sơ: nhập path + bấm Quét ngay (GĐ / Quản trị)
   let scanHtml = "";
   try {
     const st = await apiGet("scan_status");
     const canScan = user.role === "Giam doc" || user.role === "Quan tri he thong";
-    scanHtml = `<div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--line-soft);font-size:11.5px" class="muted">
-      ${st.has_scan
-        ? `📁 Nguồn: <b>${esc(st.source_dir || "")}</b><br>${st.documents} tài liệu · ${st.customers} khách<br>Quét: ${esc(fmtDateTime(st.last_scan))}`
-        : `📁 Chưa quét nguồn thật (đang dùng dữ liệu mẫu).`}
-      ${canScan ? `<br><button class="logout-btn" id="scan-btn" style="margin-top:6px" title="${esc((CFG.scan_roots || []).join(' · ') || 'config.json → scan_roots')}">🔄 Quét hồ sơ (ổ đĩa)</button>` : ""}
-      <span id="scan-msg"></span></div>`;
+    const roots = (st.scan_roots && st.scan_roots.length)
+      ? st.scan_roots
+      : (CFG.scan_roots || []);
+    const rootsText = roots.join("\n");
+    const lastLine = st.has_scan
+      ? `${st.documents || 0} tài liệu · ${st.customers || 0} khách · ${esc(fmtDateTime(st.last_scan))}`
+      : "Chưa quét lần nào";
+    if (canScan) {
+      scanHtml = `<div class="scan-box" id="scan-box">
+        <div class="scan-box-title">📁 Quét hồ sơ ổ đĩa</div>
+        <div class="scan-box-sub">Mỗi dòng = 1 thư mục gốc (vd D:\\2026)</div>
+        <textarea id="scan-paths" class="scan-paths" rows="3" spellcheck="false"
+          placeholder="D:\\2025&#10;D:\\2026">${esc(rootsText)}</textarea>
+        <button type="button" class="scan-go-btn" id="scan-btn">🔄 Quét ngay</button>
+        <label class="scan-save"><input type="checkbox" id="scan-save" checked> Lưu path cho lần sau</label>
+        <div class="scan-last muted" id="scan-last">${lastLine}</div>
+        <div id="scan-msg" class="scan-msg"></div>
+      </div>`;
+    } else {
+      scanHtml = `<div class="scan-box scan-box-ro">
+        <div class="scan-box-title">📁 Nguồn hồ sơ</div>
+        <div class="muted" style="font-size:11.5px;line-height:1.4">${st.has_scan
+          ? esc(st.source_dir || "") + "<br>" + lastLine
+          : "Chỉ Giám đốc / Quản trị được quét."}</div>
+      </div>`;
+    }
   } catch (e) { /* bo qua */ }
 
   $("#foot").innerHTML = `<div class="user-name">${esc(user.full_name)}</div><div class="user-role">${esc(user.role)}</div>
@@ -1015,13 +1035,37 @@ async function startApp(user) {
   themeLabel();
   const scanBtn = $("#scan-btn");
   if (scanBtn) scanBtn.addEventListener("click", async () => {
-    const msg = $("#scan-msg"); msg.textContent = " ⏳ Đang quét…"; scanBtn.disabled = true;
+    const msg = $("#scan-msg");
+    const ta = $("#scan-paths");
+    const saveEl = $("#scan-save");
+    const paths = String(ta ? ta.value : "")
+      .split(/\r?\n/)
+      .map((s) => s.trim())
+      .filter(Boolean);
+    if (!paths.length) {
+      msg.textContent = "Nhập ít nhất 1 đường dẫn thư mục.";
+      msg.className = "scan-msg err";
+      return;
+    }
+    msg.textContent = "Đang quét…";
+    msg.className = "scan-msg";
+    scanBtn.disabled = true;
     try {
-      const r = await apiPost("scan_now", {});
-      msg.innerHTML = ` ✅ ${r.stats.customers} khách · ${r.stats.documents} tài liệu`;
-      setTimeout(() => location.reload(), 900);
+      const r = await apiPost("scan_now", {
+        source_dirs: paths,
+        save_roots: !!(saveEl && saveEl.checked),
+      });
+      const src = r.source_dir || paths.join(" + ");
+      msg.textContent = `Xong: ${r.stats.customers} khách · ${r.stats.documents} tài liệu`;
+      msg.className = "scan-msg ok";
+      const last = $("#scan-last");
+      if (last) last.textContent = `${r.stats.documents} tài liệu · ${r.stats.customers} khách · vừa xong`;
+      CFG.scan_roots = r.scan_roots || paths;
+      setTimeout(() => location.reload(), 1200);
     } catch (e) {
-      msg.textContent = " ❌ " + (e.message || "lỗi"); scanBtn.disabled = false;
+      msg.textContent = e.message || "Lỗi quét";
+      msg.className = "scan-msg err";
+      scanBtn.disabled = false;
     }
   });
   buildNav();

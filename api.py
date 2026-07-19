@@ -157,12 +157,19 @@ def has_scan(conn):
 def scan_status(conn, role):
     # Footer scan status is not the operational Dashboard.
     require("documents", role)
+    roots = []
+    try:
+        import app_config
+        roots = list(app_config.load().get("scan_roots") or [])
+    except Exception:
+        roots = []
     return {
         "source_dir": _cfg(conn, "source_dir"),
         "last_scan": _cfg(conn, "last_scan"),
         "customers": int(_cfg(conn, "scan_customers", "0") or 0),
         "documents": int(_cfg(conn, "scan_documents", "0") or 0),
         "has_scan": has_scan(conn),
+        "scan_roots": roots,
     }
 
 

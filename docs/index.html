@@ -6,7 +6,7 @@
   <title>Thanh Hoai ERP — Phần mềm quản trị doanh nghiệp SME</title>
   <meta name="description" content="Thanh Hoai ERP — phần mềm quản trị nội bộ chạy local trên Windows: nhiều tài khoản, phân quyền API, dữ liệu trên máy bạn. Báo giá, công trình, công nợ, hồ sơ." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B7285'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='white' font-size='14' font-family='Segoe UI' font-weight='700'%3ETH%3C/text%3E%3C/svg%3E" />
-  <link rel="stylesheet" href="demo.css?v=10" />
+  <link rel="stylesheet" href="demo.css?v=11" />
 </head>
 <body>
   <header class="site-top">
@@ -21,7 +21,7 @@
       <nav class="top-nav">
         <a href="#security">Bảo mật</a>
         <a href="#onboarding">Quy trình</a>
-        <a href="#scan-guide">Bố cục hồ sơ</a>
+        <a href="#scan-guide">Quét hồ sơ</a>
         <a href="#mockapp">Giao diện</a>
         <a href="#install">Cài đặt</a>
         <a class="btn btn-primary" href="https://github.com/Jokejoker-designer/ERPcompany-" target="_blank" rel="noopener">Tải miễn phí</a>
@@ -326,20 +326,24 @@
         </div>
 
         <div class="panel" style="margin-top:14px;border-top:3px solid var(--brand)">
-          <div class="panel-head"><h3 class="panel-title">Cách bật quét trên phần mềm</h3></div>
+          <div class="panel-head"><h3 class="panel-title">Trên phần mềm: 3 bước là quét</h3></div>
           <div class="panel-body">
             <ol class="steps-plain">
-              <li>Mở <span class="file-pill" style="font-size:12px">config.json</span> — khai báo
-                <code>scan_roots</code> trỏ tới thư mục gốc (ví dụ <code>D:\\HoSoKhach\\2026</code>).</li>
-              <li>Khởi động lại app (<span class="file-pill" style="font-size:12px">start.bat</span>).</li>
-              <li>Đăng nhập tài khoản <strong>Giám đốc / Quản trị</strong>.</li>
-              <li>Bấm <strong>Quét hồ sơ (ổ đĩa)</strong> trên thanh bên — chờ hoàn tất.</li>
-              <li>Vào danh mục khách hàng / kho tài liệu để kiểm tra kết quả.</li>
+              <li>Đăng nhập <strong>Giám đốc</strong> hoặc <strong>Quản trị hệ thống</strong>.</li>
+              <li>Góc dưới sidebar trái → ô <strong>Quét hồ sơ ổ đĩa</strong>:
+                gõ / dán đường dẫn (mỗi dòng một thư mục), ví dụ <code>D:\2026</code>.</li>
+              <li>Bấm nút xanh <strong>Quét ngay</strong> — tick “Lưu path cho lần sau” nếu muốn ghi vào cấu hình.</li>
             </ol>
+            <div class="scan-demo-ui" aria-hidden="true">
+              <div class="scan-demo-title">📁 Quét hồ sơ ổ đĩa</div>
+              <div class="scan-demo-sub">Mỗi dòng = 1 thư mục gốc</div>
+              <div class="scan-demo-paths">D:\2025<br>D:\2026</div>
+              <div class="scan-demo-btn">🔄 Quét ngay</div>
+              <div class="scan-demo-check">☑ Lưu path cho lần sau</div>
+            </div>
             <p class="flow-note" style="margin-top:12px">
-              <strong>Mẹo:</strong> Giữ cùng một quy ước tên cho mọi khách.
-              Folder rác, lab, “New folder”, archive gộp lung tung nên để ngoài cây quét
-              hoặc đặt tên không trùng quy ước khách hàng.
+              <strong>Mẹo:</strong> Tổ chức folder khách đúng mục “Bố cục hồ sơ” ở trên trước khi quét.
+              Không cần sửa file tay nếu đã nhập path trên UI.
             </p>
           </div>
         </div>

@@ -210,6 +210,40 @@ code { font-family: ui-monospace, Consolas, monospace; font-size: .9em; backgrou
   padding: .1em .35em;
   border-radius: 4px;
 }
+.scan-demo-ui {
+  margin-top: 14px;
+  max-width: 280px;
+  background: linear-gradient(180deg, #10294A, #0C2038);
+  color: #E9EFF8;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,.1);
+}
+.scan-demo-title { font-weight: 700; font-size: 13px; margin-bottom: 4px; }
+.scan-demo-sub { font-size: 11px; color: #9AAECB; margin-bottom: 8px; }
+.scan-demo-paths {
+  background: rgba(0,0,0,.28);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-family: Consolas, ui-monospace, monospace;
+  font-size: 12px;
+  margin-bottom: 8px;
+  border: 1px solid rgba(255,255,255,.1);
+  line-height: 1.45;
+}
+.scan-demo-btn {
+  background: #0B7285;
+  color: #fff;
+  text-align: center;
+  font-weight: 750;
+  font-size: 13px;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+.scan-demo-check { font-size: 11.5px; color: #9AAECB; }
+
 @media (max-width: 920px) {
   .scan-layout { grid-template-columns: 1fr; }
 }
