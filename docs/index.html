@@ -6,7 +6,7 @@
   <title>Thanh Hoai ERP — Phần mềm quản trị doanh nghiệp SME</title>
   <meta name="description" content="Thanh Hoai ERP — phần mềm quản trị nội bộ chạy local trên Windows: nhiều tài khoản, phân quyền API, dữ liệu trên máy bạn. Báo giá, công trình, công nợ, hồ sơ." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B7285'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='white' font-size='14' font-family='Segoe UI' font-weight='700'%3ETH%3C/text%3E%3C/svg%3E" />
-  <link rel="stylesheet" href="demo.css?v=8" />
+  <link rel="stylesheet" href="demo.css?v=9" />
 </head>
 <body>
   <header class="site-top">
@@ -19,9 +19,10 @@
         </span>
       </a>
       <nav class="top-nav">
-        <a href="#security">Bảo mật local</a>
-        <a href="#mockapp">Trải nghiệm</a>
-        <a href="#install">Triển khai</a>
+        <a href="#security">Bảo mật</a>
+        <a href="#onboarding">Quy trình</a>
+        <a href="#mockapp">Giao diện</a>
+        <a href="#install">Cài đặt</a>
         <a class="btn btn-primary" href="https://github.com/Jokejoker-designer/ERPcompany-" target="_blank" rel="noopener">Tải miễn phí</a>
       </nav>
     </div>
@@ -131,11 +132,93 @@
       </div>
     </section>
 
+    <!-- Quy trình bắt đầu — đúng nghiệp vụ product -->
+    <section id="onboarding" class="onboard-section">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Bắt đầu vận hành sau khi cài</h2>
+          <p>Hệ thống không “tự mọc” dữ liệu. Bạn nạp nguồn theo từng bước — phân loại theo <strong>quy tắc cố định</strong>, không dùng AI đoán mò.</p>
+        </div>
+        <ol class="flow-steps">
+          <li>
+            <span class="flow-n">1</span>
+            <div>
+              <h3>Cài đặt &amp; tài khoản</h3>
+              <p>Chạy <span class="file-pill" style="font-size:12px">setup.bat</span>, đăng nhập, đổi mật khẩu. Tạo thêm tài khoản cho GĐ, kế toán, kinh doanh, kỹ thuật…</p>
+            </div>
+          </li>
+          <li>
+            <span class="flow-n">2</span>
+            <div>
+              <h3>Thông tin công ty của bạn</h3>
+              <p>Vào <strong>Cấu hình</strong>: tên công ty, logo, hotline — in lên báo giá và chứng từ. Đây là “hồ sơ doanh nghiệp bạn”, không phụ thuộc hóa đơn khách.</p>
+            </div>
+          </li>
+          <li>
+            <span class="flow-n">3</span>
+            <div>
+              <h3>Import hóa đơn mua vào (từ nhà cung cấp)</h3>
+              <p>
+                Nạp file Excel hóa đơn <strong>mua vật tư / thiết bị</strong>. Hệ thống đọc cột (MST NCC, tên hàng, số lượng, đơn giá…),
+                <strong>phân loại dòng hàng</strong> theo quy tắc (vật tư / thiết bị), map với danh mục có sẵn hoặc đưa dòng cần người duyệt.
+                Kết quả: <strong>danh mục mặt hàng, giá vốn, tồn kho</strong> được cập nhật.
+              </p>
+              <p class="flow-note">
+                <strong>Lưu ý quan trọng:</strong> import hóa đơn mua vào <em>không</em> tự tạo “hồ sơ khách hàng / công trình” từ hóa đơn bán cho khách.
+                Đó là luồng mua hàng &amp; kho — khác với hồ sơ dự án phía khách.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span class="flow-n">4</span>
+            <div>
+              <h3>Khách hàng &amp; hồ sơ công trình</h3>
+              <p>
+                Tạo khách / công trình trên hệ thống, hoặc <strong>quét thư mục trên ổ đĩa</strong>
+                (cấu hình <span class="file-pill" style="font-size:12px">scan_roots</span>) để index file PDF, Word, Excel, ảnh theo folder khách —
+                chỉ đọc metadata, không sửa file gốc.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span class="flow-n">5</span>
+            <div>
+              <h3>Báo giá → chứng từ → công nợ</h3>
+              <p>Lập báo giá / BOQ, xuất BBNT–BQT–thư thanh toán theo mẫu, theo dõi công nợ và đối soát sao kê.</p>
+            </div>
+          </li>
+        </ol>
+        <div class="flow-compare">
+          <div class="flow-box">
+            <h4>Import HĐ mua vào mang lại</h4>
+            <ul>
+              <li>Hóa đơn mua &amp; dòng hàng</li>
+              <li>Phân loại vật tư / thiết bị (quy tắc)</li>
+              <li>Giá vốn + tồn kho</li>
+              <li>Dòng mơ hồ → chờ người duyệt</li>
+            </ul>
+          </div>
+          <div class="flow-box alt">
+            <h4>Hồ sơ khách / công trình đến từ</h4>
+            <ul>
+              <li>Tạo thủ công trên phần mềm</li>
+              <li>Quét folder khách trên ổ cứng</li>
+              <li>Luồng báo giá &amp; chứng từ dự án</li>
+              <li><em>Không</em> tự sinh từ HĐ mua NCC</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== Mock app shell ===== -->
     <section id="mockapp" class="mock-section">
       <div class="wrap section-head">
-        <h2>Giao diện vận hành — xem trước</h2>
-        <p>Khám phá các màn hình chính: dashboard điều hành, công nợ, báo giá, bộ hồ sơ công trình và phân quyền. Chọn tab hoặc menu bên trái để chuyển màn.</p>
+        <h2>Giao diện khi tải về và cài — xem trước</h2>
+        <p>
+          Minh họa các màn bạn sẽ thao tác sau <span class="file-pill" style="font-size:12px">setup.bat</span>.
+          Tab <strong>Cấu hình</strong> phản ánh bản cài mới (mẫu sẵn, danh mục khách/vật tư còn trống cho đến khi nhập liệu).
+        </p>
       </div>
 
       <div class="wrap">
@@ -146,6 +229,7 @@
           <button type="button" class="screen-tab" data-screen="documents">Hồ sơ CT V3.1</button>
           <button type="button" class="screen-tab" data-screen="chungtu">7 chứng từ</button>
           <button type="button" class="screen-tab" data-screen="bank">Sao kê</button>
+          <button type="button" class="screen-tab" data-screen="cauhinh">Cấu hình</button>
           <button type="button" class="screen-tab" data-screen="roles">Tài khoản</button>
         </div>
 
@@ -431,9 +515,69 @@
                 </div>
               </div>
 
+              <!-- Cấu hình & Danh mục — layout gần app thật; số liệu = bản cài mới (chưa import) -->
+              <div class="screen" data-pane="cauhinh">
+                <p class="page-note">Thiết lập danh mục, biểu mẫu và thông số vận hành hệ thống.</p>
+                <div class="grid metrics cfg-kpis">
+                  <div class="metric panel has-ico"><div class="metric-ico">👤</div><div class="metric-label">Tổng vai trò</div><div class="metric-value">7</div><div class="metric-foot">vai trò hệ thống</div></div>
+                  <div class="metric panel has-ico info"><div class="metric-ico">⚙️</div><div class="metric-label">Workflow</div><div class="metric-value">9</div><div class="metric-foot">quy trình sẵn có</div></div>
+                  <div class="metric panel has-ico warn"><div class="metric-ico">📄</div><div class="metric-label">Mẫu biểu chuẩn</div><div class="metric-value">84</div><div class="metric-foot">mã tài liệu công trình</div></div>
+                  <div class="metric panel has-ico"><div class="metric-ico">📦</div><div class="metric-label">Danh mục vật tư</div><div class="metric-value">0</div><div class="metric-foot">sau import HĐ mua vào</div></div>
+                  <div class="metric panel has-ico"><div class="metric-ico">🏢</div><div class="metric-label">Khách hàng</div><div class="metric-value">0</div><div class="metric-foot">tạo mới hoặc quét folder</div></div>
+                  <div class="metric panel has-ico ok"><div class="metric-ico">✓</div><div class="metric-label">Mẫu in chứng từ</div><div class="metric-value">8</div><div class="metric-foot">BG · BBNT · BQT…</div></div>
+                </div>
+                <div class="grid cols-2">
+                  <div class="panel">
+                    <div class="panel-head"><h3 class="panel-title">Danh mục hệ thống</h3></div>
+                    <div class="panel-body">
+                      <table class="tbl">
+                        <thead><tr><th>Danh mục</th><th class="num">Số lượng</th><th>Trạng thái</th></tr></thead>
+                        <tbody>
+                          <tr><td>Khách hàng</td><td class="num">0</td><td><span class="chip">Chưa có</span></td></tr>
+                          <tr><td>Vật tư / mặt hàng (từ HĐ mua)</td><td class="num">0</td><td><span class="chip">Chưa có</span></td></tr>
+                          <tr><td>Nhân sự (KTT / KTV)</td><td class="num">0</td><td><span class="chip">Chưa có</span></td></tr>
+                          <tr><td>Mẫu in chứng từ</td><td class="num">8</td><td><span class="chip ok">Sẵn sàng</span></td></tr>
+                          <tr><td>Mẫu hồ sơ CT-00…09</td><td class="num">84</td><td><span class="chip ok">Sẵn sàng</span></td></tr>
+                          <tr><td>Quy tắc thuế / VAT</td><td class="num">—</td><td><span class="chip info">Cấu hình khi dùng</span></td></tr>
+                        </tbody>
+                      </table>
+                      <p class="hint">Bản cài mới: mẫu chứng từ có sẵn; khách hàng &amp; vật tư tăng dần khi bạn nhập liệu / import / quét hồ sơ.</p>
+                    </div>
+                  </div>
+                  <div class="panel">
+                    <div class="panel-head"><h3 class="panel-title">Thiết lập nhanh</h3></div>
+                    <div class="panel-body">
+                      <div class="quick-grid">
+                        <div class="quick-card"><strong>Thông tin công ty</strong><span>Tên, logo, hotline in chứng từ</span></div>
+                        <div class="quick-card"><strong>Cấu hình báo giá</strong><span>Lập / phiên bản / sinh bộ CT</span></div>
+                        <div class="quick-card"><strong>Mẫu BBNT · BQT · Thư TT</strong><span>Biểu mẫu xuất file</span></div>
+                        <div class="quick-card"><strong>Danh mục vật tư</strong><span>Tích lũy từ HĐ mua vào</span></div>
+                        <div class="quick-card"><strong>Danh mục nhân sự</strong><span>Gắn tài khoản &amp; vai trò</span></div>
+                        <div class="quick-card"><strong>Nhật ký hệ thống</strong><span>Theo dõi thao tác quan trọng</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel" style="margin-top:12px">
+                  <div class="panel-head"><h3 class="panel-title">Mẫu chứng từ &amp; biểu mẫu</h3></div>
+                  <div class="panel-body">
+                    <table class="tbl">
+                      <thead><tr><th>Tên mẫu</th><th>Dùng khi</th><th>Trạng thái</th></tr></thead>
+                      <tbody>
+                        <tr><td>Báo giá</td><td>Gửi khách</td><td><span class="chip ok">Sẵn sàng</span></td></tr>
+                        <tr><td>BBNT</td><td>Sau thi công</td><td><span class="chip ok">Sẵn sàng</span></td></tr>
+                        <tr><td>BQT</td><td>Quyết toán</td><td><span class="chip ok">Sẵn sàng</span></td></tr>
+                        <tr><td>Thư đề nghị thanh toán</td><td>Theo đợt</td><td><span class="chip ok">Sẵn sàng</span></td></tr>
+                        <tr><td>Biên bản đối chiếu công nợ</td><td>Cuối kỳ</td><td><span class="chip ok">Sẵn sàng</span></td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
               <!-- roles -->
               <div class="screen" data-pane="roles">
-                <p class="page-note">Tài khoản seed_fresh — mật khẩu ngẫu nhiên mỗi lần cài, bắt đổi lần đầu.</p>
+                <p class="page-note">Cấp tài khoản cho từng thành viên — mật khẩu khởi tạo an toàn, bắt đổi khi đăng nhập lần đầu.</p>
                 <div class="role-grid">
                   <div class="role-card"><strong>admin</strong><span>Quản trị hệ thống</span></div>
                   <div class="role-card"><strong>giamdoc</strong><span>Giám đốc</span></div>

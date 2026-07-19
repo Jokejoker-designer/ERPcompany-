@@ -69,6 +69,88 @@ code { font-family: ui-monospace, Consolas, monospace; font-size: .9em; backgrou
   .security-grid { grid-template-columns: 1fr; }
 }
 
+/* onboarding flow */
+.onboard-section {
+  padding: 40px 0 28px;
+  background: linear-gradient(180deg, #f0f7f9, #fff 60%);
+  border-bottom: 1px solid var(--line-soft);
+}
+.flow-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+.flow-steps > li {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 14px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 18px;
+  box-shadow: var(--shadow);
+}
+.flow-n {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--brand); color: #fff;
+  display: grid; place-items: center;
+  font-weight: 800; font-size: 16px;
+}
+.flow-steps h3 { margin: 0 0 6px; font-size: 16px; color: var(--brand-ink); }
+.flow-steps p { margin: 0 0 8px; font-size: 14px; color: #3a4650; line-height: 1.5; }
+.flow-note {
+  background: #fff8e6;
+  border: 1px solid #f3d79a;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 13px !important;
+  color: #7a4a0a !important;
+}
+.flow-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 18px;
+}
+.flow-box {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 18px;
+  border-top: 3px solid var(--brand);
+}
+.flow-box.alt { border-top-color: var(--info); }
+.flow-box h4 { margin: 0 0 10px; font-size: 15px; color: var(--ink); }
+.flow-box ul { margin: 0; padding-left: 18px; color: #3a4650; font-size: 13.5px; line-height: 1.55; }
+.flow-box li { margin-bottom: 4px; }
+
+/* config page mock */
+.grid.metrics.cfg-kpis {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 12px;
+}
+.quick-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.quick-card {
+  border: 1px solid var(--line-soft);
+  border-radius: 10px;
+  padding: 12px;
+  background: #f8fafb;
+}
+.quick-card strong { display: block; font-size: 13px; color: var(--brand-ink); margin-bottom: 4px; }
+.quick-card span { font-size: 12px; color: var(--muted); line-height: 1.35; }
+
+@media (max-width: 920px) {
+  .flow-compare { grid-template-columns: 1fr; }
+  .grid.metrics.cfg-kpis { grid-template-columns: 1fr 1fr; }
+  .quick-grid { grid-template-columns: 1fr; }
+}
+
 /* chips / btn */
 .chip {
   display: inline-flex; align-items: center; border-radius: 999px; padding: 3px 8px;

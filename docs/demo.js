@@ -2,7 +2,6 @@
 (function () {
   "use strict";
 
-  // Số thứ tự 1…7 liên tục cho demo (không dùng mã trang lẻ 1/3/9/10 của app full)
   var NAV = [
     { id: "dashboard", no: "1", group: "Điều hành", name: "Dashboard điều hành", sub: "Tổng quan vận hành" },
     { id: "quotation", no: "2", group: "Vận hành", name: "Báo giá", sub: "BOQ · VAT · revision" },
@@ -10,7 +9,8 @@
     { id: "documents", no: "4", group: "Hồ sơ", name: "Hồ sơ công trình", sub: "Checklist theo giai đoạn" },
     { id: "chungtu", no: "5", group: "Hồ sơ", name: "Chứng từ xuất file", sub: "BG · BBNT · BQT · HĐ" },
     { id: "bank", no: "6", group: "Công nợ", name: "Sao kê ngân hàng", sub: "Đối soát dòng tiền" },
-    { id: "roles", no: "7", group: "Cấu hình", name: "Tài khoản & phân quyền", sub: "Đúng vai · đúng quyền" }
+    { id: "cauhinh", no: "7", group: "Cấu hình", name: "Cấu hình & Danh mục", sub: "Công ty · mẫu · danh mục" },
+    { id: "roles", no: "8", group: "Cấu hình", name: "Tài khoản & phân quyền", sub: "Đúng vai · đúng quyền" }
   ];
 
   var META = {
@@ -37,6 +37,10 @@
     bank: {
       title: "Sao kê ngân hàng",
       note: "Đối soát dòng tiền, khớp công nợ và phiếu chi."
+    },
+    cauhinh: {
+      title: "Cấu hình & Danh mục",
+      note: "Thiết lập danh mục, biểu mẫu và thông số vận hành hệ thống."
     },
     roles: {
       title: "Tài khoản & phân quyền",
