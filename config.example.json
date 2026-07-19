@@ -1,0 +1,14 @@
+{
+  "product_name": "Thanh Hoai ERP",
+  "company_name": "CÔNG TY CỦA BẠN",
+  "tax_id": "",
+  "address": "",
+  "phone": "",
+  "website": "",
+  "hotline_kt": "",
+  "logo_file": "web/branding/logo.svg",
+  "scan_roots": ["D:\\2025", "D:\\2026"],
+  "host": "127.0.0.1",
+  "port": 8777,
+  "open_browser": true
+}

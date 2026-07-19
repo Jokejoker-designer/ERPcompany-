@@ -1,0 +1,11 @@
+{
+  "name": "Thanh Hoai ERP",
+  "short_name": "TH ERP",
+  "description": "He quan tri cong trinh va van hanh noi bo Thanh Hoai",
+  "lang": "vi",
+  "start_url": "/#dashboard",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f4f7f8",
+  "theme_color": "#0b7285"
+}

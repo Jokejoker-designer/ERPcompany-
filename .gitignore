@@ -1,0 +1,39 @@
+# Runtime / secrets
+config.json
+data/*
+!data/.gitkeep
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# Logs & local
+*.log
+server_*.log
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Packaging
+deployment/winsw/logs/
+*.msi
+
+# OS / temp
+_tmp_*.py
+*.bak
+*.old
