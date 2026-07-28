@@ -1,39 +1,68 @@
-# Runtime / secrets
+# === Monorepo root — LOCAL secrets & data NEVER on GitHub ===
+
+# Secrets / machine config
+.env
+.env.*
+!.env.example
 config.json
-data/*
-!data/.gitkeep
-*.db
-*.db-*
-*.sqlite
-*.sqlite3
+**/config.json
+!**/config.example.json
+
+# Databases & backups
+**/*.db
+**/*.db-*
+**/*.sqlite
+**/*.sqlite3
+**/data/**
+!**/data/.gitkeep
+**/backups/**
+**/attachments/**
+**/uploads/**
+
+# Customer / year folders (local ERP only)
+# Never commit scanned customer trees
+**/Sân bay*/
+**/CÔNG TY*/
+**/cty */
 
 # Python
-__pycache__/
-*.py[cod]
-.pytest_cache/
-.venv/
-venv/
-env/
-*.egg-info/
-dist/
-build/
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.venv/
+**/venv/
+**/env/
+**/*.egg-info/
+**/build/
+# allow demo "build" scripts naming — ignore Python dist
+apps/thanh-hoai-runtime/dist/
 
-# Logs & local
-*.log
-server_*.log
-.DS_Store
-Thumbs.db
+# Node / frontend demo
+**/node_modules/
+**/dist/
+**/.output/
+**/.nitro/
+**/.tanstack/
+**/.vercel/
+*.local
+.node_modules.lock
 
-# IDE
+# Logs & OS
+**/*.log
+**/.DS_Store
+**/Thumbs.db
+**/_tmp_*.py
+**/*.bak
+**/*.old
+
+# IDE / packaging noise
 .idea/
 .vscode/
 *.swp
-
-# Packaging
-deployment/winsw/logs/
 *.msi
+**/deployment/winsw/logs/
 
-# OS / temp
-_tmp_*.py
-*.bak
-*.old
+# Screenshots / accidental dumps
+screenshots/
+attachments/
+.project_id

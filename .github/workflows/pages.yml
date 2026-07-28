@@ -1,12 +1,11 @@
-# Deploy docs/ → GitHub Pages (demo tĩnh)
-# Lần đầu: tự bật Pages (enablement: true) nếu repo chưa cấu hình.
+﻿# Deploy runtime static docs → GitHub Pages (optional)
 name: Deploy demo Pages
 
 on:
   push:
     branches: [main]
     paths:
-      - "docs/**"
+      - "apps/thanh-hoai-runtime/docs/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -26,21 +25,12 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      # enablement: true = tự bật site Pages + source = GitHub Actions
-      # (tránh lỗi: Get Pages site failed / Not Found)
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
         with:
           enablement: true
-
-      - name: Upload docs/
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v3
         with:
-          path: docs
-
-      - name: Deploy
-        id: deployment
+          path: apps/thanh-hoai-runtime/docs
+      - id: deployment
         uses: actions/deploy-pages@v4
