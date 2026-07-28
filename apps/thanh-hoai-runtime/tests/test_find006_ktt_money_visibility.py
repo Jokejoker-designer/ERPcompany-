@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """WO32 / FIND-006 (P0) regression tests: KTT (Ky thuat truong) money-
 visibility product policy, decided 2026-07-10 (Phuong an C3). See
 docs/work_orders/WO32_FIND006_KTT_MONEY_VISIBILITY_POLICY.md for the full
@@ -66,7 +66,7 @@ import unittest
 
 import api
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+APP_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCHEMA_PATH = os.path.join(APP_ROOT, "schema.sql")
 
 

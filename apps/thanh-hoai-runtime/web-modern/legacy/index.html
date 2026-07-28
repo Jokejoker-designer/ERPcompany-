@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b7285" />
+  <title>Thanh Hoài ERP — Hệ quản trị nội bộ</title>
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="stylesheet" href="/app.css" />
+</head>
+<body>
+  <a class="skip-link" href="#content">Bỏ qua menu, tới nội dung chính</a>
+  <!-- Man hinh dang nhap -->
+  <div id="login" class="login-wrap" style="display:none">
+    <form id="login-form" class="login-card" autocomplete="off">
+      <div class="lc-brand">
+        <div class="lc-mark">TH</div>
+        <div>
+          <h1>Thanh Hoài ERP</h1>
+          <div class="lc-sub">Cơ điện lạnh &amp; công trình</div>
+        </div>
+      </div>
+      <label for="u">Tài khoản</label>
+      <input id="u" name="username" placeholder="vd: giamdoc" autofocus />
+      <label for="p">Mật khẩu</label>
+      <input id="p" name="password" type="password" placeholder="••••••" />
+      <button class="login-btn" type="submit">Đăng nhập</button>
+      <div id="login-err" class="login-err"></div>
+      <div class="login-hint">
+        Đăng nhập bằng tài khoản được cấp. Lần đầu đăng nhập, hệ thống sẽ yêu cầu đổi mật khẩu.<br>
+        Quên mật khẩu? Liên hệ quản trị hệ thống.
+      </div>
+    </form>
+  </div>
+
+  <!-- Khung ung dung -->
+  <div id="app" class="app" style="display:none">
+    <aside class="sidebar" id="app-sidebar">
+      <div class="brand">
+        <div class="brand-title"><span class="brand-mark">TH</span> Thanh Hoài ERP</div>
+        <div class="brand-subtitle">Hệ quản trị nội bộ — Cơ điện lạnh Thanh Hoài</div>
+      </div>
+      <nav class="nav" id="nav"></nav>
+      <div class="sidebar-foot" id="foot"></div>
+    </aside>
+    <main class="main">
+      <div class="topbar">
+        <div>
+          <button class="btn ghost mobile-nav-toggle" id="mobile-nav-toggle" type="button"
+            aria-controls="app-sidebar" aria-expanded="false">☰ Menu</button>
+          <div class="crumb" id="page-crumb"></div>
+          <h1 id="page-title">…</h1>
+        </div>
+        <div class="topbar-right">
+          <div class="toolbar" id="page-actions"></div>
+          <button class="btn primary" id="btn-start-work" style="display:none">＋ Bắt đầu công việc</button>
+          <div class="topbar-user" id="topbar-user"></div>
+        </div>
+      </div>
+      <div class="content">
+        <p class="page-note" id="page-note"></p>
+        <div id="content"><div class="loading">Đang tải…</div></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/offline.js?v=15"></script>
+  <script src="/app.js?v=15"></script>
+  <script src="/app_write.js?v=15"></script>
+  <script src="/social.js?v=15"></script>
+</body>
+</html>

@@ -66,3 +66,7 @@ apps/thanh-hoai-runtime/dist/
 screenshots/
 attachments/
 .project_id
+
+apps/thanh-hoai-runtime/server.py.pre-modern-ui.bak
+*.pre-modern-ui.bak
+

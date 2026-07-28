@@ -1,0 +1,61 @@
+﻿<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#10252f">
+  <meta name="color-scheme" content="light dark">
+  <title>Thanh Hoài ERP</title>
+  <link rel="stylesheet" href="/app.css?v=modern1">
+</head>
+<body>
+  <noscript>Hệ thống cần JavaScript để hoạt động.</noscript>
+  <div id="login-view" class="auth-shell hidden">
+    <section class="auth-card">
+      <div class="brand-mark">TH</div>
+      <div>
+        <p class="eyebrow">ERP CƠ ĐIỆN LẠNH</p>
+        <h1>Đăng nhập hệ thống</h1>
+        <p class="muted">Dữ liệu lưu trên máy chủ nội bộ. Không sử dụng tài khoản demo.</p>
+      </div>
+      <form id="login-form" class="stack">
+        <label>Tên đăng nhập<input id="login-username" name="username" autocomplete="username" required></label>
+        <label>Mật khẩu<input id="login-password" name="password" type="password" autocomplete="current-password" required></label>
+        <button class="btn primary" type="submit">Đăng nhập</button>
+        <p id="login-error" class="error" role="alert"></p>
+      </form>
+    </section>
+  </div>
+
+  <div id="app-view" class="app-shell hidden">
+    <button id="mobile-overlay" class="mobile-overlay hidden" aria-label="Đóng menu"></button>
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-mark small">TH</div>
+        <div><strong id="brand-title">Thanh Hoài ERP</strong><small>Vận hành nội bộ · Local-first</small></div>
+        <button id="sidebar-close" class="icon-btn only-mobile" aria-label="Đóng menu">×</button>
+      </div>
+      <nav id="nav" class="nav"></nav>
+      <div class="sidebar-footer">
+        <a class="legacy-link" href="/legacy/index.html">Mở giao diện đầy đủ cũ</a>
+        <button id="logout-btn" class="btn ghost full">Đăng xuất</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button id="menu-btn" class="icon-btn only-mobile" aria-label="Mở menu">☰</button>
+        <div class="page-heading"><p id="page-kicker" class="eyebrow"></p><h1 id="page-title"></h1></div>
+        <div class="top-actions">
+          <span id="connection-status" class="status-dot">Đang kết nối</span>
+          <button id="refresh-btn" class="btn secondary">Làm mới</button>
+          <div class="user-pill"><span id="user-name"></span><small id="user-role"></small></div>
+        </div>
+      </header>
+      <section id="content" class="content" aria-live="polite"></section>
+    </main>
+  </div>
+  <div id="toast-root" class="toast-root"></div>
+  <script src="/app.js?v=modern1" defer></script>
+</body>
+</html>

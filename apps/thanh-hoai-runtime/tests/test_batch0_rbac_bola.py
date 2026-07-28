@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """Batch 0 RBAC/BOLA regression tests.
 
 All rows are synthetic and all writes use an in-memory SQLite database.  The
@@ -15,7 +15,7 @@ import api_write as AW
 import server
 
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+APP_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCHEMA_PATH = os.path.join(APP_ROOT, "schema.sql")
 
 

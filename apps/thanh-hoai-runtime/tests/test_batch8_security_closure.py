@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """Regression closure for the 2026-07-14 KTT/KTV black-box findings.
 
 All tests use an in-memory schema and synthetic values.  No production database,
@@ -13,7 +13,7 @@ import api
 import server
 
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+APP_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 KTT = "Ky thuat truong"
 
 

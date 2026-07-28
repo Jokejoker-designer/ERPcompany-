@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """Regression tests cho P0: ep doi mat khau khoi tao + fix bug prefix startswith.
 
 Chay hoan toan tren SQLite :memory: dung tu schema.sql — KHONG dong den
@@ -23,7 +23,7 @@ import api_write as AW
 import db as D
 import server
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+APP_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCHEMA_PATH = os.path.join(APP_ROOT, "schema.sql")
 
 

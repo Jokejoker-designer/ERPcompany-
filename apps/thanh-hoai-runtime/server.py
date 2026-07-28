@@ -38,7 +38,14 @@ except Exception:
 
 # Ho tro chay ca khi dong goi .exe (PyInstaller giai nen vao _MEIPASS)
 BASE = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
-WEB_DIR = os.path.join(BASE, "web")
+# MODERN_UI_WEB_DIR_V1
+_web_dir_setting = os.environ.get("THANH_HOAI_WEB_DIR", "").strip()
+if _web_dir_setting:
+    WEB_DIR = (_web_dir_setting if os.path.isabs(_web_dir_setting)
+               else os.path.join(BASE, _web_dir_setting))
+    WEB_DIR = os.path.abspath(WEB_DIR)
+else:
+    WEB_DIR = os.path.join(BASE, "web")
 
 # Product config (logo / company / scan roots / port) — Model A single-tenant install
 app_config.ensure_config()
@@ -579,6 +586,8 @@ class Handler(BaseHTTPRequestHandler):
             if not sess:
                 return self._send_json({"authenticated": False})
             return self._send_json({"authenticated": True, "user": {
+                "id": sess.get("user_id"),
+                "user_id": sess.get("user_id"),
                 "username": sess["username"], "full_name": sess["full_name"], "role": sess["role"],
                 "must_change": sess.get("must_change", 0)}})
 
@@ -1353,6 +1362,7 @@ class Handler(BaseHTTPRequestHandler):
                              "must_change": must_change, "exp": time.time() + SESSION_TTL}
             cookie = self._session_cookie(tok, SESSION_TTL)
             return self._send_json({"ok": True, "user": {
+                "id": row["id"], "user_id": row["id"],
                 "username": row["username"], "full_name": row["full_name"], "role": row["role"],
                 "must_change": must_change}}, set_cookie=cookie)
         finally:

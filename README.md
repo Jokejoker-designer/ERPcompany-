@@ -29,14 +29,19 @@ Chi tiết tương thích: [`docs/COMPATIBILITY-THANH-HOAI-ERP.md`](docs/COMPATI
 cd apps\thanh-hoai-runtime
 REM tạo venv, pip install -r requirements.txt nếu cần
 REM copy config.example.json → config.json (local only)
-python server.py
-REM hoặc start.bat / run.bat — mặc định máy local
+start.bat
+REM Giao diện modern (web-modern + legacy fallback):
+start-modern.bat
+REM URL: http://127.0.0.1:8777
 ```
 
+- `start.bat` → UI cũ (`web/`).
+- `start-modern.bat` → UI mới (`web-modern/`, cùng DB/API; UI cũ tại `/legacy/`).
 - **Không** push `config.json`, `*.db`, backup, folder `D:\2025` / `D:\2026`.
 - Remote team (nếu có): **Tailscale private**, không mở port public internet.
+- Docs modern UI: [`docs/modern-ui/`](docs/modern-ui/).
 
-### Demo UI công trình
+### Demo UI công trình (React prototype — không phải runtime)
 
 ```bash
 cd apps/cong-trinh-demo

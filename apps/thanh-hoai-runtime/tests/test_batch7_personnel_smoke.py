@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """Batch 7 canaries: project people import and Admin smoke center.
 
 Every fixture is synthetic.  Writes use in-memory SQLite only; no test opens
@@ -19,7 +19,7 @@ import personnel_importer as PI
 import smoke_runner as SR
 
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+APP_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def make_conn():
