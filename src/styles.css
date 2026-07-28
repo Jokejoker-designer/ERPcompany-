@@ -1,0 +1,87 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  --font-sans: "Segoe UI", "Be Vietnam Pro", system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --color-bg: #f4f6f7;
+  --color-surface: #ffffff;
+  --color-surface-2: #f0f4f6;
+  --color-fg: #172026;
+  --color-muted: #66727d;
+  --color-border: #d8dee4;
+  --color-border-soft: #e9edf0;
+
+  --color-brand: #0b7285;
+  --color-brand-soft: #dff0f5;
+  --color-brand-ink: #075566;
+  --color-on-brand: #ffffff;
+
+  --color-nav: #10294a;
+  --color-nav-2: #0c2038;
+  --color-nav-ink: #e9eff8;
+  --color-nav-muted: #9aaecb;
+  --color-nav-line: rgb(255 255 255 / 0.09);
+  --color-nav-hover: rgb(255 255 255 / 0.07);
+
+  --color-ok: #137333;
+  --color-ok-soft: #dff5e6;
+  --color-warn: #b45309;
+  --color-warn-soft: #fff3d6;
+  --color-danger: #b42318;
+  --color-danger-soft: #ffe4df;
+  --color-info: #245b9c;
+  --color-info-soft: #dfeeff;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+
+  --shadow-panel: 0 10px 28px rgb(17 24 39 / 0.08);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    max-width: 100vw;
+    overflow-x: hidden;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  * {
+    border-color: var(--color-border);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
