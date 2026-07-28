@@ -8,7 +8,7 @@ import unittest
 import db as D
 import social as SOC
 
-SCHEMA = os.path.join(os.path.dirname(__file__), "schema.sql")
+SCHEMA = os.path.join(os.path.dirname(__file__), "..", "schema.sql")
 S1 = {"user_id": 1, "username": "u1", "role": "Giam doc", "exp": 9e18}
 S2 = {"user_id": 2, "username": "u2", "role": "Ky thuat vien", "exp": 9e18}
 S3 = {"user_id": 3, "username": "u3", "role": "Ky thuat truong", "exp": 9e18}

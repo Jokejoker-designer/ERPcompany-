@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """Regression tests for P1 finding FIND-007 (WO: harden /api/import_run's
 client-supplied path/paths before they reach openpyxl.load_workbook()).
 
@@ -34,7 +34,7 @@ import api_write as AW
 import import_excel as IE
 import server as SRV
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+APP_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCHEMA_PATH = os.path.join(APP_ROOT, "schema.sql")
 
 UNC_PATH = r"\\evil-share\public\Customer data.xlsx"

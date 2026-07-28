@@ -2,7 +2,7 @@ import unittest
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 JS = (ROOT / "web" / "app_write.js").read_text(encoding="utf-8")
 CSS = (ROOT / "web" / "app.css").read_text(encoding="utf-8")
 

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """WO37 regression tests. All writes stay in throwaway in-memory SQLite."""
 import os
 import sqlite3
@@ -10,7 +10,7 @@ import api_write as AW
 import seed
 
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+APP_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCHEMA_PATH = os.path.join(APP_ROOT, "schema.sql")
 
 

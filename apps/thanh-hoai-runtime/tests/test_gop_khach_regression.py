@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """Regression tests for FIND-004 (P2): api_write.gop_khach previously wrote
 (UPDATE/DELETE + optional real file moves) in a single unconfirmed call via
 a legacy phase=None branch. WO31 (product decision, 2026-07-10, purple-team
@@ -44,7 +44,7 @@ from unittest import mock
 
 import api_write as AW
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+APP_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCHEMA_PATH = os.path.join(APP_ROOT, "schema.sql")
 
 

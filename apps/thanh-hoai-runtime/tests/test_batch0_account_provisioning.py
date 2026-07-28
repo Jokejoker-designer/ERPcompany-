@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """Regression tests for Admin-driven personnel account provisioning.
 
 All data is synthetic and all database writes use in-memory SQLite.  The suite
@@ -14,7 +14,7 @@ import api_write as AW
 import db as D
 
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+APP_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def make_conn():

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """Batch 1 canary/regression tests for KTT operations and project resume.
 
 All rows are synthetic and all writes use an in-memory SQLite database.
@@ -21,7 +21,7 @@ import server
 from http.server import ThreadingHTTPServer
 
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+APP_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def make_conn():

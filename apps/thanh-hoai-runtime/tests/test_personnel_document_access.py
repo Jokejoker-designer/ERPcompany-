@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """Focused authorization tests for source_document.profile_role='personnel'.
 
 All records and paths are synthetic.  Tests use an in-memory SQLite database
@@ -13,7 +13,7 @@ import api
 import server
 
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+APP_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def _make_conn():

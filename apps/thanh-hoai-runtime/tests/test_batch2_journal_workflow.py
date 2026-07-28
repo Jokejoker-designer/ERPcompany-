@@ -21,7 +21,7 @@ import db as D
 import server
 
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def make_conn():

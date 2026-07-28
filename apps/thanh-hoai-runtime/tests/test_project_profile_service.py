@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """Transaction and mapping tests for ``project_profile_service``.
 
 All business records are fictional.  Every test uses an in-memory SQLite
@@ -22,7 +22,7 @@ import zipfile
 from unittest import mock
 
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+APP_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if APP_ROOT not in sys.path:
     sys.path.insert(0, APP_ROOT)
 

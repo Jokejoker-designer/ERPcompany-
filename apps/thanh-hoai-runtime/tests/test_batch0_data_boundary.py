@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """Batch 0 financial data-boundary and acting-accounting tests.
 
 Synthetic in-memory fixtures only.  No production-like values are emitted.
@@ -13,7 +13,7 @@ import api_write as AW
 import server
 
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+APP_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def add_col_if_missing(conn, table, column, declaration):

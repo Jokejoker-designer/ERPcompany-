@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """Regression tests for P0 authz fixes FIND-001, FIND-002, FIND-003 and FIND-006.
 
 Runs entirely against a throwaway in-memory SQLite DB built from schema.sql,
@@ -14,7 +14,7 @@ import unittest
 
 import api
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+APP_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCHEMA_PATH = os.path.join(APP_ROOT, "schema.sql")
 
 

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """Isolated regression tests for dynamic CT personnel and quotation templates.
 
 All records are synthetic.  Tests use in-memory SQLite and temporary Office files;
@@ -21,7 +21,7 @@ from openpyxl.worksheet.datavalidation import DataValidation
 import docgen as DG
 
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+APP_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCHEMA_PATH = os.path.join(APP_ROOT, "schema.sql")
 
 
