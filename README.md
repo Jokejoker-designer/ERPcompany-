@@ -80,11 +80,21 @@ Checklist 5 phút: [`CHAY-LOCAL.md`](CHAY-LOCAL.md).
 | UI v1.2.0 + POS + demo + docs | Hồ sơ KH, hóa đơn, sao kê, SĐT, token |
 | CI / Pages (nếu bật) | Password, Tailscale key |
 
+## Production domain (Cloudflare)
+
+| | |
+|--|--|
+| URL | https://erp.dienlanhthanhhoai.com |
+| Path | Access OTP → Tunnel `thanh-hoai-erp-8777` → `127.0.0.1:8777` runtime |
+| OTP “already used” | Gần như chắc mail scanner tiêu pin — xem [`docs/CLOUDFLARE-ERP.md`](docs/CLOUDFLARE-ERP.md) |
+| LOCAL bypass | `http://127.0.0.1:8777` trên máy host (không qua Access) |
+
 ## Version
 
 - **VERSION.txt** → `1.2.0` (UI complete package)
 - Build stamp: `BUILD_DATE.txt`
 - Publish notes: [`docs/GITHUB-PUBLISH.md`](docs/GITHUB-PUBLISH.md)
+- Cloudflare ops: [`docs/CLOUDFLARE-ERP.md`](docs/CLOUDFLARE-ERP.md)
 
 ## License
 
