@@ -46,6 +46,31 @@ Browser
    - Thử trình duyệt ẩn danh / tắt extension.
    - Xác nhận email đăng nhập **đúng** email trong Access policy allowlist.
 
+### Trường hợp pin MỚI vẫn báo “already been used” (hay gặp)
+
+Access log có thể ghi **`login` + `allowed: true`** (OTP **đã thành công**) nhưng trình duyệt vẫn kẹt URL:
+
+`https://….cloudflareaccess.com/cdn-cgi/access/callback`
+
+→ Đó là **trang callback sau khi pin đã tiêu**, không phải form nhập pin. Refresh / back / mở lại tab callback = lỗi “already used”.
+
+**Làm đúng thứ tự:**
+
+1. Đóng **hết** tab `cloudflareaccess.com` và `erp.dienlanhthanhhoai.com`.
+2. Xóa cookie site:
+   - Chrome → Settings → Privacy → Cookies → See all → xóa:
+     - `erp.dienlanhthanhhoai.com`
+     - `cloudflareaccess.com` (và subdomain `*.cloudflareaccess.com`)
+3. Mở **cửa sổ ẩn danh** (Ctrl+Shift+N).
+4. Gõ thẳng: `https://erp.dienlanhthanhhoai.com/` (không mở bookmark callback cũ).
+5. Nhập email allowlist → Request code → **chỉ dán 6 số** → Enter **1 lần**.
+6. **Ngay sau khi submit:** nếu URL còn `…/access/callback` và báo already used, **đừng refresh**.  
+   Gõ lại thanh địa chỉ: `https://erp.dienlanhthanhhoai.com/` rồi Enter.  
+   Nhiều lần session cookie đã set → vào được ERP dù callback hiện lỗi.
+7. Nếu vẫn 302 login loop: thử Edge/Firefox ẩn danh (loại trừ extension Chrome).
+
+**Không** dán URL callback từ history. **Không** bấm F5 trên trang lỗi.
+
 ### Nếu cần bypass tạm (chỉ admin máy)
 
 - Vào ERP **LOCAL**: `http://127.0.0.1:8777` (không qua Access).
