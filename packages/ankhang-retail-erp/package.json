@@ -1,0 +1,39 @@
+{
+  "name": "ankhang-retail-erp",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "description": "POS → ERP thu nhỏ cho tạp hóa / siêu thị / quán ăn — 5 giai đoạn (Master Data · Nhập kho · POS · Kiểm kho · BI)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jokejoker-designer/ankhang-retail-erp"
+  },
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5173",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 5173",
+    "typecheck": "tsc --noEmit",
+    "start:local": "sh start-local.sh"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.511.0",
+    "qrcode": "^1.5.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "recharts": "^2.15.0",
+    "sonner": "^2.0.3",
+    "tailwind-merge": "^3.0.2",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/qrcode": "^1.5.6",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.0",
+    "vite": "^6.0.0"
+  }
+}

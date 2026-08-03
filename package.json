@@ -1,0 +1,23 @@
+{
+  "name": "erpcompany-complete",
+  "version": "1.2.0",
+  "private": true,
+  "description": "Thanh Hoài ERP Công trình + AnKhang POS — bản UI hoàn thiện (local first). Backend nối sau.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jokejoker-designer/ERPcompany-"
+  },
+  "scripts": {
+    "dev:erp": "npm --prefix apps/thanh-hoai-erp run dev",
+    "dev:pos": "npm --prefix packages/ankhang-retail-erp run dev",
+    "build:erp": "npm --prefix apps/thanh-hoai-erp run build",
+    "build:pos": "npm --prefix packages/ankhang-retail-erp run build",
+    "typecheck:erp": "npm --prefix apps/thanh-hoai-erp run typecheck",
+    "typecheck:pos": "npm --prefix packages/ankhang-retail-erp run typecheck",
+    "install:all": "npm --prefix apps/thanh-hoai-erp install && npm --prefix packages/ankhang-retail-erp install"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}
