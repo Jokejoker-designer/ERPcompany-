@@ -40,5 +40,7 @@
 
 - **cong-trinh-demo** = học UI, demo quy trình 1→13
 - **thanh-hoai-runtime** = sổ sách, hồ sơ, social (nếu bật) — data local
+- **Demo live UI v1.2 (Grok)** = https://lagoon-thunder-glow-fleet.grok.me — frontend pilot, localStorage, **không** sổ sách công ty
+- GitHub Pages (marketing + #security): https://jokejoker-designer.github.io/ERPcompany-/#security
 
 Nhầm demo với production là rủi ro nghiệp vụ, không chỉ kỹ thuật.
