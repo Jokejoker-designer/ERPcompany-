@@ -1,6 +1,6 @@
 # Chạy local — checklist 5 phút
 
-## 1. ERP Công trình (bản chính trên preview Grok)
+## 1. ERP Công trình (React UI)
 
 ```bash
 cd apps/thanh-hoai-erp
@@ -10,9 +10,19 @@ npm run dev
 
 Mở: http://127.0.0.1:8080  
 
-- Đăng nhập demo → đổi MK lần đầu nếu được hỏi  
-- Setup wizard (nếu mở) → hoàn tất có thể wipe  
-- Menu 1→13 theo role  
+- **Demo local:** chọn «Demo local» trên login → seed / localStorage  
+- **Runtime API:** bật `apps/thanh-hoai-runtime` (:8777) trước → login «Runtime API» (proxy `/api`)  
+- Chi tiết: [`docs/modern-ui/REACT_RUNTIME_BRIDGE.md`](docs/modern-ui/REACT_RUNTIME_BRIDGE.md)  
+
+## 1b. Runtime Python (DB LOCAL)
+
+```bash
+cd apps/thanh-hoai-runtime
+# venv + pip + config.json nếu cần
+start.bat   # hoặc start-modern.bat
+```
+
+Mở UI vanilla: http://127.0.0.1:8777  
 
 ## 2. AnKhang POS riêng
 

@@ -56,6 +56,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const logout = useErpStore((s) => s.logout);
   const openWizard = useErpStore((s) => s.openWizard);
   const refreshSession = useErpStore((s) => s.refreshSession);
+  const dataSource = useErpStore((s) => s.dataSource);
+  const runtimeConnected = useErpStore((s) => s.runtimeConnected);
+  const runtimeSyncing = useErpStore((s) => s.runtimeSyncing);
+  const syncFromRuntime = useErpStore((s) => s.syncFromRuntime);
   const project = useActiveProject();
   const uiPrefs = useErpStore((s) => s.uiPrefs);
 
@@ -327,7 +331,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               </kbd>
             </button>
 
-            {canSetup ? (
+            {canSetup && dataSource === "demo" ? (
               <Button
                 size="sm"
                 variant={onboarding.completed ? "secondary" : "default"}
@@ -338,6 +342,44 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 Setup
               </Button>
             ) : null}
+
+            {dataSource === "runtime" ? (
+              <Button
+                size="sm"
+                variant="secondary"
+                className="hidden shrink-0 sm:inline-flex"
+                disabled={runtimeSyncing}
+                onClick={() => {
+                  void syncFromRuntime().then((r) => {
+                    if (r.ok) toast.success(r.message);
+                    else toast.error(r.message);
+                  });
+                }}
+              >
+                {runtimeSyncing ? "Đang sync…" : "Sync API"}
+              </Button>
+            ) : null}
+
+            <span
+              className={`hidden text-[11px] font-semibold sm:inline ${
+                dataSource === "runtime"
+                  ? runtimeConnected
+                    ? "text-ok"
+                    : "text-danger"
+                  : "text-muted"
+              }`}
+              title={
+                dataSource === "runtime"
+                  ? "Nguồn: thanh-hoai-runtime cookie session"
+                  : "Nguồn: demo localStorage"
+              }
+            >
+              {dataSource === "runtime"
+                ? runtimeConnected
+                  ? "● Runtime"
+                  : "○ Runtime offline"
+                : "○ Demo"}
+            </span>
 
             {user ? (
               <div className="flex shrink-0 items-center gap-2">

@@ -1,3 +1,10 @@
+# Changelog UI v1.2.2 (React ↔ Runtime API)
+
+- Vite proxy `/api` → `127.0.0.1:8777` (cookie `th_session`)
+- Dual-mode: Demo localStorage **hoặc** Runtime API (`api-client` · mappers · sync)
+- Login `/api/login` · `/api/me` · `/api/logout`; Sync KH/CT/BG/công nợ/dashboard
+- Tạo KH → `POST /api/write/customer`; docs `REACT_RUNTIME_BRIDGE.md`
+
 # Changelog UI v1.2.1 (UX polish trên Blueprint v1.2.0)
 
 - Khôi phục `apps/thanh-hoai-erp/src/data/` (seed · CT registry · documents) — trước đó bị `**/data/**` gitignore nuốt

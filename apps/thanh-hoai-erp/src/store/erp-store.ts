@@ -48,6 +48,19 @@ import {
   applyHighContrastToDocument,
 } from "@/lib/ui-prefs";
 import {
+  resolveDataSource,
+  setPreferredDataSource,
+  type DataSource,
+} from "@/lib/api-client";
+import {
+  createRuntimeCustomer,
+  fetchRuntimeBundle,
+  runtimeLogin,
+  runtimeLogout,
+  runtimeMe,
+} from "@/lib/runtime-data";
+import type { RuntimeDashboard } from "@/lib/api-mappers";
+import {
   type CredentialsMap,
   type Session,
   createSession,
@@ -79,6 +92,12 @@ type ErpState = {
   credentials: CredentialsMap;
   pendingTotpUser: string | null;
   _totpPending: { user: User; session: Session; mustChange: boolean } | null;
+  /** demo = localStorage seed; runtime = thanh-hoai-runtime cookie API */
+  dataSource: DataSource;
+  runtimeConnected: boolean;
+  runtimeSyncing: boolean;
+  runtimeError: string | null;
+  runtimeDashboard: RuntimeDashboard | null;
   company: CompanyConfig;
   uiPrefs: UiPrefs;
   customers: Customer[];
@@ -115,6 +134,10 @@ type ErpState = {
   disableTotp: (password: string, code: string) => Promise<{ ok: boolean; message: string }>;
   isTotpEnabled: (username?: string) => boolean;
   refreshSession: () => Promise<boolean>;
+  /** Resolve demo vs runtime, restore cookie session if any */
+  bootDataSource: () => Promise<DataSource>;
+  setDataSource: (source: DataSource) => Promise<void>;
+  syncFromRuntime: () => Promise<{ ok: boolean; message: string }>;
   updateCompany: (patch: Partial<CompanyConfig>) => void;
   setDensity: (density: Density) => void;
   setReducedMotion: (v: boolean) => void;
@@ -299,6 +322,11 @@ export const useErpStore = create<ErpState>()(
       credentials: defaultCredentials(),
       pendingTotpUser: null,
       _totpPending: null,
+      dataSource: "demo",
+      runtimeConnected: false,
+      runtimeSyncing: false,
+      runtimeError: null,
+      runtimeDashboard: null,
       company: SEED_COMPANY,
       uiPrefs: { ...DEFAULT_UI_PREFS },
       customers: SEED_CUSTOMERS,
@@ -313,6 +341,42 @@ export const useErpStore = create<ErpState>()(
       scan: { ...EMPTY_SCAN },
 
       login: async (username, password) => {
+        if (get().dataSource === "runtime") {
+          try {
+            const { user, mustChange } = await runtimeLogin(username, password);
+            const session: Session = {
+              userId: user.id,
+              username: user.username,
+              token: "runtime-cookie",
+              issuedAt: Date.now(),
+            };
+            set({
+              user,
+              session,
+              pendingTotpUser: null,
+              _totpPending: null,
+              runtimeConnected: true,
+              runtimeError: null,
+              onboarding: {
+                ...get().onboarding,
+                wizardOpen: false,
+              },
+            });
+            await get().syncFromRuntime();
+            return {
+              ok: true,
+              message: mustChange
+                ? `Xin chào ${user.name} — đổi mật khẩu trên runtime`
+                : `Xin chào ${user.name} (runtime)`,
+              mustChangePassword: mustChange,
+            };
+          } catch (e) {
+            const msg = e instanceof Error ? e.message : "Đăng nhập thất bại";
+            set({ runtimeError: msg, runtimeConnected: false });
+            return { ok: false, message: msg };
+          }
+        }
+
         const uname = username.trim().toLowerCase();
         const found = DEMO_USERS.find((u) => u.username.toLowerCase() === uname);
         if (!found) return { ok: false, message: "Tài khoản không tồn tại" };
@@ -349,15 +413,21 @@ export const useErpStore = create<ErpState>()(
         };
       },
 
-      logout: () =>
+      logout: () => {
+        const wasRuntime = get().dataSource === "runtime";
+        if (wasRuntime) void runtimeLogout();
         set({
           user: null,
           session: null,
           pendingTotpUser: null,
           _totpPending: null,
-        }),
+          runtimeDashboard: wasRuntime ? null : get().runtimeDashboard,
+          runtimeError: null,
+        });
+      },
 
       needsPasswordChange: () => {
+        if (get().dataSource === "runtime") return false;
         const s = get().session;
         if (!s) return false;
         return credMustChange(get().credentials, s.username);
@@ -561,6 +631,39 @@ export const useErpStore = create<ErpState>()(
       },
 
       refreshSession: async () => {
+        if (get().dataSource === "runtime") {
+          try {
+            const me = await runtimeMe();
+            if (!me.authenticated) {
+              set({
+                user: null,
+                session: null,
+                runtimeConnected: true,
+                runtimeError: null,
+              });
+              return false;
+            }
+            set({
+              user: me.user,
+              session: {
+                userId: me.user.id,
+                username: me.user.username,
+                token: "runtime-cookie",
+                issuedAt: Date.now(),
+              },
+              runtimeConnected: true,
+              runtimeError: null,
+            });
+            return true;
+          } catch (e) {
+            set({
+              runtimeConnected: false,
+              runtimeError:
+                e instanceof Error ? e.message : "Mất kết nối runtime",
+            });
+            return false;
+          }
+        }
         const user = await validateSession(get().session, DEMO_USERS, get().credentials);
         if (!user) {
           set({ user: null, session: null });
@@ -568,6 +671,91 @@ export const useErpStore = create<ErpState>()(
         }
         set({ user: { ...user } });
         return true;
+      },
+
+      bootDataSource: async () => {
+        const source = await resolveDataSource();
+        set({ dataSource: source });
+        if (source === "runtime") {
+          const ok = await get().refreshSession();
+          if (ok) await get().syncFromRuntime();
+        }
+        return source;
+      },
+
+      setDataSource: async (source) => {
+        setPreferredDataSource(source);
+        if (source === "demo") {
+          await runtimeLogout();
+          set({
+            dataSource: "demo",
+            user: null,
+            session: null,
+            runtimeConnected: false,
+            runtimeDashboard: null,
+            runtimeError: null,
+            customers: SEED_CUSTOMERS,
+            projects: SEED_PROJECTS.map(hydrateProject),
+            quotations: SEED_QUOTATIONS.map(mapQuote),
+            receivables: SEED_RECEIVABLES,
+            bankLines: SEED_BANK,
+            activeProjectId: SEED_PROJECTS[2]?.id ?? SEED_PROJECTS[0]?.id ?? null,
+          });
+          return;
+        }
+        set({ dataSource: "runtime", user: null, session: null });
+        try {
+          const ok = await get().refreshSession();
+          set({ runtimeConnected: true });
+          if (ok) await get().syncFromRuntime();
+        } catch (e) {
+          set({
+            runtimeConnected: false,
+            runtimeError: e instanceof Error ? e.message : "Runtime không sẵn sàng",
+          });
+        }
+      },
+
+      syncFromRuntime: async () => {
+        if (get().dataSource !== "runtime") {
+          return { ok: false, message: "Không ở chế độ runtime" };
+        }
+        set({ runtimeSyncing: true, runtimeError: null });
+        try {
+          const bundle = await fetchRuntimeBundle();
+          const projects = bundle.projects.map(hydrateProject);
+          set({
+            customers: bundle.customers,
+            projects,
+            quotations: bundle.quotations.map(mapQuote),
+            receivables: bundle.receivables,
+            runtimeDashboard: bundle.dashboard,
+            runtimeConnected: true,
+            runtimeSyncing: false,
+            activeProjectId:
+              get().activeProjectId &&
+              projects.some((p) => p.id === get().activeProjectId)
+                ? get().activeProjectId
+                : (projects[0]?.id ?? null),
+            onboarding: {
+              ...get().onboarding,
+              wizardOpen: false,
+              completed: true,
+            },
+          });
+          return {
+            ok: true,
+            message: `Đã đồng bộ ${bundle.customers.length} KH · ${projects.length} CT · ${bundle.quotations.length} BG`,
+          };
+        } catch (e) {
+          const message = e instanceof Error ? e.message : "Đồng bộ thất bại";
+          set({
+            runtimeSyncing: false,
+            runtimeConnected: false,
+            runtimeError: message,
+          });
+          return { ok: false, message };
+        }
       },
 
       updateCompany: (patch) => {
@@ -623,6 +811,33 @@ export const useErpStore = create<ErpState>()(
           notes: input.notes.trim(),
           createdAt: new Date().toISOString().slice(0, 10),
         };
+
+        if (get().dataSource === "runtime") {
+          void (async () => {
+            try {
+              const created = await createRuntimeCustomer({
+                name: customer.name,
+                taxId: customer.taxId,
+                contact: customer.contact,
+                phone: customer.phone,
+                email: customer.email,
+                address: customer.address,
+                notes: customer.notes,
+              });
+              if (created.id) {
+                set((s) => ({
+                  customers: s.customers.map((c) =>
+                    c.id === id ? { ...c, id: created.id } : c,
+                  ),
+                }));
+              }
+              await get().syncFromRuntime();
+            } catch {
+              /* optimistic row stays; user can sync manually */
+            }
+          })();
+        }
+
         set((s) => ({
           customers: [customer, ...s.customers],
           onboarding: {
@@ -1317,16 +1532,18 @@ export const useErpStore = create<ErpState>()(
     {
       name: "thanh-hoai-erp-demo-v7-ui",
       partialize: (s) => ({
-        session: s.session,
+        session: s.dataSource === "runtime" ? s.session : s.session,
+        dataSource: s.dataSource,
         credentials: s.credentials,
         company: s.company,
         uiPrefs: s.uiPrefs,
-        customers: s.customers,
-        projects: s.projects.map(hydrateProject),
-        materials: s.materials,
-        quotations: s.quotations.map(mapQuote),
-        receivables: s.receivables,
-        bankLines: s.bankLines,
+        // Only persist domain lists in demo mode — runtime re-syncs from API
+        customers: s.dataSource === "demo" ? s.customers : [],
+        projects: s.dataSource === "demo" ? s.projects.map(hydrateProject) : [],
+        materials: s.dataSource === "demo" ? s.materials : [],
+        quotations: s.dataSource === "demo" ? s.quotations.map(mapQuote) : [],
+        receivables: s.dataSource === "demo" ? s.receivables : [],
+        bankLines: s.dataSource === "demo" ? s.bankLines : [],
         docOverrides: s.docOverrides,
         activeProjectId: s.activeProjectId,
         scan: s.scan,
@@ -1334,14 +1551,20 @@ export const useErpStore = create<ErpState>()(
       }),
       merge: (persisted, current) => {
         const p = (persisted ?? {}) as Partial<ErpState>;
+        const dataSource = p.dataSource === "runtime" ? "runtime" : "demo";
         return {
           ...current,
           ...p,
+          dataSource,
           user: null,
           session: p.session ?? null,
           credentials: normalizeCredentials(p.credentials ?? current.credentials),
           pendingTotpUser: null,
           _totpPending: null,
+          runtimeConnected: false,
+          runtimeSyncing: false,
+          runtimeError: null,
+          runtimeDashboard: null,
           projects: (p.projects ?? current.projects).map(hydrateProject),
           quotations: (p.quotations ?? current.quotations).map(mapQuote),
           company: { ...SEED_COMPANY, ...(p.company ?? {}) },

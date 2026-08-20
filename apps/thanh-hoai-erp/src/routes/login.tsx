@@ -43,7 +43,10 @@ function LoginPage() {
 
   useEffect(() => {
     void (async () => {
-      if (session) await refreshSession();
+      await useErpStore.getState().bootDataSource();
+      if (useErpStore.getState().session) {
+        await refreshSession();
+      }
       setBooting(false);
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -78,10 +81,15 @@ function LoginPage() {
 
 function LoginForm({ companyName }: { companyName?: string }) {
   const login = useErpStore((s) => s.login);
+  const dataSource = useErpStore((s) => s.dataSource);
+  const runtimeConnected = useErpStore((s) => s.runtimeConnected);
+  const runtimeError = useErpStore((s) => s.runtimeError);
+  const setDataSource = useErpStore((s) => s.setDataSource);
   const [username, setUsername] = useState("giamdoc");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
   const [mode, setMode] = useState<"login" | "forgot">("login");
+  const isRuntime = dataSource === "runtime";
 
   async function doLogin(e?: React.FormEvent) {
     e?.preventDefault();
@@ -91,7 +99,11 @@ function LoginForm({ companyName }: { companyName?: string }) {
       if (!r.ok) toast.error(r.message);
       else if (r.needsTotp) toast.message("Nhập mã Google Authenticator");
       else if (r.mustChangePassword)
-        toast.message("Bắt buộc đổi mật khẩu + câu hỏi bảo mật");
+        toast.message(
+          isRuntime
+            ? "Runtime yêu cầu đổi mật khẩu — mở giao diện legacy nếu cần"
+            : "Bắt buộc đổi mật khẩu + câu hỏi bảo mật",
+        );
       else toast.success(r.message);
     } finally {
       setBusy(false);
@@ -177,6 +189,41 @@ function LoginForm({ companyName }: { companyName?: string }) {
                 Đăng nhập ERP công trình
               </span>
             </div>
+
+            <div className="flex flex-wrap gap-2">
+              <Button
+                type="button"
+                size="sm"
+                variant={!isRuntime ? "default" : "secondary"}
+                onClick={() => void setDataSource("demo")}
+              >
+                Demo local
+              </Button>
+              <Button
+                type="button"
+                size="sm"
+                variant={isRuntime ? "default" : "secondary"}
+                onClick={() => void setDataSource("runtime")}
+              >
+                Runtime API
+              </Button>
+              <span
+                className={`text-[11px] ${
+                  isRuntime
+                    ? runtimeConnected
+                      ? "text-ok"
+                      : "text-warn"
+                    : "text-muted"
+                }`}
+              >
+                {isRuntime
+                  ? runtimeConnected
+                    ? "Proxy /api → :8777"
+                    : runtimeError || "Chờ runtime :8777"
+                  : "localStorage seed"}
+              </span>
+            </div>
+
             <form
               id="login-form"
               className="space-y-3"
@@ -203,52 +250,68 @@ function LoginForm({ companyName }: { companyName?: string }) {
                   required
                 />
               </Field>
-              <div className="flex justify-end">
-                <button
-                  type="button"
-                  className="text-xs font-semibold text-brand-ink underline-offset-2 hover:underline"
-                  onClick={() => setMode("forgot")}
-                >
-                  Quên mật khẩu?
-                </button>
-              </div>
+              {!isRuntime ? (
+                <div className="flex justify-end">
+                  <button
+                    type="button"
+                    className="text-xs font-semibold text-brand-ink underline-offset-2 hover:underline"
+                    onClick={() => setMode("forgot")}
+                  >
+                    Quên mật khẩu?
+                  </button>
+                </div>
+              ) : null}
               <Button type="submit" className="w-full" disabled={busy}>
-                {busy ? "Đang đăng nhập…" : "Đăng nhập"}
+                {busy
+                  ? "Đang đăng nhập…"
+                  : isRuntime
+                    ? "Đăng nhập runtime"
+                    : "Đăng nhập"}
               </Button>
             </form>
-            <div className="space-y-1.5">
-              <div className="text-[11px] font-semibold uppercase text-muted">
-                Chọn nhanh (điền MK mặc định)
+            {!isRuntime ? (
+              <div className="space-y-1.5">
+                <div className="text-[11px] font-semibold uppercase text-muted">
+                  Chọn nhanh (điền MK mặc định)
+                </div>
+                {DEMO_USERS.map((u) => (
+                  <button
+                    key={u.id}
+                    type="button"
+                    className="flex w-full items-center gap-3 rounded-[var(--radius-md)] border border-border px-3 py-2 text-left transition hover:border-brand/40 hover:bg-brand-soft/30"
+                    onClick={() => {
+                      setUsername(u.username);
+                      setPassword(DEMO_PLAIN_PASSWORDS[u.username] || "");
+                    }}
+                  >
+                    <span className="grid h-8 w-8 place-items-center rounded-full bg-brand-soft text-xs font-bold text-brand-ink">
+                      {u.initials}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm font-semibold text-fg">
+                        {u.name}
+                      </span>
+                      <span className="block text-[11px] text-muted">
+                        {u.username} · {u.roleLabel}
+                      </span>
+                    </span>
+                  </button>
+                ))}
               </div>
-              {DEMO_USERS.map((u) => (
-                <button
-                  key={u.id}
-                  type="button"
-                  className="flex w-full items-center gap-3 rounded-[var(--radius-md)] border border-border px-3 py-2 text-left transition hover:border-brand/40 hover:bg-brand-soft/30"
-                  onClick={() => {
-                    setUsername(u.username);
-                    setPassword(DEMO_PLAIN_PASSWORDS[u.username] || "");
-                  }}
-                >
-                  <span className="grid h-8 w-8 place-items-center rounded-full bg-brand-soft text-xs font-bold text-brand-ink">
-                    {u.initials}
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block text-sm font-semibold text-fg">
-                      {u.name}
-                    </span>
-                    <span className="block text-[11px] text-muted">
-                      {u.username} · {u.roleLabel}
-                    </span>
-                  </span>
-                </button>
-              ))}
-            </div>
-            <p className="text-[11px] text-muted">
-              <HardHat className="mr-1 inline h-3.5 w-3.5" />
-              Demo: <code>giamdoc / Giamdoc@2026</code> ·{" "}
-              <code>admin / Admin@2026</code>
-            </p>
+            ) : (
+              <p className="text-[11px] text-muted">
+                Dùng tài khoản trên <code>thanh-hoai-runtime</code> (cookie{" "}
+                <code>th_session</code>). Vite proxy <code>/api</code> →{" "}
+                <code>127.0.0.1:8777</code>.
+              </p>
+            )}
+            {!isRuntime ? (
+              <p className="text-[11px] text-muted">
+                <HardHat className="mr-1 inline h-3.5 w-3.5" />
+                Demo: <code>giamdoc / Giamdoc@2026</code> ·{" "}
+                <code>admin / Admin@2026</code>
+              </p>
+            ) : null}
           </CardBody>
         </Card>
       </div>

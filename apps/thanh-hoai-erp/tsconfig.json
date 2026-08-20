@@ -16,5 +16,6 @@
       "@retail/*": ["./packages/ankhang-retail-erp/src/*"]
     }
   },
-  "include": ["src", "packages/ankhang-retail-erp/src"]
+  "include": ["src", "packages/ankhang-retail-erp/src"],
+  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx"]
 }
