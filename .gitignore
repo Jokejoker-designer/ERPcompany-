@@ -15,6 +15,9 @@ config.json
 **/*.sqlite3
 **/data/**
 !**/data/.gitkeep
+# Domain modules (TypeScript seed/registry) — not runtime DB folders
+!**/src/data/
+!**/src/data/**
 **/backups/**
 **/attachments/**
 **/uploads/**

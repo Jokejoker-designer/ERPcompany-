@@ -649,7 +649,7 @@ export const SEED_COMPANY: CompanyConfig = {
   website: "ctydienlanhthanhhoai.com",
   hotline: "0918 177 391",
   scanRoots: "D:\\2025; D:\\2026",
-  brandColor: "#0a6e80",
+  brandColor: "#0B7285",
   logoDataUrl: "",
 };
 
@@ -662,7 +662,7 @@ export const EMPTY_COMPANY: CompanyConfig = {
   website: "",
   hotline: "",
   scanRoots: "",
-  brandColor: "#0a6e80",
+  brandColor: "#0B7285",
   logoDataUrl: "",
 };
 

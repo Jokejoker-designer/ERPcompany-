@@ -44,6 +44,7 @@ function SettingsPage() {
   const uiPrefs = useErpStore((s) => s.uiPrefs);
   const setDensity = useErpStore((s) => s.setDensity);
   const setReducedMotion = useErpStore((s) => s.setReducedMotion);
+  const setHighContrast = useErpStore((s) => s.setHighContrast);
   const pct = setupCompletion(onboarding.flags);
   const [dark, setDark] = useState(() =>
     typeof document !== "undefined"
@@ -292,6 +293,14 @@ function SettingsPage() {
               />
               Giảm chuyển động
             </label>
+            <label className="flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                checked={uiPrefs.highContrast}
+                onChange={(e) => setHighContrast(e.target.checked)}
+              />
+              Tăng độ tương phản
+            </label>
           </div>
           <div>
             <div className="mb-1.5 text-xs font-semibold text-muted">
@@ -337,11 +346,11 @@ function SettingsPage() {
                 <input
                   type="color"
                   className="h-10 w-14 cursor-pointer rounded border border-border bg-surface"
-                  value={company.brandColor || "#0a6e80"}
+                  value={company.brandColor || "#0B7285"}
                   onChange={(e) => updateCompany({ brandColor: e.target.value })}
                 />
                 <Input
-                  value={company.brandColor || "#0a6e80"}
+                  value={company.brandColor || "#0B7285"}
                   onChange={(e) => updateCompany({ brandColor: e.target.value })}
                   className="font-mono"
                 />
@@ -388,13 +397,13 @@ function SettingsPage() {
             className="rounded-[var(--radius-lg)] border border-border bg-white p-4 text-fg shadow-sm"
             style={{
               borderTopWidth: 4,
-              borderTopColor: company.brandColor || "#0a6e80",
+              borderTopColor: company.brandColor || "#0B7285",
             }}
           >
             <div className="flex items-start gap-3 border-b border-border pb-3">
               <div
                 className="grid h-12 w-12 place-items-center overflow-hidden rounded-md text-xs font-bold text-white"
-                style={{ background: company.brandColor || "#0a6e80" }}
+                style={{ background: company.brandColor || "#0B7285" }}
               >
                 {company.logoDataUrl ? (
                   <img
@@ -421,13 +430,13 @@ function SettingsPage() {
             <div className="mt-3 text-sm font-semibold">BÁO GIÁ / CHỨNG TỪ</div>
             <div className="mt-1 text-xs text-muted">
               Màu chữ phụ:{" "}
-              <span style={{ color: brandDerivatives(company.brandColor || "#0a6e80").ink }}>
+              <span style={{ color: brandDerivatives(company.brandColor || "#0B7285").ink }}>
                 brand-ink
               </span>
             </div>
             <div
               className="mt-3 rounded-md px-3 py-2 text-center text-xs font-semibold text-white"
-              style={{ background: company.brandColor || "#0a6e80" }}
+              style={{ background: company.brandColor || "#0B7285" }}
             >
               Nút hành động mẫu
             </div>
@@ -448,7 +457,7 @@ function SettingsPage() {
             </li>
             <li>
               <strong className="text-fg">Tương phản:</strong> chữ & UI ≥ 4.5:1 · focus
-              ring 2px brand · dark mode đã chỉnh AA
+              ring 2px brand · dark mode đã chỉnh AA · tùy chọn Tăng độ tương phản
             </li>
             <li>
               <strong className="text-fg">Form:</strong> label gắn input · lỗi{" "}

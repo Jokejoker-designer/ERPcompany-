@@ -7,13 +7,19 @@ export type UiPrefs = {
   /** role id → tour completed */
   tourDone: Record<string, boolean>;
   reducedMotion: boolean;
+  /** In-app high contrast (runtime Batch 8 parity) */
+  highContrast: boolean;
 };
 
 export const DEFAULT_UI_PREFS: UiPrefs = {
   density: "compact",
   tourDone: {},
   reducedMotion: false,
+  highContrast: false,
 };
+
+/** Canonical brand — skill `thanh-hoai-erp-ui` / runtime web/app.css */
+export const CANONICAL_BRAND = "#0B7285";
 
 /** Parse #RRGGBB → soft / ink variants */
 export function brandDerivatives(hex: string): {
@@ -25,9 +31,9 @@ export function brandDerivatives(hex: string): {
   const m = hex.replace("#", "").match(/^([0-9a-f]{6})$/i);
   if (!m) {
     return {
-      brand: "#0a6273",
-      soft: "#d4eef3",
-      ink: "#054552",
+      brand: CANONICAL_BRAND.toLowerCase(),
+      soft: "#dff0f5",
+      ink: "#075566",
       onBrand: "#ffffff",
     };
   }
@@ -86,4 +92,9 @@ export function applyDensityToDocument(density: Density) {
 export function applyMotionPref(reduced: boolean) {
   if (typeof document === "undefined") return;
   document.documentElement.dataset.reducedMotion = reduced ? "1" : "0";
+}
+
+export function applyHighContrastToDocument(enabled: boolean) {
+  if (typeof document === "undefined") return;
+  document.documentElement.dataset.highContrast = enabled ? "true" : "false";
 }

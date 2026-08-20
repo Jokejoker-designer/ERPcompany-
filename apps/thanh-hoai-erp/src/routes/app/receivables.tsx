@@ -1,12 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Banknote } from "lucide-react";
 import { ProjectContextBar, useActiveProject } from "@/components/erp/project-context";
+import { DataTable } from "@/components/erp/data-table";
 import { Metric, ReceivableStatusBadge } from "@/components/erp/status";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardBody, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatVnd } from "@/lib/utils";
 import { useErpStore } from "@/store/erp-store";
+import type { Receivable } from "@/data/seed";
 import { useState } from "react";
 
 export const Route = createFileRoute("/app/receivables")({
@@ -63,88 +64,121 @@ function ReceivablesPage() {
         />
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>
+      <DataTable<Receivable>
+        rows={list}
+        rowKey={(r) => r.id}
+        searchKeys={[
+          (r) => r.customer,
+          (r) => r.contract,
+          (r) => r.projectCode,
+          (r) => r.status,
+        ]}
+        searchPlaceholder="Lọc khách, HĐ, mã CT, trạng thái…"
+        density="compact"
+        emptyTitle="Chưa có công nợ"
+        emptyDescription={
+          filterCt
+            ? "CT này chưa có công nợ — đánh trúng báo giá để tạo HĐ + phải thu."
+            : "Chưa có công nợ trong hệ thống."
+        }
+        toolbar={
+          <span className="text-xs font-semibold text-muted">
             Công nợ phải thu
             {filterCt && project ? ` · ${project.code}` : " · tất cả"}
-          </CardTitle>
-        </CardHeader>
-        <CardBody className="overflow-x-auto p-0">
-          <table className="w-full min-w-[720px] text-left text-sm">
-            <thead>
-              <tr className="border-b border-border bg-surface-2/60 text-xs text-muted">
-                <th className="px-4 py-3 font-semibold">Khách hàng</th>
-                <th className="px-4 py-3 font-semibold">Hợp đồng</th>
-                <th className="px-4 py-3 font-semibold">CT</th>
-                <th className="px-4 py-3 text-right font-semibold">Giá trị</th>
-                <th className="px-4 py-3 text-right font-semibold">Đã thu</th>
-                <th className="px-4 py-3 text-right font-semibold">Còn lại</th>
-                <th className="px-4 py-3 font-semibold">TT</th>
-                <th className="px-4 py-3 font-semibold" />
-              </tr>
-            </thead>
-            <tbody>
-              {list.map((r) => {
-                const remain = r.value - r.collected;
-                return (
-                  <tr key={r.id} className="border-b border-border-soft">
-                    <td className="px-4 py-3 font-medium">{r.customer}</td>
-                    <td className="px-4 py-3 text-muted">{r.contract}</td>
-                    <td className="px-4 py-3">
-                      <Badge
-                        variant={
-                          project?.code === r.projectCode ? "brand" : "default"
-                        }
-                      >
-                        {r.projectCode}
-                      </Badge>
-                    </td>
-                    <td className="px-4 py-3 text-right tabular-nums">
-                      {formatVnd(r.value)}
-                    </td>
-                    <td className="px-4 py-3 text-right tabular-nums">
-                      {formatVnd(r.collected)}
-                    </td>
-                    <td className="px-4 py-3 text-right tabular-nums font-semibold">
-                      {formatVnd(remain)}
-                    </td>
-                    <td className="px-4 py-3">
-                      <ReceivableStatusBadge status={r.status} />
-                    </td>
-                    <td className="px-4 py-3 text-right">
-                      {remain > 0 ? (
-                        <Button
-                          size="sm"
-                          variant="secondary"
-                          onClick={() =>
-                            collect(
-                              r.id,
-                              Math.min(remain, Math.round(remain / 2) || remain),
-                            )
-                          }
-                        >
-                          <Banknote className="h-3.5 w-3.5" />
-                          Thu
-                        </Button>
-                      ) : null}
-                    </td>
-                  </tr>
-                );
-              })}
-              {!list.length ? (
-                <tr>
-                  <td colSpan={8} className="px-4 py-8 text-center text-muted">
-                    {filterCt
-                      ? "CT này chưa có công nợ — đánh trúng báo giá để tạo HĐ + phải thu."
-                      : "Chưa có công nợ."}
-                  </td>
-                </tr>
-              ) : null}
-            </tbody>
-          </table>
-        </CardBody>
-      </Card>
+          </span>
+        }
+        columns={[
+          {
+            id: "customer",
+            header: "Khách hàng",
+            sortValue: (r) => r.customer,
+            cell: (r) => <span className="font-medium">{r.customer}</span>,
+          },
+          {
+            id: "contract",
+            header: "Hợp đồng",
+            sortValue: (r) => r.contract,
+            cell: (r) => <span className="text-muted">{r.contract}</span>,
+            hideOnMobile: true,
+          },
+          {
+            id: "ct",
+            header: "CT",
+            sortValue: (r) => r.projectCode,
+            cell: (r) => (
+              <Badge
+                variant={
+                  project?.code === r.projectCode ? "brand" : "default"
+                }
+              >
+                {r.projectCode}
+              </Badge>
+            ),
+          },
+          {
+            id: "value",
+            header: "Giá trị",
+            sortValue: (r) => r.value,
+            cell: (r) => (
+              <span className="tabular-nums">{formatVnd(r.value)}</span>
+            ),
+            className: "text-right",
+            hideOnMobile: true,
+          },
+          {
+            id: "collected",
+            header: "Đã thu",
+            sortValue: (r) => r.collected,
+            cell: (r) => (
+              <span className="tabular-nums">{formatVnd(r.collected)}</span>
+            ),
+            className: "text-right",
+            hideOnMobile: true,
+          },
+          {
+            id: "remain",
+            header: "Còn lại",
+            sortValue: (r) => r.value - r.collected,
+            cell: (r) => (
+              <span className="font-semibold tabular-nums">
+                {formatVnd(r.value - r.collected)}
+              </span>
+            ),
+            className: "text-right",
+          },
+          {
+            id: "status",
+            header: "TT",
+            sortValue: (r) => r.status,
+            cell: (r) => <ReceivableStatusBadge status={r.status} />,
+          },
+          {
+            id: "actions",
+            header: "",
+            cell: (r) => {
+              const remain = r.value - r.collected;
+              if (remain <= 0) return null;
+              return (
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    collect(
+                      r.id,
+                      Math.min(remain, Math.round(remain / 2) || remain),
+                    );
+                  }}
+                >
+                  <Banknote className="h-3.5 w-3.5" />
+                  Thu
+                </Button>
+              );
+            },
+            className: "text-right",
+          },
+        ]}
+      />
     </div>
   );
 }

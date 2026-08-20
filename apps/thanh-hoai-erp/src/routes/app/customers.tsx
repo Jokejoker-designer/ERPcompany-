@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardBody, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useErpStore } from "@/store/erp-store";
-import { DataTable, type Column } from "@/components/erp/data-table";
+import { DataTable } from "@/components/erp/data-table";
 import { EmptyState } from "@/components/erp/empty-state";
 import { toastWithUndo } from "@/lib/undo-toast";
 import type { Customer } from "@/data/seed";
@@ -200,128 +200,95 @@ function CustomersPage() {
         </Card>
       ) : null}
 
-      <div className="grid gap-4 lg:grid-cols-5">
-        <Card className="lg:col-span-2">
+      {selected ? (
+        <Card>
           <CardHeader>
-            <CardTitle>Danh sách khách</CardTitle>
+            <CardTitle>
+              {selected.code} · {selected.name}
+            </CardTitle>
+            <Button
+              size="sm"
+              variant="ghost"
+              className="text-danger"
+              onClick={() => {
+                const snap = { ...selected };
+                removeCustomer(selected.id);
+                setSelectedId("");
+                toastWithUndo({
+                  message: `Đã xóa ${snap.code}`,
+                  description: snap.name,
+                  onUndo: () => {
+                    useErpStore.setState((s) => ({
+                      customers: [
+                        snap,
+                        ...s.customers.filter((c) => c.id !== snap.id),
+                      ],
+                    }));
+                    setSelectedId(snap.id);
+                  },
+                });
+              }}
+            >
+              <Trash2 className="h-4 w-4" />
+              Xóa
+            </Button>
           </CardHeader>
-          <CardBody className="space-y-2 p-3">
-            {!customers.length ? (
-              <p className="px-2 py-6 text-center text-sm text-muted">
-                Chưa có khách. Tạo profile hoặc chạy Setup A→Z.
+          <CardBody className="space-y-4">
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                ["MST", selected.taxId],
+                ["Người liên hệ", selected.contact],
+                ["SĐT", selected.phone],
+                ["Email", selected.email],
+                ["Địa chỉ", selected.address],
+                ["Ngày tạo", selected.createdAt],
+              ].map(([l, v]) => (
+                <div key={l}>
+                  <div className="text-xs text-muted">{l}</div>
+                  <div className="text-sm font-medium text-fg">{v || "—"}</div>
+                </div>
+              ))}
+            </div>
+            {selected.notes ? (
+              <p className="rounded-[var(--radius-md)] bg-surface-2 px-3 py-2 text-sm text-muted">
+                {selected.notes}
               </p>
-            ) : (
-              customers.map((c) => (
-                <button
-                  key={c.id}
-                  type="button"
-                  onClick={() => setSelectedId(c.id)}
-                  className={`w-full rounded-[var(--radius-md)] border px-3 py-2.5 text-left transition-colors ${
-                    selected?.id === c.id
-                      ? "border-brand bg-brand-soft"
-                      : "border-border hover:bg-surface-2"
-                  }`}
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs font-bold text-brand-ink">
-                      {c.code}
-                    </span>
-                    <Badge variant="default">
-                      {projects.filter((p) => p.customerId === c.id).length} CT
-                    </Badge>
-                  </div>
-                  <div className="mt-0.5 text-sm font-semibold text-fg">
-                    {c.name}
-                  </div>
-                  <div className="truncate text-xs text-muted">
-                    {c.contact || "—"} · {c.phone || "chưa có SĐT"}
-                  </div>
-                </button>
-              ))
-            )}
+            ) : null}
+
+            <div>
+              <h4 className="mb-2 text-sm font-semibold text-fg">
+                Công trình gắn khách
+              </h4>
+              {!related.length ? (
+                <EmptyState
+                  title="Chưa có công trình"
+                  description="Mở wizard bước Công trình để tạo CT gắn khách này."
+                  action={
+                    <Button size="sm" variant="secondary" onClick={() => openWizard(4)}>
+                      Wizard CT
+                    </Button>
+                  }
+                  className="border-0 shadow-none"
+                />
+              ) : (
+                <ul className="space-y-2">
+                  {related.map((p) => (
+                    <li
+                      key={p.id}
+                      className="rounded-[var(--radius-md)] border border-border-soft px-3 py-2 text-sm"
+                    >
+                      <span className="font-semibold">{p.code}</span> — {p.name}
+                      <div className="text-xs text-muted">
+                        Giai đoạn: {p.stage} · {p.progress}%
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </CardBody>
         </Card>
-
-        {selected ? (
-          <Card className="lg:col-span-3">
-            <CardHeader>
-              <CardTitle>
-                {selected.code} · {selected.name}
-              </CardTitle>
-              <Button
-                size="sm"
-                variant="ghost"
-                className="text-danger"
-                onClick={() => {
-                  const snap = { ...selected };
-                  removeCustomer(selected.id);
-                  setSelectedId("");
-                  toastWithUndo({
-                    message: `Đã xóa ${snap.code}`,
-                    description: snap.name,
-                    onUndo: () => {
-                      useErpStore.setState((s) => ({
-                        customers: [snap, ...s.customers.filter((c) => c.id !== snap.id)],
-                      }));
-                      setSelectedId(snap.id);
-                    },
-                  });
-                }}
-              >
-                <Trash2 className="h-4 w-4" />
-                Xóa
-              </Button>
-            </CardHeader>
-            <CardBody className="space-y-4">
-              <div className="grid gap-3 sm:grid-cols-2">
-                {[
-                  ["MST", selected.taxId],
-                  ["Người liên hệ", selected.contact],
-                  ["SĐT", selected.phone],
-                  ["Email", selected.email],
-                  ["Địa chỉ", selected.address],
-                  ["Ngày tạo", selected.createdAt],
-                ].map(([l, v]) => (
-                  <div key={l}>
-                    <div className="text-xs text-muted">{l}</div>
-                    <div className="text-sm font-medium text-fg">{v || "—"}</div>
-                  </div>
-                ))}
-              </div>
-              {selected.notes ? (
-                <p className="rounded-[var(--radius-md)] bg-surface-2 px-3 py-2 text-sm text-muted">
-                  {selected.notes}
-                </p>
-              ) : null}
-
-              <div>
-                <h4 className="mb-2 text-sm font-semibold text-fg">
-                  Công trình gắn khách
-                </h4>
-                {!related.length ? (
-                  <p className="text-sm text-muted">
-                    Chưa có công trình. Mở wizard bước Công trình để tạo.
-                  </p>
-                ) : (
-                  <ul className="space-y-2">
-                    {related.map((p) => (
-                      <li
-                        key={p.id}
-                        className="rounded-[var(--radius-md)] border border-border-soft px-3 py-2 text-sm"
-                      >
-                        <span className="font-semibold">{p.code}</span> — {p.name}
-                        <div className="text-xs text-muted">
-                          Giai đoạn: {p.stage} · {p.progress}%
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </CardBody>
-          </Card>
-        ) : null}
-      </div>
+      ) : null}
     </div>
   );
 }

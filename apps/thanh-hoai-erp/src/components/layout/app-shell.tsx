@@ -14,7 +14,16 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { useErpStore } from "@/store/erp-store";
 import { Button } from "@/components/ui/button";
-import { setupCompletion, STAGE_LABEL } from "@/data/seed";
+import {
+  STAGE_LABEL,
+  setupCompletion,
+} from "@/data/seed";
+import {
+  applyBrandToDocument,
+  applyDensityToDocument,
+  applyHighContrastToDocument,
+  applyMotionPref,
+} from "@/lib/ui-prefs";
 import {
   canAccessRoute,
   denyMessage,
@@ -34,11 +43,6 @@ import {
 } from "@/components/erp/project-context";
 import { SkipLink, SrOnly } from "@/components/ui/a11y";
 import { SpotlightTour } from "@/components/erp/spotlight-tour";
-import {
-  applyBrandToDocument,
-  applyDensityToDocument,
-  applyMotionPref,
-} from "@/lib/ui-prefs";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
@@ -92,7 +96,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     applyBrandToDocument(company.brandColor);
     applyDensityToDocument(uiPrefs.density);
     applyMotionPref(uiPrefs.reducedMotion);
-  }, [company.brandColor, uiPrefs.density, uiPrefs.reducedMotion]);
+    applyHighContrastToDocument(uiPrefs.highContrast);
+  }, [
+    company.brandColor,
+    uiPrefs.density,
+    uiPrefs.reducedMotion,
+    uiPrefs.highContrast,
+  ]);
 
   useEffect(() => {
     if (!role) return;

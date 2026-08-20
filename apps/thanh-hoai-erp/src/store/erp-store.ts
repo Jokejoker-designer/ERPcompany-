@@ -45,6 +45,7 @@ import {
   applyBrandToDocument,
   applyDensityToDocument,
   applyMotionPref,
+  applyHighContrastToDocument,
 } from "@/lib/ui-prefs";
 import {
   type CredentialsMap,
@@ -117,6 +118,7 @@ type ErpState = {
   updateCompany: (patch: Partial<CompanyConfig>) => void;
   setDensity: (density: Density) => void;
   setReducedMotion: (v: boolean) => void;
+  setHighContrast: (v: boolean) => void;
   completeTour: (role: string) => void;
   restartTour: (role: string) => void;
 
@@ -584,6 +586,11 @@ export const useErpStore = create<ErpState>()(
       setReducedMotion: (v) => {
         set((s) => ({ uiPrefs: { ...s.uiPrefs, reducedMotion: v } }));
         applyMotionPref(v);
+      },
+
+      setHighContrast: (v) => {
+        set((s) => ({ uiPrefs: { ...s.uiPrefs, highContrast: v } }));
+        applyHighContrastToDocument(v);
       },
 
       completeTour: (role) =>
