@@ -24,7 +24,7 @@ export default defineConfig(({ command }) => ({
   },
   resolve: {
     alias: {
-      "@retail": path.resolve(__dirname, "packages/ankhang-retail-erp/src"),
+      "@retail": path.resolve(__dirname, "../../packages/ankhang-retail-erp/src"),
     },
   },
   plugins: [
