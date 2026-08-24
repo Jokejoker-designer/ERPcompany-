@@ -126,6 +126,17 @@ ERP_WRITE_RESOURCES = {
     "import": ["Giam doc", "Ke toan", "Quan tri he thong"],
     "import_flex": ["Giam doc", "Ke toan", "Kinh doanh", "Quan tri he thong"],
     "tao_bao_gia": ["Giam doc", "Kinh doanh", "Quan tri he thong"],
+    "ct_dossier": ["Giam doc", "Ke toan", "Kinh doanh", "Ky thuat truong",
+                   "Ky thuat vien", "Thu kho", "Quan tri he thong"],
+    "ct_sinh_ho_so": ["Giam doc", "Ke toan", "Ky thuat truong", "Ky thuat vien",
+                      "Quan tri he thong"],
+    "document_sign": ["Giam doc", "Ky thuat truong", "Quan tri he thong"],
+    "oauth_bind": ["Giam doc", "Ke toan", "Kinh doanh", "Ky thuat truong",
+                   "Ky thuat vien", "Thu kho", "Quan tri he thong"],
+    "document_access": ["Giam doc", "Ke toan", "Kinh doanh", "Ky thuat truong",
+                        "Ky thuat vien", "Thu kho", "Quan tri he thong"],
+    "zalo_work": ["Giam doc", "Ke toan", "Kinh doanh", "Ky thuat truong",
+                  "Ky thuat vien", "Thu kho", "Quan tri he thong"],
 }
 
 
@@ -1267,8 +1278,14 @@ def support(conn, role):
     tickets = _d(conn.execute("""SELECT t.code, t.subject, t.kenh, t.status, c.customer_name
                                  FROM hd_ticket t LEFT JOIN customer c ON c.id=t.customer_id
                                  ORDER BY t.created_at DESC""").fetchall())
-    return {"tickets": tickets, "zalo": {"trien_khai": False,
-            "ghi_chu": "Chua trien khai — theo roadmap Phase 4 (sau khi he noi bo van hanh on dinh)."}}
+    zalo = {"trien_khai": True, "open_count": 0, "ghi_chu": "Grok Zalo → TH-ZALO thu thập → TH-ADMIN."}
+    try:
+        import zalo_work as ZW
+        zalo = ZW.zalo_work_inbox(conn, role, {"user_id": None, "role": role}, "Moi")
+        zalo["ghi_chu"] = "Grok Zalo → TH-ZALO thu thập → TH-ADMIN."
+    except Exception:
+        pass
+    return {"tickets": tickets, "zalo": zalo}
 
 
 # ---- format tien VND (dung ca o backend cho alert/metric) --------------

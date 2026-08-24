@@ -223,6 +223,13 @@ PERMS_WRITE = {
     # KTT/KTV/Kinh doanh khong duoc nhan gia hay ghi master/import/selection.
     "material_price_admin": ["Giam doc", "Ke toan", "Quan tri he thong"],
     "material_price_decide": ["Giam doc", "Quan tri he thong"],
+    "document_sign": ["Giam doc", "Ky thuat truong", "Quan tri he thong"],
+    "oauth_bind": ["Giam doc", "Ke toan", "Kinh doanh", "Ky thuat truong",
+                   "Ky thuat vien", "Thu kho", "Quan tri he thong"],
+    "document_access": ["Giam doc", "Ke toan", "Kinh doanh", "Ky thuat truong",
+                        "Ky thuat vien", "Thu kho", "Quan tri he thong"],
+    "zalo_work": ["Giam doc", "Ke toan", "Kinh doanh", "Ky thuat truong",
+                  "Ky thuat vien", "Thu kho", "Quan tri he thong"],
 }
 
 
