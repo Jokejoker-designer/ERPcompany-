@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { DataTable } from "@/components/erp/data-table";
 import { BankStatusBadge, Metric } from "@/components/erp/status";
 import { Button } from "@/components/ui/button";
-import { Card, CardBody, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatVnd } from "@/lib/utils";
 import { useErpStore } from "@/store/erp-store";
+import type { BankLine } from "@/data/seed";
 
 export const Route = createFileRoute("/app/bank")({
   component: BankPage,
@@ -31,76 +32,113 @@ function BankPage() {
         />
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Dòng sao kê mẫu</CardTitle>
-        </CardHeader>
-        <CardBody className="overflow-x-auto p-0">
-          <table className="w-full min-w-[700px] text-left text-sm">
-            <thead>
-              <tr className="border-b border-border bg-surface-2/60 text-xs text-muted">
-                <th className="px-4 py-3 font-semibold">Ngày</th>
-                <th className="px-4 py-3 font-semibold">Diễn giải</th>
-                <th className="px-4 py-3 text-right font-semibold">Số tiền</th>
-                <th className="px-4 py-3 font-semibold">Gợi ý khớp</th>
-                <th className="px-4 py-3 font-semibold">TT</th>
-                <th className="px-4 py-3 font-semibold" />
-              </tr>
-            </thead>
-            <tbody>
-              {lines.map((b) => (
-                <tr key={b.id} className="border-b border-border-soft">
-                  <td className="px-4 py-3 tabular-nums text-muted">{b.date}</td>
-                  <td className="px-4 py-3 font-medium">{b.desc}</td>
-                  <td
-                    className={`px-4 py-3 text-right tabular-nums font-semibold ${
-                      b.amount >= 0 ? "text-ok" : "text-danger"
-                    }`}
+      <DataTable<BankLine>
+        rows={lines}
+        rowKey={(b) => b.id}
+        searchKeys={[
+          (b) => b.desc,
+          (b) => b.matchHint,
+          (b) => b.date,
+          (b) => b.status,
+        ]}
+        searchPlaceholder="Lọc diễn giải, gợi ý khớp, ngày…"
+        density="compact"
+        emptyTitle="Chưa có dòng sao kê"
+        emptyDescription="Import sao kê ngân hàng hoặc nạp lại demo để đối soát."
+        toolbar={
+          <span className="text-xs font-semibold text-muted">Dòng sao kê mẫu</span>
+        }
+        columns={[
+          {
+            id: "date",
+            header: "Ngày",
+            sortValue: (b) => b.date,
+            cell: (b) => (
+              <span className="tabular-nums text-muted">{b.date}</span>
+            ),
+          },
+          {
+            id: "desc",
+            header: "Diễn giải",
+            sortValue: (b) => b.desc,
+            cell: (b) => <span className="font-medium">{b.desc}</span>,
+          },
+          {
+            id: "amount",
+            header: "Số tiền",
+            sortValue: (b) => b.amount,
+            cell: (b) => (
+              <span
+                className={`font-semibold tabular-nums ${
+                  b.amount >= 0 ? "text-ok" : "text-danger"
+                }`}
+              >
+                {b.amount >= 0 ? "+" : ""}
+                {formatVnd(b.amount)}
+              </span>
+            ),
+            className: "text-right",
+          },
+          {
+            id: "hint",
+            header: "Gợi ý khớp",
+            sortValue: (b) => b.matchHint,
+            cell: (b) => <span className="text-muted">{b.matchHint}</span>,
+            hideOnMobile: true,
+          },
+          {
+            id: "status",
+            header: "TT",
+            sortValue: (b) => b.status,
+            cell: (b) => <BankStatusBadge status={b.status} />,
+          },
+          {
+            id: "actions",
+            header: "",
+            cell: (b) => (
+              <div className="flex flex-wrap justify-end gap-1.5">
+                {b.status !== "matched" ? (
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setStatus(b.id, "matched");
+                    }}
                   >
-                    {b.amount >= 0 ? "+" : ""}
-                    {formatVnd(b.amount)}
-                  </td>
-                  <td className="px-4 py-3 text-muted">{b.matchHint}</td>
-                  <td className="px-4 py-3">
-                    <BankStatusBadge status={b.status} />
-                  </td>
-                  <td className="px-4 py-3">
-                    <div className="flex flex-wrap justify-end gap-1.5">
-                      {b.status !== "matched" ? (
-                        <Button
-                          size="sm"
-                          variant="secondary"
-                          onClick={() => setStatus(b.id, "matched")}
-                        >
-                          Khớp
-                        </Button>
-                      ) : null}
-                      {b.status !== "ignored" ? (
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={() => setStatus(b.id, "ignored")}
-                        >
-                          Bỏ qua
-                        </Button>
-                      ) : null}
-                      {b.status !== "pending" ? (
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={() => setStatus(b.id, "pending")}
-                        >
-                          Chờ
-                        </Button>
-                      ) : null}
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </CardBody>
-      </Card>
+                    Khớp
+                  </Button>
+                ) : null}
+                {b.status !== "ignored" ? (
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setStatus(b.id, "ignored");
+                    }}
+                  >
+                    Bỏ qua
+                  </Button>
+                ) : null}
+                {b.status !== "pending" ? (
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setStatus(b.id, "pending");
+                    }}
+                  >
+                    Chờ
+                  </Button>
+                ) : null}
+              </div>
+            ),
+            className: "text-right",
+          },
+        ]}
+      />
     </div>
   );
 }

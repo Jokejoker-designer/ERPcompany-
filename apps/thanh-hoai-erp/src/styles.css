@@ -21,14 +21,14 @@
   --color-border: #8a9bab;
   --color-border-soft: #c5d0d9;
 
-  /* Brand teal on white ≈ 5.2:1 */
-  --color-brand: #0a6273;
-  --color-brand-soft: #d4eef3;
-  --color-brand-ink: #054552;
+  /* Canonical brand teal (skill thanh-hoai-erp-ui / runtime #0B7285) ≈ 5.0:1 on white */
+  --color-brand: #0b7285;
+  --color-brand-soft: #dff0f5;
+  --color-brand-ink: #075566;
   --color-on-brand: #ffffff;
 
-  --color-nav: #0c2238;
-  --color-nav-2: #091a2c;
+  --color-nav: #10294a;
+  --color-nav-2: #0c2038;
   --color-nav-ink: #f0f5fa;
   /* muted on nav — ≥ 4.5:1 vs #0c2238 */
   --color-nav-muted: #b6c6d8;
@@ -281,7 +281,7 @@ html.dark {
   color-scheme: dark;
 }
 
-/* High contrast preference */
+/* High contrast — OS preference OR in-app toggle (parity with runtime Batch 8) */
 @media (prefers-contrast: more) {
   :root {
     --color-border: #2a3a48;
@@ -292,6 +292,21 @@ html.dark {
     --color-border: #c5d0d9;
     --color-muted: #d0dbe4;
   }
+}
+
+html[data-high-contrast="true"] {
+  --color-border: #56626b;
+  --color-muted: #3f4b54;
+  --color-fg: #111820;
+  --focus-ring: 3px solid var(--color-fg);
+  --focus-offset: 3px;
+}
+html.dark[data-high-contrast="true"] {
+  --color-border: #c5d0d9;
+  --color-muted: #d0dbe4;
+  --color-fg: #f5f8fa;
+  --color-bg: #0a0e12;
+  --color-surface: #12181e;
 }
 
 @media print {

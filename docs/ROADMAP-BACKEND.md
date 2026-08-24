@@ -29,6 +29,12 @@ SQLite / PostgreSQL  (1 khách = 1 DB file hoặc 1 schema)
 
 ## Tích hợp UI hiện tại
 
-- Tạo `src/lib/api-client.ts` (baseURL env)  
-- Zustand actions: gọi API thay vì mutate local array  
-- Giữ offline cache optional (TanStack Query)
+- [x] Tạo `src/lib/api-client.ts` (baseURL env + Vite `/api` proxy)
+- [x] Mapper runtime → domain: `src/lib/api-mappers.ts`
+- [x] Sync bundle: `src/lib/runtime-data.ts` (KH / CT / BG / công nợ / dashboard)
+- [x] Dual-mode Zustand: demo localStorage **hoặc** cookie runtime (`dataSource`)
+- [x] Auth: `/api/login`, `/api/me`, `/api/logout` khi mode runtime
+- [x] Ghi KH: `POST /api/write/customer` (optimistic + re-sync)
+- [ ] CRUD đầy đủ quotations/BOQ/AR/bank qua write API
+- [ ] TanStack Query cache (tuỳ chọn)
+- Chi tiết: [`docs/modern-ui/REACT_RUNTIME_BRIDGE.md`](modern-ui/REACT_RUNTIME_BRIDGE.md)

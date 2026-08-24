@@ -39,6 +39,9 @@ function DashboardPage() {
   const documents = useDocsStore((s) => s.documents);
   const auditQueue = useDocsStore((s) => s.auditQueue);
 
+  const runtimeDashboard = useErpStore((s) => s.runtimeDashboard);
+  const dataSource = useErpStore((s) => s.dataSource);
+
   const openAudits = useMemo(
     () => auditQueue.filter((a) => a.status === "open"),
     [auditQueue],
@@ -53,6 +56,16 @@ function DashboardPage() {
   const pendingQuotes = quotations.filter((q) => q.status === "pending").length;
 
   const revenueSeries = useMemo(() => {
+    if (
+      dataSource === "runtime" &&
+      runtimeDashboard?.weeks &&
+      runtimeDashboard.weeks.some((w) => Number(w) > 0)
+    ) {
+      return runtimeDashboard.weeks.map((v, i) => ({
+        month: `T${i + 1}`,
+        value: Math.round((Number(v) / 1_000_000_000) * 100) / 100,
+      }));
+    }
     const months = ["T1", "T2", "T3", "T4", "T5", "T6"];
     const buckets = months.map((m) => ({ month: m, value: 0 }));
     projects.forEach((p, i) => {
@@ -65,7 +78,7 @@ function DashboardPage() {
       month: b.month,
       value: Math.round(b.value * 100) / 100,
     }));
-  }, [projects, receivables]);
+  }, [projects, receivables, dataSource, runtimeDashboard]);
 
   const hasRevenue = revenueSeries.some((r) => r.value > 0);
 

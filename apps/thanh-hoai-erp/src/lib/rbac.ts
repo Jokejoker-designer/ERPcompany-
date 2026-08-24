@@ -223,11 +223,15 @@ export const RBAC_MATRIX: {
   },
 ];
 
-/** Resolve live role from session + registry (anti F12) */
+/** Resolve live role from session + registry (anti F12).
+ * Runtime cookie sessions trust store.user (mapped from /api/me). */
 export function resolveEffectiveUser(
   session: Session | null | undefined,
   fallbackUser: User | null,
 ): User | null {
+  if (session?.token === "runtime-cookie") {
+    return fallbackUser ? { ...fallbackUser } : null;
+  }
   if (session?.userId) {
     const fresh = DEMO_USERS.find((u) => u.id === session.userId);
     if (fresh) return { ...fresh };
@@ -235,6 +239,10 @@ export function resolveEffectiveUser(
   if (fallbackUser) {
     const fresh = DEMO_USERS.find((u) => u.id === fallbackUser.id);
     if (fresh) return { ...fresh };
+    // Runtime / unknown id: keep mapped user from store
+    if (session?.token === "runtime-cookie" || !DEMO_USERS.some((u) => u.id === fallbackUser.id)) {
+      return { ...fallbackUser };
+    }
   }
   return null;
 }
