@@ -119,14 +119,21 @@ ERP_ROUTE_SPECS = [
     ("/app/roles", "_admin_only"),
 ]
 
+# ERP React write guards — subset of api_write.PERMS_WRITE (no heavy import).
+ERP_WRITE_RESOURCES = {
+    "customer": ["Giam doc", "Ke toan", "Kinh doanh", "Quan tri he thong"],
+    "quotation": ["Giam doc", "Kinh doanh", "Quan tri he thong"],
+    "import": ["Giam doc", "Ke toan", "Quan tri he thong"],
+    "import_flex": ["Giam doc", "Ke toan", "Kinh doanh", "Quan tri he thong"],
+    "tao_bao_gia": ["Giam doc", "Kinh doanh", "Quan tri he thong"],
+}
+
 
 def user_erp_permissions(role):
-    """Session permissions for ERP React — mirrors PERMS / PERMS_WRITE on server."""
-    import api_write as AW
-
+    """Session permissions for ERP React — mirrors PERMS on server."""
     read_pages = sorted(p for p, allowed in PERMS.items() if role in allowed)
     write_resources = sorted(
-        r for r, allowed in AW.PERMS_WRITE.items() if role in allowed
+        r for r, allowed in ERP_WRITE_RESOURCES.items() if role in allowed
     )
     routes = []
     for route, spec in ERP_ROUTE_SPECS:
@@ -135,7 +142,7 @@ def user_erp_permissions(role):
                 routes.append(route)
         elif spec.startswith("_write:"):
             res = spec.split(":", 1)[1]
-            if role in AW.PERMS_WRITE.get(res, []):
+            if role in ERP_WRITE_RESOURCES.get(res, []):
                 routes.append(route)
         elif spec in PERMS and role in PERMS[spec]:
             routes.append(route)
