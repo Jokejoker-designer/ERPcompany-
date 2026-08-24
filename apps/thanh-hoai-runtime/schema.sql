@@ -1210,6 +1210,55 @@ CREATE TABLE IF NOT EXISTS document_signature_record (
     status TEXT NOT NULL DEFAULT 'Cho_ky', signed_at TEXT,
     UNIQUE(acceptance_id,signer_role));
 
+-- Lien ket OAuth (Google/Microsoft/Grok broker) voi app_user — dung de ky so
+-- va cap token tai tai lieu da lien ket. Khong luu refresh/access token.
+CREATE TABLE IF NOT EXISTS oauth_identity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL REFERENCES app_user(id) ON DELETE CASCADE,
+    provider TEXT NOT NULL,
+    subject TEXT NOT NULL,
+    email TEXT,
+    display_name TEXT,
+    linked_at TEXT NOT NULL DEFAULT (datetime('now')),
+    last_verified_at TEXT,
+    UNIQUE(provider, subject)
+);
+CREATE INDEX IF NOT EXISTS idx_oauth_identity_user ON oauth_identity(user_id);
+
+-- Token tai tai lieu lien ket (hashed). Het han, gan user + source_document.
+CREATE TABLE IF NOT EXISTS document_access_grant (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    token_hash TEXT UNIQUE NOT NULL,
+    user_id INTEGER NOT NULL REFERENCES app_user(id) ON DELETE CASCADE,
+    source_document_id INTEGER NOT NULL REFERENCES source_document(id) ON DELETE CASCADE,
+    purpose TEXT NOT NULL DEFAULT 'download',
+    expires_at TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    used_at TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_doc_access_grant_doc
+    ON document_access_grant(source_document_id, expires_at);
+
+-- Ky so ho so CT (khong chi nghiem thu). Artifact da ky bat bien theo SHA.
+CREATE TABLE IF NOT EXISTS ct_document_signature (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    project_id INTEGER NOT NULL REFERENCES project(id) ON DELETE CASCADE,
+    ma_mau TEXT NOT NULL,
+    source_document_id INTEGER NOT NULL REFERENCES source_document(id),
+    signer_user_id INTEGER NOT NULL REFERENCES app_user(id),
+    signer_role TEXT NOT NULL,
+    signer_name TEXT NOT NULL,
+    provider TEXT NOT NULL,
+    oauth_identity_id INTEGER REFERENCES oauth_identity(id),
+    certificate_thumbprint TEXT,
+    signed_document_sha256 TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'Da_ky',
+    signed_at TEXT NOT NULL DEFAULT (datetime('now')),
+    note TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_ct_doc_sig_project
+    ON ct_document_signature(project_id, ma_mau, signed_at);
+
 CREATE TABLE IF NOT EXISTS cong_trinh_lich_giao_vat_tu (  -- yeu cau rieng Human Lead
     id INTEGER PRIMARY KEY, project_id INTEGER NOT NULL REFERENCES project(id),
     ten_vat_tu TEXT NOT NULL, so_luong_du_kien REAL, ngay_giao_du_kien TEXT,

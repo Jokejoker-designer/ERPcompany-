@@ -72,6 +72,23 @@ export function docStatusToFormApproval(
   }
 }
 
+const RUNTIME_TRANG_THAI = {
+  Thieu: "thieu",
+  Dang_soan: "dang_soan",
+  Cho_duyet: "cho_duyet",
+  Da_duyet: "da_duyet",
+  Da_ky: "da_ky",
+  Khong_ap_dung: "khong_ap_dung",
+} as const;
+
+export function runtimeTrangThaiToApproval(
+  trangThai: string | undefined,
+): FormApprovalStatus {
+  if (!trangThai) return "thieu";
+  const mapped = RUNTIME_TRANG_THAI[trangThai as keyof typeof RUNTIME_TRANG_THAI];
+  return mapped ?? "thieu";
+}
+
 export function formApprovalToDocStatus(
   st: FormApprovalStatus,
 ): "missing" | "draft" | "pending" | "enough" {

@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { CT_TEMPLATES } from "@/data/ct-registry";
 import { CHUNG_TU, ROLES, setupCompletion } from "@/data/seed";
 import { useErpStore } from "@/store/erp-store";
+import { OauthDocumentCard } from "@/components/erp/oauth-document-card";
 import { brandDerivatives } from "@/lib/ui-prefs";
 import type { Density } from "@/lib/ui-prefs";
 
@@ -78,6 +79,8 @@ function SettingsPage() {
 
   return (
     <div className="space-y-4">
+      <OauthDocumentCard />
+
       <Card className="border-brand/30 bg-brand-soft/30">
         <CardBody className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <div className="min-w-0 flex-1">

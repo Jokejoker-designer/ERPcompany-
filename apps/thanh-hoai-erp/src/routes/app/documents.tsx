@@ -4,6 +4,8 @@ import { Check, Paperclip, Send, X } from "lucide-react";
 import { toast } from "sonner";
 import { ProjectContextBar, useActiveProject } from "@/components/erp/project-context";
 import { DocumentAuditPanel } from "@/components/erp/document-audit-panel";
+import { DocumentIssuePanel } from "@/components/erp/document-issue-panel";
+import { OauthDocumentCard } from "@/components/erp/oauth-document-card";
 import { DataTable } from "@/components/erp/data-table";
 import { FormApprovalBadge, Metric } from "@/components/erp/status";
 import { Badge } from "@/components/ui/badge";
@@ -195,7 +197,14 @@ function DocumentsPage() {
         <DocumentAuditPanel projectId={project.id} projectCode={project.code} />
       ) : null}
 
-      {tab === "workflow" ? (
+      {tab === "workflow" && dataSource === "runtime" && project ? (
+        <div className="space-y-4">
+          <OauthDocumentCard />
+          <DocumentIssuePanel projectId={project.id} projectCode={project.code} />
+        </div>
+      ) : null}
+
+      {tab === "workflow" && dataSource !== "runtime" ? (
         <>
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <Metric label="Tổng mẫu CT" value={String(CT_TEMPLATES.length)} />

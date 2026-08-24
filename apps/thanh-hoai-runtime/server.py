@@ -25,6 +25,7 @@ import api_write as AW
 import app_config
 import db as D
 import docgen as DG
+import document_issue as DI
 import import_excel as IE
 import scan_source as SCAN
 import seed as SEED
@@ -350,6 +351,12 @@ def ensure_db():
         print("Phat hien DB thieu bang module chat - dang backup va migrate additive...")
         import migrate_social_module
         migrate_social_module.migrate(Path(D.DB_PATH))
+    if (not _has_table("ct_document_signature")
+            or not _has_table("oauth_identity")
+            or not _has_table("document_access_grant")):
+        print("Phat hien DB thieu schema ky so / OAuth ho so - dang migrate additive...")
+        import migrate_document_issue
+        migrate_document_issue.migrate(Path(D.DB_PATH))
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -586,6 +593,14 @@ class Handler(BaseHTTPRequestHandler):
             if not sess:
                 return self._send_json({"authenticated": False})
             perms = api.user_erp_permissions(sess["role"])
+            oauth = {"linked": False, "identities": [], "providers": DI.configured_oauth_providers()}
+            conn_me = D.get_conn()
+            try:
+                oauth = DI.oauth_status(conn_me, sess)
+            except Exception:
+                pass
+            finally:
+                conn_me.close()
             return self._send_json({
                 "authenticated": True,
                 "user": {
@@ -597,7 +612,19 @@ class Handler(BaseHTTPRequestHandler):
                     "must_change": sess.get("must_change", 0),
                 },
                 "permissions": perms,
+                "oauth": oauth,
             })
+        if path == "/api/oauth/providers":
+            return self._send_json({"providers": DI.configured_oauth_providers()})
+        if path == "/api/oauth/callback":
+            return self._oauth_callback(qs)
+        if path == "/api/document_download":
+            token = (qs.get("access_token") or [None])[0]
+            source_id = (qs.get("source_document_id") or [None])[0]
+            if not sess and token:
+                return self._document_download(source_id, None, access_token=token)
+            if not sess:
+                return self._send_json({"error": "Chua dang nhap"}, status=401)
 
         # --- moi API duoi day BAT BUOC dang nhap ---
         if not sess:
@@ -632,6 +659,8 @@ class Handler(BaseHTTPRequestHandler):
             return self._social(path, sess, qs, body)
 
         # --- hanh dong co side-effect (POST) ---
+        if path == "/api/oauth/start":
+            return self._oauth_start(sess, qs)
         if path == "/api/scan_now":
             return self._scan_now(role, body or {})
         if path == "/api/open_file":
@@ -757,6 +786,11 @@ class Handler(BaseHTTPRequestHandler):
                 "/api/ct_dossier":    lambda: api.ct_dossier(conn, role, sess, q1("project_id")),
                 "/api/document_audit_queue": lambda: api.document_audit_queue(
                     conn, role, sess, q1("project_id")),
+                "/api/ct_template_fill_preview": lambda: DI.ct_template_fill_preview(
+                    conn, role, sess, q1("project_id"), q1("ma_mau")),
+                "/api/document_signatures": lambda: DI.document_signatures(
+                    conn, role, sess, q1("project_id"), q1("ma_mau")),
+                "/api/oauth/status": lambda: DI.oauth_status(conn, sess),
                 "/api/ct_acceptance": lambda: api.ct_acceptance(conn, role, sess, q1("project_id"),
                                                                   q1("acceptance_id")),
                 "/api/ct_nhat_ky":    lambda: api.ct_nhat_ky(conn, role, sess, q1("project_id")),
@@ -898,6 +932,15 @@ class Handler(BaseHTTPRequestHandler):
                 "ct_tien_do":        lambda: AW.ct_tao_tien_do(conn, sess, body),
                 "ct_sinh_ho_so":     lambda: AW.ct_sinh_ho_so(conn, sess, body),
                 "ct_document_accept_edit": lambda: AW.ct_document_accept_edit(conn, sess, body),
+                "document_generate": lambda: DI.document_generate(conn, sess, body),
+                "document_submit": lambda: DI.document_submit(conn, sess, body),
+                "document_review": lambda: DI.document_review(conn, sess, body),
+                "document_approve": lambda: DI.document_approve(conn, sess, body),
+                "document_sign_register": lambda: DI.document_sign_register(conn, sess, body),
+                "document_create_revision": lambda: DI.document_create_revision(conn, sess, body),
+                "document_issue": lambda: DI.document_issue(conn, sess, body),
+                "oauth_bind": lambda: DI.oauth_bind(conn, sess, body),
+                "document_access_token": lambda: DI.document_access_token(conn, sess, body),
                 "ct_ho_so_trang_thai": lambda: AW.ct_set_ho_so_trang_thai(conn, sess, body),
                 "ct_dossier_context": lambda: AW.ct_dossier_context(conn, sess, body),
                 "ct_dossier_batch": lambda: AW.ct_dossier_batch(conn, sess, body),
@@ -1071,7 +1114,7 @@ class Handler(BaseHTTPRequestHandler):
         finally:
             conn.close()
 
-    def _document_download(self, source_document_id, sess):
+    def _document_download(self, source_document_id, sess, access_token=None):
         """Download an indexed project artifact after role, object-scope and hash checks."""
         try:
             source_id = int(source_document_id or 0)
@@ -1079,6 +1122,16 @@ class Handler(BaseHTTPRequestHandler):
             return self._send_json({"error": "source_document_id khong hop le."}, status=400)
         conn = D.get_conn()
         try:
+            if not sess and access_token:
+                sess = DI.resolve_access_grant(conn, access_token, source_id)
+                if not sess:
+                    return self._send_json(
+                        {"error": "Token tai lieu khong hop le hoac het han.",
+                         "permission_denied": True},
+                        status=403,
+                    )
+            if not sess:
+                return self._send_json({"error": "Chua dang nhap"}, status=401)
             row = conn.execute("""SELECT id,project_id,profile_role,doc_type,file_name,abs_path,
                     ext,size_bytes,source_sha256 FROM source_document WHERE id=?""",
                 (source_id,)).fetchone()
@@ -1334,6 +1387,66 @@ class Handler(BaseHTTPRequestHandler):
             return self._send_json({"ok": True, "opened": row["rel_path"]})
         except Exception:
             return self._send_json({"error": "Khong mo duoc file."}, status=500)
+        finally:
+            conn.close()
+
+    def _redirect(self, location, status=302):
+        self.send_response(status)
+        self.send_header("Location", location)
+        self.send_header("Content-Length", "0")
+        self.end_headers()
+
+    def _oauth_start(self, sess, qs):
+        provider = (qs.get("provider") or ["google"])[0]
+        host = self.headers.get("Host") or ("%s:%s" % (HOST, PORT))
+        proto = "https" if request_uses_https(self.headers) else "http"
+        try:
+            started = DI.oauth_start(sess, provider, "%s://%s" % (proto, host))
+        except AW.ValidationError as exc:
+            return self._send_json({"error": str(exc)}, status=400)
+        except AW.WritePermissionError as exc:
+            return self._send_json({"error": str(exc), "permission_denied": True}, status=403)
+        return self._redirect(started["authorize_url"])
+
+    def _oauth_callback(self, qs):
+        state = (qs.get("state") or [None])[0]
+        code = (qs.get("code") or [None])[0]
+        pending = DI.oauth_pending_pop(state)
+        if not pending:
+            return self._send_json({"error": "OAuth state khong hop le hoac het han."}, status=400)
+        if not code:
+            return self._send_json({"error": "Thieu ma OAuth callback."}, status=400)
+        subject = "oauth:" + pending["provider"] + ":" + hashlib.sha256(code.encode("utf-8")).hexdigest()[:24]
+        conn = D.get_conn()
+        try:
+            user = conn.execute(
+                "SELECT * FROM app_user WHERE id=? AND active=1",
+                (pending["user_id"],),
+            ).fetchone()
+            if not user:
+                return self._send_json({"error": "Tai khoan OAuth khong con hieu luc."}, status=401)
+            sess = {
+                "user_id": user["id"],
+                "username": user["username"],
+                "full_name": user["full_name"],
+                "role": user["role"],
+            }
+            bound = DI.oauth_bind(conn, sess, {
+                "provider": pending["provider"],
+                "subject": subject,
+                "email": None,
+                "display_name": user["full_name"],
+            })
+            return self._send_json({
+                "ok": True,
+                "linked": True,
+                "provider": pending["provider"],
+                "identity_id": bound.get("identity_id"),
+            })
+        except AW.ValidationError as exc:
+            return self._send_json({"error": str(exc)}, status=400)
+        except AW.WritePermissionError as exc:
+            return self._send_json({"error": str(exc), "permission_denied": True}, status=403)
         finally:
             conn.close()
 

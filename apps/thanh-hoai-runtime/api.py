@@ -126,6 +126,15 @@ ERP_WRITE_RESOURCES = {
     "import": ["Giam doc", "Ke toan", "Quan tri he thong"],
     "import_flex": ["Giam doc", "Ke toan", "Kinh doanh", "Quan tri he thong"],
     "tao_bao_gia": ["Giam doc", "Kinh doanh", "Quan tri he thong"],
+    "ct_dossier": ["Giam doc", "Ke toan", "Kinh doanh", "Ky thuat truong",
+                   "Ky thuat vien", "Thu kho", "Quan tri he thong"],
+    "ct_sinh_ho_so": ["Giam doc", "Ke toan", "Ky thuat truong", "Ky thuat vien",
+                      "Quan tri he thong"],
+    "document_sign": ["Giam doc", "Ky thuat truong", "Quan tri he thong"],
+    "oauth_bind": ["Giam doc", "Ke toan", "Kinh doanh", "Ky thuat truong",
+                   "Ky thuat vien", "Thu kho", "Quan tri he thong"],
+    "document_access": ["Giam doc", "Ke toan", "Kinh doanh", "Ky thuat truong",
+                        "Ky thuat vien", "Thu kho", "Quan tri he thong"],
 }
 
 
