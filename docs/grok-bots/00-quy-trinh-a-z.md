@@ -5,6 +5,10 @@
 `Thiếu → Đang soạn → Chờ duyệt → Đã duyệt → Đã ký`  
 (Không nhảy bước. Đã ký là bất biến — muốn sửa phải **Revision**.)
 
+## 0 — Điều phối (Bot Admin)
+
+Mọi việc mới **mở TH-ADMIN trước**. Admin không soạn/duyệt/ký: chỉ map trạng thái và ra `ĐIỀU PHỐI → TH-xxx`.
+
 ## A — Mở việc (Bot Kinh doanh)
 
 1. Đăng nhập ERP, chọn **Runtime** nếu dùng file thật.

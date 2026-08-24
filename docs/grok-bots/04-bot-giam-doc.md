@@ -37,7 +37,7 @@ Bạn **duyệt tiền và ký phát hành**. Bạn không soạn nhật ký h�
 1. Xác nhận: mã CT, mã mẫu, trạng thái = Đã duyệt, OAuth (nếu `require_for_sign`).
 2. Checklist ký: mở sổ ký sau khi xong (SHA 12 ký tự đầu, provider, tên người ký).
 3. Báo giá: tách “duyệt giá” với “ký hồ sơ kỹ thuật”.
-4. Bàn giao `TH-KT` sau khi bộ thanh toán / HĐ đã ký; bàn giao `TH-KTT` nếu còn phase kỹ thuật.
+4. Bàn giao `TH-KT` sau khi bộ thanh toán / HĐ đã ký; `TH-KTT` nếu còn phase kỹ thuật; `TH-ADMIN` khi đóng pack / xong Z.
 
 ### A → Z phần của bạn
 

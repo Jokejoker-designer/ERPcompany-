@@ -1,9 +1,10 @@
-# 5 Grok Bot theo vị trí — quy trình A → Z
+# 6 Grok Bot — 1 điều phối + 5 vị trí
 
-Hướng dẫn tạo **đúng 5 Grok Bot**, mỗi bot một vị trí trong luồng phát hành hồ sơ Thanh Hoài ERP. Bot không thay người ký / người duyệt: chúng **hướng dẫn, kiểm tra bước, soạn checklist**, và **bàn giao** sang bot vị trí kế.
+**TH-ADMIN** là bot điều phối. Năm bot còn lại chỉ làm đúng vai. Không bot nào thay người ký / duyệt trên ERP.
 
 | # | Tên bot (đặt đúng tên này) | Vị trí ERP | File prompt |
 |---|----------------------------|------------|-------------|
+| 0 | `TH-ADMIN · Điều phối` | Quản trị + tổng đài | [00-bot-admin.md](00-bot-admin.md) |
 | 1 | `TH-KD · Kinh doanh` | Kinh doanh | [01-bot-kinh-doanh.md](01-bot-kinh-doanh.md) |
 | 2 | `TH-KTV · Kỹ thuật viên` | Kỹ thuật viên | [02-bot-ky-thuat-vien.md](02-bot-ky-thuat-vien.md) |
 | 3 | `TH-KTT · Kỹ thuật trưởng` | Kỹ thuật trưởng | [03-bot-ky-thuat-truong.md](03-bot-ky-thuat-truong.md) |
@@ -12,13 +13,13 @@ Hướng dẫn tạo **đúng 5 Grok Bot**, mỗi bot một vị trí trong lu�
 
 Quy trình chung: [00-quy-trinh-a-z.md](00-quy-trinh-a-z.md).
 
-Thủ kho và Admin **không** có bot riêng — Bot KTV/KTT/KT gọi họ khi cần vật tư / tài khoản.
+Thủ kho **không** có bot riêng — TH-ADMIN chỉ đường khi cần vật tư.
 
 ---
 
 ## Cách tạo trên Grok (grok.x.ai / grok.com)
 
-Làm lần lượt 5 lần:
+Tạo **TH-ADMIN trước**, rồi 5 bot vị trí (6 lần):
 
 1. Mở Grok → **Create a bot** (hoặc Custom / Projects, tùy giao diện).
 2. **Name** = cột “Tên bot” ở bảng trên.
@@ -26,24 +27,26 @@ Làm lần lượt 5 lần:
 4. **Instructions** = copy toàn bộ khối `SYSTEM PROMPT` trong file đó (từ dòng `Bạn là…` đến hết khối).
 5. **Conversation starters** = copy 3 câu trong mục “Câu mở đầu”.
 6. Bật bot **private** (nội bộ công ty). Không dán mật khẩu, cookie, SHA thật vào instruction.
-7. Lưu. Lặp cho 4 bot còn lại.
+7. Lưu. Lặp cho đủ 6 bot.
 
-Gợi ý ảnh đại diện: KD = báo giá, KTV = nhật ký, KTT = checklist, GD = chữ ký, KT = hóa đơn.
+Gợi ý ảnh: ADMIN = điều phối, KD = báo giá, KTV = nhật ký, KTT = checklist, GD = chữ ký, KT = hóa đơn.
 
 ## Cách tạo trên Cursor (Cloud Agent / Grok)
 
 1. Cursor → **Agents** → New cloud agent.
 2. Repo: `ERPcompany-`.
 3. **Custom instructions** = cùng khối `SYSTEM PROMPT`.
-4. Đặt tên agent giống bảng. Tạo 5 agent, không gộp một agent cho mọi vai trò.
+4. Đặt tên agent giống bảng. Tạo **6** agent. Việc mới luôn mở **TH-ADMIN** trước.
 
-Khi chạy agent: mở đầu tin nhắn bằng  
-`Vị trí: Kinh doanh | Công trình: CT-… | Việc: …`
+Khi chạy:  
+`Việc mới | Công trình: CT-… | Việc: …` → TH-ADMIN  
+Sau khi có `ĐIỀU PHỐI → TH-xxx`, mở đúng bot đó và dán khối BÀN GIAO.
 
 ## Tài khoản ERP tương ứng (demo)
 
 | Bot | Username gợi ý | Không được làm |
 |-----|----------------|----------------|
+| TH-ADMIN | `admin` | Soạn / duyệt / ký / hạch toán thay 5 bot kia |
 | TH-KD | `kinhdoanh` | Duyệt kỹ thuật, ký số, xem giá vốn (trừ khi được cấp) |
 | TH-KTV | `ktv` | Duyệt hồ sơ người khác, ký số, xem tiền |
 | TH-KTT | `ktt` | Ký số thay GĐ (trừ mẫu KTT là approver), xem bank |
@@ -52,30 +55,32 @@ Khi chạy agent: mở đầu tin nhắn bằng
 
 Runtime: `http://127.0.0.1:8777` + ERP React `:8080`. Chế độ **Runtime** mới có file Word/Excel thật, SHA, ký số, OAuth.
 
-## Bàn giao giữa 5 bot (bắt buộc)
+## Bàn giao (bắt buộc)
 
-Mỗi bot kết thúc việc bằng khối:
+TH-ADMIN luôn ghi `ĐIỀU PHỐI → TH-xxx` rồi khối:
 
 ```
 BÀN GIAO
-Từ: TH-KD
+Từ: TH-ADMIN
 Tới: TH-KTV
 Công trình: CT-2026-xxxx
-Mẫu / việc: BG-01 + mở hồ sơ
-Trạng thái: đã có báo giá, chờ sinh CT-00
+Mẫu / việc: CT-03-SUB
+Trạng thái: đã có BG, chờ sinh file
 Ghi chú: …
 ```
 
-Người dùng copy khối này sang bot kế. Bot nhận **không làm việc của bot trước**.
+Bot chuyên môn xong việc: `Tới: TH-ADMIN` (báo cáo) **hoặc** bot kế nếu bước liền mạch. Bot nhận **không làm việc của bot trước**.
 
-## Thứ tự A → Z (ai chạy bot nào)
+## Thứ tự A → Z
 
 ```
-A  TH-KD   Mở khách + CT + báo giá / HĐ
-B  TH-KTV  Sinh Word/Excel từ DB, sửa file, gửi duyệt
-C  TH-KTT  Rà soát, duyệt hoặc trả về
-D  TH-GD   Ký số + phát hành (OAuth nếu bắt buộc)
-E  TH-KT   Hồ sơ thanh toán / quyết toán sau đã ký
+0  TH-ADMIN  Nhận việc, định tuyến, theo dõi
+A  TH-KD     Mở khách + CT + báo giá / HĐ
+B  TH-KTV    Sinh Word/Excel từ DB, sửa file, gửi duyệt
+C  TH-KTT    Rà soát, duyệt hoặc trả về
+D  TH-GD     Ký số + phát hành (OAuth nếu bắt buộc)
+E  TH-KT     Hồ sơ thanh toán / quyết toán sau đã ký
+Z  TH-ADMIN  Đóng phiếu khi pack + quyết toán xong
 ```
 
 Chi tiết từng chữ: [00-quy-trinh-a-z.md](00-quy-trinh-a-z.md).

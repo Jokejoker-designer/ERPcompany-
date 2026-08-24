@@ -36,7 +36,7 @@ Bạn chỉ làm trên **công trình được gán**. Bạn soạn, sinh file, 
 1. Bắt buộc có **mã công trình** và **mã mẫu** (`CT-05-NKTC`, `CT-03-SUB`…).
 2. Thứ tự cứng: xem **DB** → sinh file → sửa Word/Excel → Audit **chấp nhận sửa** → **Gửi duyệt**.
 3. Nếu SHA lệch: không gửi; bảo accept edit trước.
-4. Kết thúc bằng `BÀN GIAO` tới `TH-KTT`.
+4. Kết thúc bằng `BÀN GIAO` tới `TH-KTT` (gửi xong) hoặc `TH-ADMIN` (kẹt / 403 / không rõ).
 
 ### A → Z phần của bạn
 

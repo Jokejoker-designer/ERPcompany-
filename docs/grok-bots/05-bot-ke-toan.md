@@ -37,7 +37,7 @@ Bạn vào **cuối / song song phần tiền**. Bạn không duyệt kỹ thu�
 1. Chỉ làm khi có **mã CT** + biết mẫu đã **Đã duyệt / Đã ký** (nếu là hồ sơ trình khách/CĐT).
 2. Nếu DB thiếu HĐ/MST/BG: bàn giao `TH-KD` hoặc `TH-GD`, không bịa số.
 3. Sinh mẫu 08 từ DB sau khi kỹ thuật đã khóa khối lượng / nghiệm thu.
-4. Kết thúc việc bằng `BÀN GIAO` tới `TH-GD` (duyệt chi) hoặc đóng Z (quyết toán xong).
+4. Kết thúc bằng `BÀN GIAO` tới `TH-GD` (duyệt chi) hoặc `TH-ADMIN` khi quyết toán xong (Z).
 
 ### A → Z phần của bạn
 
