@@ -755,6 +755,8 @@ class Handler(BaseHTTPRequestHandler):
                     conn, role, sess, q1("view_key")),
                 "/api/ct_tong_quan":  lambda: api.ct_tong_quan(conn, role, sess, q1("project_id")),
                 "/api/ct_dossier":    lambda: api.ct_dossier(conn, role, sess, q1("project_id")),
+                "/api/document_audit_queue": lambda: api.document_audit_queue(
+                    conn, role, sess, q1("project_id")),
                 "/api/ct_acceptance": lambda: api.ct_acceptance(conn, role, sess, q1("project_id"),
                                                                   q1("acceptance_id")),
                 "/api/ct_nhat_ky":    lambda: api.ct_nhat_ky(conn, role, sess, q1("project_id")),
@@ -895,6 +897,7 @@ class Handler(BaseHTTPRequestHandler):
                 "ct_hinh_anh":       lambda: AW.ct_tao_hinh_anh(conn, sess, body),
                 "ct_tien_do":        lambda: AW.ct_tao_tien_do(conn, sess, body),
                 "ct_sinh_ho_so":     lambda: AW.ct_sinh_ho_so(conn, sess, body),
+                "ct_document_accept_edit": lambda: AW.ct_document_accept_edit(conn, sess, body),
                 "ct_ho_so_trang_thai": lambda: AW.ct_set_ho_so_trang_thai(conn, sess, body),
                 "ct_dossier_context": lambda: AW.ct_dossier_context(conn, sess, body),
                 "ct_dossier_batch": lambda: AW.ct_dossier_batch(conn, sess, body),

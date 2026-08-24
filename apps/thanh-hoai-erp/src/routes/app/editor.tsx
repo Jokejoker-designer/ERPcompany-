@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { z } from "zod";
 import {
   FilePlus,
   FileText,
@@ -9,6 +10,8 @@ import {
   Trash2,
   Table2,
   FolderOpen,
+  ExternalLink,
+  Download,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
@@ -16,11 +19,22 @@ import { Button } from "@/components/ui/button";
 import { Card, CardBody, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { parseGrid, serializeGrid } from "@/data/documents";
+import { CT_TEMPLATES } from "@/data/ct-registry";
+import {
+  openRuntimeDocument,
+  runtimeDocumentDownloadUrl,
+} from "@/lib/runtime-documents";
 import { cn } from "@/lib/utils";
 import { getCurrentContent, useDocsStore } from "@/store/docs-store";
 import { useErpStore } from "@/store/erp-store";
 
+const editorSearchSchema = z.object({
+  ma_mau: z.string().optional(),
+  sd: z.string().optional(),
+});
+
 export const Route = createFileRoute("/app/editor")({
+  validateSearch: editorSearchSchema,
   component: EditorPage,
 });
 
@@ -35,7 +49,27 @@ function EditorPage() {
   const restoreVersion = useDocsStore((s) => s.restoreVersion);
   const renameDoc = useDocsStore((s) => s.renameDoc);
   const removeDoc = useDocsStore((s) => s.removeDoc);
+  const linkCtTemplate = useDocsStore((s) => s.linkCtTemplate);
   const company = useErpStore((s) => s.company);
+  const dataSource = useErpStore((s) => s.dataSource);
+  const activeProject = useErpStore((s) =>
+    s.projects.find((p) => p.id === s.activeProjectId),
+  );
+
+  const { ma_mau: linkedMaMau, sd: linkedSdStr } = Route.useSearch();
+  const linkedSd = linkedSdStr ? Number(linkedSdStr) : undefined;
+
+  useEffect(() => {
+    if (!linkedMaMau) return;
+    const tpl = CT_TEMPLATES.find((t) => t.code === linkedMaMau);
+    linkCtTemplate({
+      maMau: linkedMaMau,
+      title: tpl?.title,
+      format: tpl?.file_type,
+      projectCode: activeProject?.code,
+      sourceDocumentId: linkedSd ? String(linkedSd) : undefined,
+    });
+  }, [linkedMaMau, linkedSd, linkCtTemplate, activeProject?.code]);
 
   const active =
     documents.find((d) => d.id === activeDocId) ?? documents[0] ?? null;
@@ -84,6 +118,39 @@ function EditorPage() {
 
   return (
     <div className="space-y-4">
+      {linkedMaMau ? (
+        <Card className="border-brand/30 bg-brand-soft/20">
+          <CardBody className="flex flex-wrap items-center gap-2 py-3 text-sm">
+            <span>
+              Liên kết mẫu <strong>{linkedMaMau}</strong>
+              {linkedSd ? ` · file SD#${linkedSd}` : ""}
+            </span>
+            {dataSource === "runtime" && linkedSd ? (
+              <>
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  onClick={() => void openRuntimeDocument(linkedSd)}
+                >
+                  <ExternalLink className="h-3.5 w-3.5" />
+                  Mở Word/Excel
+                </Button>
+                <a
+                  href={runtimeDocumentDownloadUrl(linkedSd)}
+                  className="inline-flex h-8 items-center rounded border border-border px-2 text-xs hover:bg-surface-2"
+                >
+                  <Download className="h-3.5 w-3.5" />
+                  Tải file
+                </a>
+              </>
+            ) : null}
+            <Button size="sm" variant="ghost" asChild>
+              <Link to="/app/documents">← Hồ sơ CT</Link>
+            </Button>
+          </CardBody>
+        </Card>
+      ) : null}
+
       <div className="flex flex-wrap items-center gap-2">
         <Button
           size="sm"

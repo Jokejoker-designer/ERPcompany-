@@ -4702,6 +4702,71 @@ def ct_sinh_ho_so(conn, sess, data):
     return {"ok": True, "file_name": fname, "source_document_id": evidence["id"], "ma_mau": ma_mau}
 
 
+def ct_document_accept_edit(conn, sess, data):
+    """Sau khi user sửa Word/Excel ngoài app — cập nhật SHA256 và version hồ sơ."""
+    require_write("ct_dossier", sess["role"])
+    p = _ct_require_project(conn, sess, data.get("project_id"), "ct_document_accept_edit")
+    ma_mau = (data.get("ma_mau") or "").strip()
+    if not ma_mau:
+        raise ValidationError("Thiếu ma_mau.")
+    cur = conn.execute(
+        """SELECT * FROM cong_trinh_ho_so_trang_thai
+           WHERE project_id=? AND ma_mau=?""",
+        (p["id"], ma_mau),
+    ).fetchone()
+    if not cur or not cur["evidence_source_document_id"]:
+        raise ValidationError("Mẫu %s chưa có file bằng chứng liên kết." % ma_mau)
+    sd = conn.execute(
+        "SELECT * FROM source_document WHERE id=?",
+        (cur["evidence_source_document_id"],),
+    ).fetchone()
+    if not sd:
+        raise ValidationError("source_document không tồn tại.")
+    if int(sd["project_id"] or 0) != int(p["id"]):
+        raise WritePermissionError("File không thuộc công trình này.")
+    path = sd["abs_path"]
+    if not path or not os.path.isfile(path):
+        raise ValidationError("File đã index nhưng không còn trên đĩa.")
+    digest = hashlib.sha256()
+    with open(path, "rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    new_sha = digest.hexdigest()
+    new_size = os.path.getsize(path)
+    old_sha = str(sd["source_sha256"] or "")
+    conn.execute(
+        "UPDATE source_document SET source_sha256=?, size_bytes=? WHERE id=?",
+        (new_sha, new_size, sd["id"]),
+    )
+    conn.execute(
+        """UPDATE cong_trinh_ho_so_trang_thai SET version=version+1, updated_by=?,
+           updated_at=datetime('now') WHERE project_id=? AND ma_mau=?""",
+        (sess.get("user_id"), p["id"], ma_mau),
+    )
+    audit(
+        conn,
+        sess,
+        "CT_DOCUMENT_ACCEPT_EDIT",
+        "source_document",
+        str(sd["id"]),
+        "Chap nhan sua file %s (%s) SHA %s -> %s" % (
+            ma_mau,
+            sd["file_name"],
+            old_sha[:12],
+            new_sha[:12],
+        ),
+    )
+    conn.commit()
+    return {
+        "ok": True,
+        "ma_mau": ma_mau,
+        "source_document_id": sd["id"],
+        "source_sha256": new_sha,
+        "size_bytes": new_size,
+        "changed": old_sha.lower() != new_sha.lower(),
+    }
+
+
 def ct_nhat_ky_export(conn, sess, data):
     """Xuat dung mot version nhat ky da duyet theo template V3.1.
 
