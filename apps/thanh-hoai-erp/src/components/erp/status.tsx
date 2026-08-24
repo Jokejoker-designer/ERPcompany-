@@ -1,5 +1,9 @@
 import { Badge } from "@/components/ui/badge";
 import type { DocStatus, Quotation, Receivable, BankLine } from "@/data/seed";
+import {
+  FORM_APPROVAL_LABEL,
+  type FormApprovalStatus,
+} from "@/data/form-workflow";
 
 export function QuoteStatusBadge({ status }: { status: Quotation["status"] }) {
   const map = {
@@ -47,6 +51,20 @@ export function DocStatusBadge({ status }: { status: DocStatus }) {
   };
   const m = map[status];
   return <Badge variant={m.v}>{m.t}</Badge>;
+}
+
+export function FormApprovalBadge({ status }: { status: FormApprovalStatus }) {
+  const variant =
+    status === "da_duyet" || status === "da_ky"
+      ? "ok"
+      : status === "cho_duyet"
+        ? "warn"
+        : status === "dang_soan"
+          ? "info"
+          : status === "khong_ap_dung"
+            ? "default"
+            : "danger";
+  return <Badge variant={variant}>{FORM_APPROVAL_LABEL[status]}</Badge>;
 }
 
 export function Metric({

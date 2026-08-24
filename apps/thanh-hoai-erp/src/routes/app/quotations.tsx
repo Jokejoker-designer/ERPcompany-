@@ -13,6 +13,9 @@ import {
   Maximize2,
   Minimize2,
   ClipboardPaste,
+  Download,
+  FileSpreadsheet,
+  Printer,
 } from "lucide-react";
 // icons for BOQ fullscreen / paste
 import { toast } from "sonner";
@@ -38,6 +41,14 @@ import {
 } from "@/data/seed";
 import { cn, formatVnd } from "@/lib/utils";
 import { useErpStore } from "@/store/erp-store";
+import {
+  downloadQuotationExport,
+  exportQuotationBoqCsv,
+  linesFromSalesPreview,
+  previewSalesExcel,
+  readBoqFile,
+} from "@/lib/sales-export";
+import { PrintPreviewModal } from "@/components/erp/print-preview";
 
 export const Route = createFileRoute("/app/quotations")({
   component: QuotationsPage,
@@ -66,6 +77,7 @@ function QuotationsPage() {
   const projects = useErpStore((s) => s.projects);
   const materials = useErpStore((s) => s.materials);
   const company = useErpStore((s) => s.company);
+  const dataSource = useErpStore((s) => s.dataSource);
   const addQuotation = useErpStore((s) => s.addQuotation);
   const setStatus = useErpStore((s) => s.setQuotationStatus);
   const updateMeta = useErpStore((s) => s.updateQuotationMeta);
@@ -93,6 +105,59 @@ function QuotationsPage() {
     newDraftLine(8),
     newDraftLine(8),
   ]);
+  const importRef = useRef<HTMLInputElement>(null);
+
+  async function importBoqFile(file: File) {
+    const vat = Number(header.vat) || 8;
+    try {
+      if (dataSource === "runtime") {
+        const preview = await previewSalesExcel(file);
+        if (preview.error) {
+          toast.error(preview.error);
+          return;
+        }
+        const lines = linesFromSalesPreview(preview, vat);
+        if (!lines.length) {
+          toast.error("Không đọc được hàng BOQ từ file");
+          return;
+        }
+        setDraftLines(
+          lines.map((l) => ({
+            key: `d-${Date.now()}-${l.id}`,
+            name: l.name,
+            description: l.description,
+            qty: l.qty,
+            unit: l.unit,
+            unitPrice: l.unitPrice,
+            taxRate: l.taxRate,
+            notes: l.notes,
+          })),
+        );
+        toast.success(`Nhập ${lines.length} dòng từ Excel (runtime preview)`);
+        return;
+      }
+      const lines = await readBoqFile(file, vat);
+      if (!lines.length) {
+        toast.message("Demo: dùng CSV/TXT hoặc Ctrl+V dán từ Excel");
+        return;
+      }
+      setDraftLines(
+        lines.map((l) => ({
+          key: `d-${Date.now()}-${l.id}`,
+          name: l.name,
+          description: l.description,
+          qty: l.qty,
+          unit: l.unit,
+          unitPrice: l.unitPrice,
+          taxRate: l.taxRate,
+          notes: l.notes,
+        })),
+      );
+      toast.success(`Nhập ${lines.length} dòng BOQ`);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Nhập file thất bại");
+    }
+  }
 
   useEffect(() => {
     if (project) {
@@ -244,7 +309,28 @@ function QuotationsPage() {
         <Card>
           <CardHeader>
             <CardTitle>Báo giá mới — bám công trình</CardTitle>
-            <Badge variant="info">{draftTotals.count} dòng có tên</Badge>
+            <div className="flex flex-wrap items-center gap-2">
+              <Badge variant="info">{draftTotals.count} dòng có tên</Badge>
+              <input
+                ref={importRef}
+                type="file"
+                accept=".xlsx,.xls,.csv,.txt"
+                className="hidden"
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  if (f) void importBoqFile(f);
+                  e.target.value = "";
+                }}
+              />
+              <Button
+                size="sm"
+                variant="secondary"
+                onClick={() => importRef.current?.click()}
+              >
+                <FileSpreadsheet className="h-3.5 w-3.5" />
+                Nhập Excel/CSV
+              </Button>
+            </div>
           </CardHeader>
           <CardBody className="space-y-4">
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -451,6 +537,7 @@ function QuotationsPage() {
             selected={asQuote(selected)}
             company={company}
             materials={materials}
+            dataSource={dataSource}
             editing={editing}
             setEditing={setEditing}
             updateMeta={updateMeta}
@@ -478,9 +565,11 @@ function QuoteDetail({
   removeLine,
   setStatus,
   bumpRevision,
+  dataSource,
 }: {
   selected: Quotation;
   company: { companyName: string; address: string; phone: string };
+  dataSource: "demo" | "runtime";
   materials: {
     sku: string;
     name: string;
@@ -509,6 +598,8 @@ function QuoteDetail({
   setStatus: (id: string, status: Quotation["status"]) => void;
   bumpRevision: (id: string) => void;
 }) {
+  const [printOpen, setPrintOpen] = useState(false);
+
   useEffect(() => {
     function onPasteRows(ev: Event) {
       const rows = (ev as CustomEvent<string[][]>).detail || [];
@@ -528,6 +619,34 @@ function QuoteDetail({
     window.addEventListener("boq-paste-rows", onPasteRows);
     return () => window.removeEventListener("boq-paste-rows", onPasteRows);
   }, [selected.id, selected.vat, addLine]);
+
+  async function exportExcel() {
+    if (dataSource === "runtime") {
+      try {
+        await downloadQuotationExport(selected.id, "xlsx");
+        toast.success(`Xuất Excel ${selected.code}`);
+      } catch (e) {
+        toast.error(e instanceof Error ? e.message : "Xuất Excel thất bại");
+      }
+      return;
+    }
+    exportQuotationBoqCsv(selected);
+    toast.message("Demo: xuất BOQ CSV — runtime có mẫu Excel đầy đủ");
+  }
+
+  async function exportWord() {
+    if (dataSource !== "runtime") {
+      toast.message("Word chỉ có trên runtime — dùng In/PDF");
+      setPrintOpen(true);
+      return;
+    }
+    try {
+      await downloadQuotationExport(selected.id, "docx");
+      toast.success(`Xuất Word ${selected.code}`);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Xuất Word thất bại");
+    }
+  }
 
   return (
     <div className="space-y-4 xl:col-span-3">
@@ -596,6 +715,22 @@ function QuoteDetail({
             {selected.status === "won" ? (
               <Badge variant="ok">Đã trúng · đã có HĐ</Badge>
             ) : null}
+            <Button size="sm" variant="secondary" onClick={() => exportQuotationBoqCsv(selected)}>
+              <Download className="h-3.5 w-3.5" />
+              CSV
+            </Button>
+            <Button size="sm" variant="secondary" onClick={() => void exportExcel()}>
+              <FileSpreadsheet className="h-3.5 w-3.5" />
+              Excel
+            </Button>
+            <Button size="sm" variant="secondary" onClick={() => void exportWord()}>
+              <FileSignature className="h-3.5 w-3.5" />
+              Word
+            </Button>
+            <Button size="sm" variant="secondary" onClick={() => setPrintOpen(true)}>
+              <Printer className="h-3.5 w-3.5" />
+              In / PDF
+            </Button>
           </div>
         </CardHeader>
         <CardBody className="space-y-4">
@@ -740,22 +875,54 @@ function QuoteDetail({
         </CardBody>
       </Card>
 
-      <Card className="border-brand/20 bg-gradient-to-b from-brand-soft/40 to-surface">
-        <CardBody>
-          <div className="mb-3 text-xs font-semibold uppercase tracking-wide text-brand-ink">
-            Letterhead · bám CT {selected.projectCode}
+      <PrintPreviewModal
+        open={printOpen}
+        title={`Báo giá ${selected.code} · rev #${selected.revision}`}
+        onClose={() => setPrintOpen(false)}
+      >
+        <div className="space-y-4 text-sm">
+          <div className="font-semibold text-base">{company.companyName}</div>
+          <p className="text-muted">{company.address} · {company.phone}</p>
+          <div className="text-center">
+            <div className="text-lg font-bold uppercase">Báo giá</div>
+            <div className="text-xs text-muted">
+              {selected.code} · {selected.projectCode} — {selected.projectName}
+            </div>
           </div>
-          <div className="font-semibold">{company.companyName}</div>
-          <p className="mt-2 text-sm">
+          <p>
             Kính gửi: <em>{selected.customer}</em>
-            <br />
-            Công trình: {selected.projectCode} — {selected.projectName}
           </p>
-          <div className="mt-3 text-right text-sm font-semibold tabular-nums">
+          <table className="w-full text-xs border-collapse">
+            <thead>
+              <tr className="border-b">
+                <th className="py-1 text-left">#</th>
+                <th className="py-1 text-left">Hạng mục</th>
+                <th className="py-1 text-right">SL</th>
+                <th className="py-1 text-right">Đơn giá</th>
+                <th className="py-1 text-right">Thành tiền</th>
+              </tr>
+            </thead>
+            <tbody>
+              {selected.lines.map((l, i) => (
+                <tr key={l.id} className="border-b border-border-soft">
+                  <td className="py-1">{i + 1}</td>
+                  <td className="py-1">{l.name}</td>
+                  <td className="py-1 text-right tabular-nums">{l.qty}</td>
+                  <td className="py-1 text-right tabular-nums">
+                    {formatVnd(l.unitPrice)}
+                  </td>
+                  <td className="py-1 text-right tabular-nums">
+                    {formatVnd(l.qty * l.unitPrice)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="text-right font-semibold tabular-nums">
             Tổng: {formatVnd(quoteTotal(selected))}
           </div>
-        </CardBody>
-      </Card>
+        </div>
+      </PrintPreviewModal>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   Check,
@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { ProjectPicker } from "@/components/erp/project-context";
+import { DataTable } from "@/components/erp/data-table";
 import { DocStatusBadge, Metric } from "@/components/erp/status";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,8 @@ import {
 } from "@/data/seed";
 import { cn, formatVnd } from "@/lib/utils";
 import { useErpStore } from "@/store/erp-store";
+import { resolveUserKey } from "@/lib/user-scope";
+import type { Project, ProjectStage } from "@/data/seed";
 
 export const Route = createFileRoute("/app/projects")({
   component: ProjectsPage,
@@ -49,6 +52,9 @@ const STEP_ROUTE: Partial<Record<WorkflowStepId, string>> = {
 
 function ProjectsPage() {
   const projects = useErpStore((s) => s.projects);
+  const session = useErpStore((s) => s.session);
+  const user = useErpStore((s) => s.user);
+  const userKey = resolveUserKey(session, user?.username);
   const quotations = useErpStore((s) => s.quotations);
   const receivables = useErpStore((s) => s.receivables);
   const activeProjectId = useErpStore((s) => s.activeProjectId);
@@ -146,6 +152,91 @@ function ProjectsPage() {
 
   return (
     <div className="space-y-4">
+      <DataTable<Project>
+        rows={projects}
+        rowKey={(p) => p.id}
+        tableId="projects"
+        userKey={userKey}
+        selectedKey={activeProjectId}
+        onRowClick={(p) => setActiveProject(p.id)}
+        searchKeys={[
+          (p) => p.code,
+          (p) => p.name,
+          (p) => p.customer,
+          (p) => p.address ?? "",
+        ]}
+        searchPlaceholder="Lọc mã CT, tên, khách…"
+        facets={[
+          {
+            id: "stage",
+            options: [
+              { value: "all", label: "Mọi giai đoạn" },
+              { value: "bao_gia", label: STAGE_LABEL.bao_gia },
+              { value: "thi_cong", label: STAGE_LABEL.thi_cong },
+              { value: "nghiem_thu", label: STAGE_LABEL.nghiem_thu },
+              { value: "hoan_thanh", label: STAGE_LABEL.hoan_thanh },
+            ],
+            match: (p, v) => v === "all" || p.stage === (v as ProjectStage),
+          },
+          {
+            id: "overdue",
+            options: [
+              { value: "all", label: "Hạn mọi" },
+              { value: "yes", label: "Trễ hạn" },
+              { value: "no", label: "Trong hạn" },
+            ],
+            match: (p, v) => {
+              if (v === "all") return true;
+              const overdue = Boolean(p.overdue);
+              return v === "yes" ? overdue : !overdue;
+            },
+          },
+        ]}
+        columns={[
+          {
+            id: "code",
+            header: "Mã CT",
+            sortValue: (p) => p.code,
+            cell: (p) => (
+              <span className="font-mono text-xs font-bold text-brand-ink">
+                {p.code}
+              </span>
+            ),
+          },
+          {
+            id: "name",
+            header: "Công trình",
+            sortValue: (p) => p.name,
+            cell: (p) => (
+              <div>
+                <div className="font-semibold">{p.name}</div>
+                <div className="text-xs text-muted">{p.customer}</div>
+              </div>
+            ),
+          },
+          {
+            id: "stage",
+            header: "Giai đoạn",
+            sortValue: (p) => p.stage,
+            cell: (p) => STAGE_LABEL[p.stage],
+          },
+          {
+            id: "progress",
+            header: "%",
+            sortValue: (p) => p.progress,
+            cell: (p) => `${p.progress}%`,
+            className: "w-14",
+          },
+          {
+            id: "value",
+            header: "Giá trị",
+            sortValue: (p) => p.value,
+            cell: (p) => formatVnd(p.value),
+            hideOnMobile: true,
+          },
+        ]}
+      />
+
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <div className="min-w-0 flex-1">
           <p className="text-xs font-semibold uppercase tracking-wide text-muted">

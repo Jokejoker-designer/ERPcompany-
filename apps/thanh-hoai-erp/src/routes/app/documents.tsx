@@ -1,35 +1,69 @@
 import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { Check, Send } from "lucide-react";
 import { toast } from "sonner";
 import { ProjectContextBar, useActiveProject } from "@/components/erp/project-context";
 import { DataTable } from "@/components/erp/data-table";
-import { DocStatusBadge, Metric } from "@/components/erp/status";
+import { FormApprovalBadge, Metric } from "@/components/erp/status";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CT_PHASES, CT_TEMPLATES } from "@/data/ct-registry";
-import { type DocStatus, type WorkflowStepId } from "@/data/seed";
+import {
+  FORM_APPROVAL_LABEL,
+  type FormApprovalStatus,
+  docStatusToFormApproval,
+  formApprovalToDocStatus,
+} from "@/data/form-workflow";
+import { type WorkflowStepId } from "@/data/seed";
+import { resolveUserKey } from "@/lib/user-scope";
 import { useErpStore } from "@/store/erp-store";
+import { useFormWorkflowStore } from "@/store/form-workflow-store";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/app/documents")({
   component: DocumentsPage,
 });
 
-const STATUS_CYCLE: DocStatus[] = ["enough", "pending", "draft", "missing"];
-
-type DocRow = (typeof CT_TEMPLATES)[number] & { status: DocStatus };
+type DocRow = (typeof CT_TEMPLATES)[number] & {
+  approvalStatus: FormApprovalStatus;
+};
 
 function DocumentsPage() {
   const project = useActiveProject();
+  const session = useErpStore((s) => s.session);
+  const user = useErpStore((s) => s.user);
+  const userKey = resolveUserKey(session, user?.username);
   const setProjectDocStatus = useErpStore((s) => s.setProjectDocStatus);
   const markPhaseDocs = useErpStore((s) => s.markPhaseDocs);
   const markWorkflow = useErpStore((s) => s.markWorkflow);
   const quotations = useErpStore((s) => s.quotations);
+  const getFormStatus = useFormWorkflowStore((s) => s.getFormStatus);
+  const cycleFormStatus = useFormWorkflowStore((s) => s.cycleFormStatus);
+  const submitForApproval = useFormWorkflowStore((s) => s.submitForApproval);
+  const approveForm = useFormWorkflowStore((s) => s.approveForm);
+  const formWorkspace = useFormWorkflowStore((s) => s.byUser[userKey]);
   const [phase, setPhase] = useState<string>("all");
 
   const projectQuotes = project
     ? quotations.filter((x) => x.projectCode === project.code)
     : [];
+
+  function resolveApproval(templateCode: string): FormApprovalStatus {
+    if (!project) return "thieu";
+    const rec = getFormStatus(userKey, project.id, templateCode);
+    if (rec) return rec.status;
+    const legacy = project.docStatuses[templateCode] ?? "missing";
+    return docStatusToFormApproval(legacy);
+  }
+
+  function syncDocStatus(templateCode: string, approval: FormApprovalStatus) {
+    if (!project) return;
+    setProjectDocStatus(
+      project.id,
+      templateCode,
+      formApprovalToDocStatus(approval),
+    );
+  }
 
   const withStatus: DocRow[] = useMemo(() => {
     return CT_TEMPLATES.filter((t) => {
@@ -37,34 +71,61 @@ function DocumentsPage() {
       return true;
     }).map((t) => ({
       ...t,
-      status: (project?.docStatuses[t.code] ?? "missing") as DocStatus,
+      approvalStatus: resolveApproval(t.code),
     }));
-  }, [phase, project]);
+  }, [phase, project, formWorkspace]);
 
   const counts = useMemo(() => {
-    if (!project) return { missing: 0, enough: 0, pending: 0 };
-    let missing = 0,
-      enough = 0,
-      pending = 0;
+    if (!project) return { thieu: 0, cho_duyet: 0, da_duyet: 0 };
+    let thieu = 0,
+      cho_duyet = 0,
+      da_duyet = 0;
     for (const t of CT_TEMPLATES) {
-      const st = project.docStatuses[t.code] ?? "missing";
-      if (st === "missing") missing++;
-      else if (st === "enough") enough++;
-      else if (st === "pending") pending++;
+      const st = resolveApproval(t.code);
+      if (st === "cho_duyet") cho_duyet++;
+      else if (st === "da_duyet" || st === "da_ky") da_duyet++;
+      else if (st === "thieu" || st === "khong_ap_dung") thieu++;
     }
-    return { missing, enough, pending };
-  }, [project]);
+    return { thieu, cho_duyet, da_duyet };
+  }, [project, formWorkspace]);
 
-  function cycle(code: string, current: DocStatus) {
+  function cycle(code: string, current: FormApprovalStatus) {
     if (!project) return;
-    const i = STATUS_CYCLE.indexOf(current);
-    const next = STATUS_CYCLE[(i + 1) % STATUS_CYCLE.length];
-    setProjectDocStatus(project.id, code, next);
+    const next = cycleFormStatus(
+      userKey,
+      project.id,
+      code,
+      user?.username ?? userKey,
+    );
+    syncDocStatus(code, next);
+    toast.message(FORM_APPROVAL_LABEL[next]);
+  }
+
+  function submit(code: string) {
+    if (!project) return;
+    submitForApproval(
+      userKey,
+      project.id,
+      code,
+      user?.username ?? userKey,
+    );
+    syncDocStatus(code, "cho_duyet");
+    toast.success("Đã gửi phê duyệt");
+  }
+
+  function approve(code: string) {
+    if (!project) return;
+    approveForm(userKey, project.id, code, user?.username ?? userKey);
+    syncDocStatus(code, "da_duyet");
+    toast.success("Đã phê duyệt biểu mẫu");
   }
 
   function markPhaseDone(ph: string) {
     if (!project) return;
     markPhaseDocs(project.id, ph, "enough");
+    for (const t of CT_TEMPLATES.filter((x) => x.phase_code === ph)) {
+      approveForm(userKey, project.id, t.code, user?.username ?? userKey);
+    }
     markWorkflow(project.id, `docs${ph}` as WorkflowStepId, true);
     toast.success(`Phase ${ph} đủ trên ${project.code}`, {
       description: project.name,
@@ -78,25 +139,27 @@ function DocumentsPage() {
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <Metric label="Tổng mẫu CT" value={String(CT_TEMPLATES.length)} />
         <Metric
-          label={`Đủ · ${project?.code ?? "—"}`}
-          value={String(counts.enough)}
+          label={`Đã duyệt · ${project?.code ?? "—"}`}
+          value={String(counts.da_duyet)}
           tone="ok"
         />
         <Metric
-          label="Chờ / nháp"
-          value={String(counts.pending)}
+          label="Chờ duyệt"
+          value={String(counts.cho_duyet)}
           tone="info"
         />
         <Metric
-          label="Thiếu trên CT này"
-          value={String(counts.missing)}
-          tone={counts.missing ? "danger" : "ok"}
+          label="Thiếu / N/A"
+          value={String(counts.thieu)}
+          tone={counts.thieu ? "danger" : "ok"}
         />
       </div>
 
       {project ? (
         <div className="rounded-[var(--radius-lg)] border border-border bg-surface px-4 py-3 text-sm text-muted shadow-[var(--shadow-panel)]">
-          Checklist <strong className="text-fg">84 mẫu</strong> đang gắn với{" "}
+          Quy trình biểu mẫu lưu theo người dùng{" "}
+          <strong className="text-fg">{user?.username ?? userKey}</strong>
+          {" · "}checklist <strong className="text-fg">84 mẫu</strong> gắn{" "}
           <strong className="text-fg">
             {project.code} — {project.name}
           </strong>
@@ -104,7 +167,8 @@ function DocumentsPage() {
           khách <strong className="text-fg">{project.customer}</strong>
           {project.contractCode ? (
             <>
-              {" · "}HĐ <strong className="text-fg">{project.contractCode}</strong>
+              {" · "}HĐ{" "}
+              <strong className="text-fg">{project.contractCode}</strong>
             </>
           ) : null}
           {projectQuotes.length ? (
@@ -115,7 +179,8 @@ function DocumentsPage() {
           ) : (
             " · chưa có báo giá gắn mã CT này"
           )}
-          . Đổi trạng thái chỉ ảnh hưởng công trình đang chọn.
+          . Tạo → sửa → gửi duyệt → phê duyệt; đổi CT ở thanh trên không làm
+          mất trạng thái của user.
         </div>
       ) : null}
 
@@ -142,7 +207,8 @@ function DocumentsPage() {
               ? CT_TEMPLATES.filter(
                   (t) =>
                     t.phase_code === ph &&
-                    project.docStatuses[t.code] === "enough",
+                    (resolveApproval(t.code) === "da_duyet" ||
+                      resolveApproval(t.code) === "da_ky"),
                 ).length
               : 0;
             return (
@@ -168,24 +234,40 @@ function DocumentsPage() {
           <Button size="sm" onClick={() => markPhaseDone(phase)}>
             Đánh dấu phase {phase} đủ trên {project.code}
           </Button>
-          <Badge variant="info">Checklist theo giai đoạn</Badge>
+          <Badge variant="info">Phê duyệt theo user</Badge>
         </div>
       ) : null}
 
       <DataTable<DocRow>
         rows={withStatus}
         rowKey={(t) => t.code}
+        tableId="documents"
+        userKey={userKey}
         searchKeys={[
           (t) => t.code,
           (t) => t.title,
           (t) => t.owner_role,
           (t) => t.phase_code,
           (t) => CT_PHASES[t.phase_code] ?? "",
+          (t) => FORM_APPROVAL_LABEL[t.approvalStatus],
         ]}
-        searchPlaceholder="Tìm mã, tên, owner, phase…"
+        searchPlaceholder="Tìm mã, tên, owner, phase, trạng thái…"
         density="compact"
         emptyTitle="Không có mẫu khớp"
         emptyDescription="Đổi phase hoặc từ khóa tìm kiếm."
+        facets={[
+          {
+            id: "approval",
+            options: [
+              { value: "all", label: "Mọi trạng thái" },
+              ...Object.entries(FORM_APPROVAL_LABEL).map(([value, label]) => ({
+                value,
+                label,
+              })),
+            ],
+            match: (t, v) => v === "all" || t.approvalStatus === v,
+          },
+        ]}
         toolbar={
           <span className="text-xs font-semibold text-muted">
             Hồ sơ · bám {project?.code ?? "CT"}
@@ -244,28 +326,57 @@ function DocumentsPage() {
           },
           {
             id: "status",
-            header: "Trạng thái",
-            sortValue: (t) => t.status,
+            header: "Phê duyệt",
+            sortValue: (t) => t.approvalStatus,
             cell: (t) => (
-              <Button
-                size="sm"
-                variant="ghost"
-                className="h-auto p-0 hover:bg-transparent"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  cycle(t.code, t.status);
-                }}
-                title="Bấm để đổi trạng thái trên CT đang chọn"
-              >
-                <DocStatusBadge status={t.status} />
-              </Button>
+              <div className="flex flex-wrap items-center gap-1">
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="h-auto p-0 hover:bg-transparent"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    cycle(t.code, t.approvalStatus);
+                  }}
+                  title="Bấm để chuyển trạng thái (lưu theo user)"
+                >
+                  <FormApprovalBadge status={t.approvalStatus} />
+                </Button>
+                {t.approvalStatus === "dang_soan" ||
+                t.approvalStatus === "thieu" ? (
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    className="h-7 px-2"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      submit(t.code);
+                    }}
+                  >
+                    <Send className="h-3 w-3" />
+                  </Button>
+                ) : null}
+                {t.approvalStatus === "cho_duyet" ? (
+                  <Button
+                    size="sm"
+                    className="h-7 px-2"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      approve(t.code);
+                    }}
+                  >
+                    <Check className="h-3 w-3" />
+                  </Button>
+                ) : null}
+              </div>
             ),
           },
         ]}
       />
       <p className="text-xs text-muted">
-        Registry V3.1 — trạng thái lưu theo từng công trình. Đổi CT ở thanh trên
-        để xem hồ sơ của CT khác.
+        Registry V3.1 — trạng thái phê duyệt lưu theo user + công trình (
+        <code>thanh-hoai-form-workflow-v1</code>). Đồng bộ checklist CT khi gửi
+        / duyệt.
       </p>
     </div>
   );

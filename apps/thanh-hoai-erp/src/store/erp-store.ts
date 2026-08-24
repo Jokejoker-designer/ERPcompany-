@@ -38,7 +38,8 @@ import {
   quoteTotal,
   demoDocStatus,
 } from "@/data/seed";
-import { useDocsStore } from "@/store/docs-store";
+import { useFormWorkflowStore } from "@/store/form-workflow-store";
+import { resolveUserKey } from "@/lib/user-scope";
 import {
   DEFAULT_UI_PREFS,
   type UiPrefs,
@@ -82,6 +83,7 @@ import {
   makeSessionToken,
   SECURITY_QUESTIONS,
 } from "@/lib/erp-auth";
+import { useDocsStore } from "@/store/docs-store";
 import {
   generateTotpSecret,
   verifyTotp,
@@ -377,6 +379,14 @@ export const useErpStore = create<ErpState>()(
               },
             });
             await get().syncFromRuntime();
+            const userKey = resolveUserKey(session, user.username);
+            const ws = useFormWorkflowStore.getState().getWorkspace(userKey);
+            if (
+              ws.activeProjectId &&
+              get().projects.some((p) => p.id === ws.activeProjectId)
+            ) {
+              set({ activeProjectId: ws.activeProjectId });
+            }
             return {
               ok: true,
               message: mustChange
@@ -410,11 +420,19 @@ export const useErpStore = create<ErpState>()(
           return { ok: true, message: "Nhập mã Google Authenticator", needsTotp: true };
         }
         const onboarding = get().onboarding;
+        const userKey = resolveUserKey(session, user.username);
+        const ws = useFormWorkflowStore.getState().getWorkspace(userKey);
+        const activeFromWs =
+          ws.activeProjectId &&
+          get().projects.some((p) => p.id === ws.activeProjectId)
+            ? ws.activeProjectId
+            : get().activeProjectId;
         set({
           user,
           session,
           pendingTotpUser: null,
           _totpPending: null,
+          activeProjectId: activeFromWs,
           onboarding: {
             ...onboarding,
             wizardOpen: !must && !onboarding.completed && !onboarding.dismissed,
@@ -896,7 +914,11 @@ export const useErpStore = create<ErpState>()(
           customers: s.customers.filter((c) => c.id !== id),
         })),
 
-      setActiveProject: (id) => set({ activeProjectId: id }),
+      setActiveProject: (id) => {
+        const userKey = resolveUserKey(get().session, get().user?.username);
+        useFormWorkflowStore.getState().setActiveProject(userKey, id);
+        set({ activeProjectId: id });
+      },
 
       addProject: (input) => {
         const customer = get().customers.find((c) => c.id === input.customerId);
