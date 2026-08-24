@@ -29,6 +29,7 @@ function ScanPage() {
   const navigate = useNavigate();
   const company = useErpStore((s) => s.company);
   const scan = useErpStore((s) => s.scan);
+  const dataSource = useErpStore((s) => s.dataSource);
   const setScanRoots = useErpStore((s) => s.setScanRoots);
   const runEnterpriseScan = useErpStore((s) => s.runEnterpriseScan);
   const importScanHits = useErpStore((s) => s.importScanHits);
@@ -41,6 +42,10 @@ function ScanPage() {
   const [filter, setFilter] = useState("");
   const [phase, setPhase] = useState("all");
   const [selected, setSelected] = useState<Record<string, boolean>>({});
+  const [scanning, setScanning] = useState(false);
+
+  const isRuntime = dataSource === "runtime";
+  const isSimulated = scan.mode === "simulated" || (!scan.mode && !isRuntime);
 
   const hits = useMemo(() => {
     return scan.hits.filter((h) => {
@@ -66,10 +71,23 @@ function ScanPage() {
 
   function runScan() {
     setScanRoots(roots);
-    const n = runEnterpriseScan();
-    markSetup("scan");
-    setSelected({});
-    toast.success(`Quét xong — ${n} file doanh nghiệp`);
+    setScanning(true);
+    void runEnterpriseScan()
+      .then((n) => {
+        markSetup("scan");
+        setSelected({});
+        toast.success(
+          isRuntime
+            ? `Quét ổ đĩa — ${n} file index`
+            : `Mô phỏng — ${n} file mẫu`,
+        );
+      })
+      .catch((e: unknown) => {
+        toast.error(
+          e instanceof Error ? e.message : "Quét thất bại — kiểm tra path trên máy host",
+        );
+      })
+      .finally(() => setScanning(false));
   }
 
   function importSelected() {
@@ -122,11 +140,21 @@ function ScanPage() {
           <div className="min-w-0 flex-1">
             <h2 className="text-base font-semibold text-fg">
               Quét dữ liệu doanh nghiệp
+              {scan.mode === "runtime" ? (
+                <Badge variant="ok" className="ml-2 align-middle text-[10px]">
+                  scan_source
+                </Badge>
+              ) : isSimulated ? (
+                <Badge variant="warn" className="ml-2 align-middle text-[10px]">
+                  mô phỏng
+                </Badge>
+              ) : null}
             </h2>
             <p className="text-xs text-muted sm:text-sm">
-              Index PDF / Word / Excel / ảnh từ folder khách. Bấm{" "}
-              <strong>Mở & sửa</strong> để soạn thảo + lưu version. Bảng
-              dữ liệu master →{" "}
+              {isRuntime
+                ? "Index file thật qua runtime (scan_source.py) — path phải tồn tại trên máy chạy :8777."
+                : "Chế độ demo: dữ liệu mẫu SCAN_DEMO_TREE trong trình duyệt, không đọc ổ đĩa."}
+              {" "}
               <Link
                 to="/app/import"
                 className="font-semibold text-brand-ink underline"
@@ -190,9 +218,9 @@ function ScanPage() {
             <Button size="sm" variant="secondary" onClick={saveRoots}>
               Lưu cấu hình
             </Button>
-            <Button size="sm" onClick={runScan}>
+            <Button size="sm" onClick={runScan} disabled={scanning || scan.running}>
               <Play className="h-3.5 w-3.5" />
-              Chạy quét
+              {scanning ? "Đang quét…" : "Chạy quét"}
             </Button>
             <Button
               size="sm"
@@ -201,7 +229,7 @@ function ScanPage() {
               onClick={importSelected}
             >
               <Download className="h-3.5 w-3.5" />
-              Nạp vào ERP
+              {isRuntime ? "Đồng bộ ERP" : "Nạp vào ERP"}
             </Button>
           </div>
         </CardBody>

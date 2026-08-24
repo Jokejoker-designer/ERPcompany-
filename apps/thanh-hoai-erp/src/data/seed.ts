@@ -164,6 +164,8 @@ export type ScanHit = {
 };
 
 export type ScanState = {
+  /** simulated = browser demo tree; runtime = scan_source.py on server disk */
+  mode: "simulated" | "runtime" | null;
   lastRunAt: string | null;
   running: boolean;
   hits: ScanHit[];
@@ -227,6 +229,7 @@ export const EMPTY_WORKFLOW: WorkflowFlags = {
 };
 
 export const EMPTY_SCAN: ScanState = {
+  mode: null,
   lastRunAt: null,
   running: false,
   hits: [],
@@ -843,7 +846,7 @@ export const STAGE_LABEL: Record<ProjectStage, string> = {
   hoan_thanh: "Hoàn thành",
 };
 
-/** Build simulated scan hits from configured roots */
+/** Browser demo only — SCAN_DEMO_TREE, not filesystem I/O */
 export function buildScanHits(scanRoots: string): ScanHit[] {
   const roots = scanRoots
     .split(/[;|]/)

@@ -13,6 +13,7 @@ import {
   type Quotation,
   type QuotationLine,
   type Receivable,
+  type ScanHit,
   type ScanState,
   type SetupFlags,
   type User,
@@ -55,6 +56,9 @@ import {
 import {
   createRuntimeCustomer,
   fetchRuntimeBundle,
+  fetchRuntimeScanHits,
+  fetchRuntimeScanStatus,
+  runRuntimeDiskScan,
   runtimeLogin,
   runtimeLogout,
   runtimeMe,
@@ -199,7 +203,7 @@ type ErpState = {
   setDocStatus: (code: string, status: DocStatus) => void;
 
   setScanRoots: (roots: string) => void;
-  runEnterpriseScan: () => number;
+  runEnterpriseScan: () => Promise<number>;
   importScanHits: (ids?: string[]) => {
     customers: number;
     projects: number;
@@ -215,6 +219,16 @@ type ErpState = {
   wipeOperationalData: (opts?: { keepCompany?: boolean }) => void;
   resetDemo: () => void;
 };
+
+function scanStatsFromHits(hits: ScanHit[]) {
+  return {
+    files: hits.length,
+    customers: new Set(hits.map((h) => h.customerHint)).size,
+    projects: new Set(hits.map((h) => h.projectHint)).size,
+    mapped: hits.filter((h) => h.mapped).length,
+    imported: hits.filter((h) => h.imported).length,
+  };
+}
 
 function nextQuoteCode(existing: Quotation[]): string {
   const year = 2026;
@@ -743,6 +757,28 @@ export const useErpStore = create<ErpState>()(
               completed: true,
             },
           });
+          try {
+            const status = await fetchRuntimeScanStatus();
+            if (status.has_scan) {
+              const { hits, lastScan, sourceDir } = await fetchRuntimeScanHits();
+              if (hits.length) {
+                set({
+                  scan: {
+                    mode: "runtime",
+                    lastRunAt: lastScan ?? get().scan.lastRunAt,
+                    running: false,
+                    hits,
+                    rootsUsed:
+                      (status.scan_roots?.join("; ") || sourceDir) ??
+                      get().company.scanRoots,
+                    stats: scanStatsFromHits(hits),
+                  },
+                });
+              }
+            }
+          } catch {
+            /* scan index optional */
+          }
           return {
             ok: true,
             message: `Đã đồng bộ ${bundle.customers.length} KH · ${projects.length} CT · ${bundle.quotations.length} BG`,
@@ -1258,22 +1294,52 @@ export const useErpStore = create<ErpState>()(
       setScanRoots: (roots) =>
         set((s) => ({ company: { ...s.company, scanRoots: roots } })),
 
-      runEnterpriseScan: () => {
-        const roots = get().company.scanRoots || "D:\\HoSoDoanhNghiep";
-        const hits = buildScanHits(roots);
-        const customers = new Set(hits.map((h) => h.customerHint)).size;
-        const projects = new Set(hits.map((h) => h.projectHint)).size;
+      runEnterpriseScan: async () => {
+        const state = get();
+        const rootsRaw =
+          state.company.scanRoots || "D:\\HoSoDoanhNghiep";
+        const rootsList = rootsRaw
+          .split(/[;|]/)
+          .map((s) => s.trim())
+          .filter(Boolean);
+
+        if (state.dataSource === "runtime" && state.runtimeConnected) {
+          set({ scan: { ...state.scan, running: true, mode: "runtime" } });
+          try {
+            await runRuntimeDiskScan(rootsList, true);
+            const { hits, lastScan, sourceDir } = await fetchRuntimeScanHits();
+            set({
+              scan: {
+                mode: "runtime",
+                lastRunAt: lastScan ?? new Date().toISOString(),
+                running: false,
+                hits,
+                rootsUsed: rootsList.join("; ") || sourceDir,
+                stats: scanStatsFromHits(hits),
+              },
+              onboarding: {
+                ...get().onboarding,
+                flags: { ...get().onboarding.flags, scan: true },
+              },
+            });
+            await get().syncFromRuntime();
+            return hits.length;
+          } catch (e) {
+            set({ scan: { ...get().scan, running: false } });
+            throw e;
+          }
+        }
+
+        const hits = buildScanHits(rootsRaw);
         set({
           scan: {
+            mode: "simulated",
             lastRunAt: new Date().toISOString(),
             running: false,
             hits,
-            rootsUsed: roots,
+            rootsUsed: rootsRaw,
             stats: {
-              files: hits.length,
-              customers,
-              projects,
-              mapped: hits.filter((h) => h.mapped).length,
+              ...scanStatsFromHits(hits),
               imported: 0,
             },
           },
@@ -1287,6 +1353,11 @@ export const useErpStore = create<ErpState>()(
 
       importScanHits: (ids) => {
         const state = get();
+        if (state.dataSource === "runtime" && state.runtimeConnected) {
+          const n = state.scan.hits.length;
+          void get().syncFromRuntime();
+          return { customers: state.customers.length, projects: state.projects.length, docs: n };
+        }
         const targets = state.scan.hits.filter((h) =>
           ids ? ids.includes(h.id) : !h.imported,
         );
