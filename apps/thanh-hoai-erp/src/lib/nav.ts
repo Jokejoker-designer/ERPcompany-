@@ -13,6 +13,7 @@ import {
   FolderSearch,
   FileText,
   Upload,
+  Package,
 } from "lucide-react";
 import type { RoleId } from "@/data/seed";
 import type { AppRoute } from "@/lib/rbac";
@@ -139,6 +140,15 @@ export const NAV_GROUPS: { group: string; items: NavItem[] }[] = [
         no: "9",
         roles: ["admin", "giamdoc", "kinhdoanh", "ketoan", "ktt", "thukho"],
       },
+      {
+        to: "/app/materials",
+        label: "Vật tư · Kho",
+        short: "Kho",
+        sub: "Nhập/xuất Excel · tồn MAP",
+        icon: Package,
+        no: "9b",
+        roles: ["admin", "giamdoc", "ktt", "thukho", "ketoan"],
+      },
     ],
   },
   {
@@ -236,6 +246,10 @@ export const PAGE_META: Record<string, { title: string; note: string }> = {
   "/app/chungtu": {
     title: "9 · Chứng từ vận hành",
     note: "Bước 1: chọn công trình · Bước 2: bấm Xuất (dữ liệu CT + BOQ).",
+  },
+  "/app/materials": {
+    title: "9b · Vật tư · Kho",
+    note: "Danh mục SKU · nhập/xuất CSV/Excel · giá trị tồn theo MAP.",
   },
   "/app/receivables": {
     title: "10 · Theo dõi công nợ",

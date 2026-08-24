@@ -17,6 +17,7 @@ export type AppRoute =
   | "/app/editor"
   | "/app/documents"
   | "/app/chungtu"
+  | "/app/materials"
   | "/app/receivables"
   | "/app/bank"
   | "/app/settings"
@@ -58,6 +59,7 @@ export const ROUTE_ROLES: Record<AppRoute, RoleId[]> = {
     "ktt",
     "thukho",
   ],
+  "/app/materials": ["admin", "giamdoc", "ktt", "thukho", "ketoan"],
   "/app/receivables": ["admin", "giamdoc", "ketoan"],
   "/app/bank": ["admin", "giamdoc", "ketoan"],
   /** Cấu hình: chỉ Admin + Giám đốc */
@@ -176,6 +178,17 @@ export const RBAC_MATRIX: {
     ktt: "BBNT",
     ktv: "—",
     thukho: "PXK",
+  },
+  {
+    module: "9b · Vật tư · Kho",
+    route: "/app/materials",
+    admin: "Full",
+    giamdoc: "Full",
+    ketoan: "Xem",
+    kinhdoanh: "—",
+    ktt: "Full",
+    ktv: "—",
+    thukho: "Full",
   },
   {
     module: "10 · Công nợ",

@@ -31,6 +31,17 @@ export type FormWorkflowRecord = {
   updatedAt: string;
   updatedBy: string;
   note?: string;
+  attachments?: FormAttachment[];
+};
+
+export type FormAttachment = {
+  id: string;
+  name: string;
+  sizeKb?: number;
+  uploadedAt: string;
+  uploadedBy: string;
+  /** Optional link to in-app document editor */
+  docId?: string;
 };
 
 export function nextFormApprovalStatus(

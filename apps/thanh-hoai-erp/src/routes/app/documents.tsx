@@ -1,6 +1,6 @@
-import { useMemo, useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
-import { Check, Send } from "lucide-react";
+import { useMemo, useRef, useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Check, Paperclip, Send, X } from "lucide-react";
 import { toast } from "sonner";
 import { ProjectContextBar, useActiveProject } from "@/components/erp/project-context";
 import { DataTable } from "@/components/erp/data-table";
@@ -37,11 +37,15 @@ function DocumentsPage() {
   const markPhaseDocs = useErpStore((s) => s.markPhaseDocs);
   const markWorkflow = useErpStore((s) => s.markWorkflow);
   const quotations = useErpStore((s) => s.quotations);
+  const approveForm = useFormWorkflowStore((s) => s.approveForm);
+  const addAttachment = useFormWorkflowStore((s) => s.addAttachment);
+  const removeAttachment = useFormWorkflowStore((s) => s.removeAttachment);
   const getFormStatus = useFormWorkflowStore((s) => s.getFormStatus);
+  const formWorkspace = useFormWorkflowStore((s) => s.byUser[userKey]);
   const cycleFormStatus = useFormWorkflowStore((s) => s.cycleFormStatus);
   const submitForApproval = useFormWorkflowStore((s) => s.submitForApproval);
-  const approveForm = useFormWorkflowStore((s) => s.approveForm);
-  const formWorkspace = useFormWorkflowStore((s) => s.byUser[userKey]);
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [attachCode, setAttachCode] = useState<string | null>(null);
   const [phase, setPhase] = useState<string>("all");
 
   const projectQuotes = project
@@ -118,6 +122,33 @@ function DocumentsPage() {
     approveForm(userKey, project.id, code, user?.username ?? userKey);
     syncDocStatus(code, "da_duyet");
     toast.success("Đã phê duyệt biểu mẫu");
+  }
+
+  function pickAttachment(templateCode: string) {
+    setAttachCode(templateCode);
+    fileRef.current?.click();
+  }
+
+  function onAttachFile(file: File) {
+    if (!project || !attachCode) return;
+    const code = attachCode;
+    addAttachment(
+      userKey,
+      project.id,
+      code,
+      {
+        name: file.name,
+        sizeKb: Math.max(1, Math.round(file.size / 1024)),
+        uploadedBy: user?.username ?? userKey,
+      },
+      user?.username ?? userKey,
+    );
+    const cur = getFormStatus(userKey, project.id, code)?.status ?? "thieu";
+    if (cur === "thieu") {
+      syncDocStatus(code, "dang_soan");
+    }
+    setAttachCode(null);
+    toast.success(`Đã đính kèm ${file.name}`);
   }
 
   function markPhaseDone(ph: string) {
@@ -238,6 +269,18 @@ function DocumentsPage() {
         </div>
       ) : null}
 
+      <input
+        ref={fileRef}
+        type="file"
+        className="hidden"
+        accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg"
+        onChange={(e) => {
+          const f = e.target.files?.[0];
+          if (f) onAttachFile(f);
+          e.target.value = "";
+        }}
+      />
+
       <DataTable<DocRow>
         rows={withStatus}
         rowKey={(t) => t.code}
@@ -323,6 +366,71 @@ function DocumentsPage() {
             cell: () => (
               <Badge variant="default">{project?.code ?? "—"}</Badge>
             ),
+          },
+          {
+            id: "attachments",
+            header: "Đính kèm",
+            cell: (t) => {
+              if (!project) return <span className="text-muted">—</span>;
+              const rec = getFormStatus(userKey, project.id, t.code);
+              const atts = rec?.attachments ?? [];
+              return (
+                <div className="flex flex-wrap items-center gap-1">
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    className="h-7 px-2"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      pickAttachment(t.code);
+                    }}
+                    title="Đính kèm chứng từ / tài liệu"
+                  >
+                    <Paperclip className="h-3 w-3" />
+                    {atts.length ? ` ${atts.length}` : ""}
+                  </Button>
+                  {atts.slice(0, 2).map((a) => (
+                    <span
+                      key={a.id}
+                      className="flex max-w-[120px] items-center gap-0.5 truncate text-xs text-muted"
+                    >
+                      {a.docId ? (
+                        <Link
+                          to="/app/editor"
+                          className="truncate hover:text-brand-ink"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {a.name}
+                        </Link>
+                      ) : (
+                        <span className="truncate">{a.name}</span>
+                      )}
+                      <button
+                        type="button"
+                        className="shrink-0 text-danger hover:opacity-80"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          removeAttachment(
+                            userKey,
+                            project.id,
+                            t.code,
+                            a.id,
+                            user?.username ?? userKey,
+                          );
+                          toast.message("Đã gỡ file đính kèm");
+                        }}
+                      >
+                        <X className="h-3 w-3" />
+                      </button>
+                    </span>
+                  ))}
+                  {atts.length > 2 ? (
+                    <span className="text-xs text-muted">+{atts.length - 2}</span>
+                  ) : null}
+                </div>
+              );
+            },
+            hideOnMobile: true,
           },
           {
             id: "status",
