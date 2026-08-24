@@ -195,10 +195,10 @@ export function mapRuntimeQuotationLine(
   return normalizeLine(
     {
       id: str(row.id || row.stt || `l-${Math.random().toString(36).slice(2, 8)}`),
-      name: str(row.ten_hang || row.name || row.mo_ta),
+      name: str(row.hang_muc || row.ten_hang || row.name || row.mo_ta),
       description: str(row.mo_ta || row.description),
       qty: num(row.so_luong ?? row.qty, 1),
-      unit: str(row.don_vi || row.unit, "cái"),
+      unit: str(row.don_vi || row.dvt || row.unit, "cái"),
       unitPrice: num(row.don_gia ?? row.unit_price ?? row.unitPrice),
       taxRate: num(row.thue_suat ?? row.tax_rate ?? row.taxRate, defaultVat),
       notes: str(row.ghi_chu || row.notes),

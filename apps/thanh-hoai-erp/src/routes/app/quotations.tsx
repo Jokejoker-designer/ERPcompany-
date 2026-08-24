@@ -48,6 +48,7 @@ import {
   previewSalesExcel,
   readBoqFile,
 } from "@/lib/sales-export";
+import { importRuntimeQuotationFromExcel } from "@/lib/runtime-quotations";
 import { PrintPreviewModal } from "@/components/erp/print-preview";
 
 export const Route = createFileRoute("/app/quotations")({
@@ -79,6 +80,7 @@ function QuotationsPage() {
   const company = useErpStore((s) => s.company);
   const dataSource = useErpStore((s) => s.dataSource);
   const addQuotation = useErpStore((s) => s.addQuotation);
+  const syncFromRuntime = useErpStore((s) => s.syncFromRuntime);
   const setStatus = useErpStore((s) => s.setQuotationStatus);
   const updateMeta = useErpStore((s) => s.updateQuotationMeta);
   const addLine = useErpStore((s) => s.addQuotationLine);
@@ -111,6 +113,25 @@ function QuotationsPage() {
     const vat = Number(header.vat) || 8;
     try {
       if (dataSource === "runtime") {
+        const cust = customers.find(
+          (c) => c.name.trim() === header.customer.trim(),
+        );
+        const proj = projects.find(
+          (p) => p.code.trim() === header.projectCode.trim(),
+        );
+        if (cust && header.projectCode.trim()) {
+          const created = await importRuntimeQuotationFromExcel(file, {
+            customerId: cust.id,
+            projectId: proj?.id,
+          });
+          await syncFromRuntime();
+          setSelectedId(String(created.quotationId));
+          setShowForm(false);
+          toast.success(
+            `Tạo BG ${created.code} · ${created.soDong} dòng (import→commit→BG)`,
+          );
+          return;
+        }
         const preview = await previewSalesExcel(file);
         if (preview.error) {
           toast.error(preview.error);
@@ -118,7 +139,9 @@ function QuotationsPage() {
         }
         const lines = linesFromSalesPreview(preview, vat);
         if (!lines.length) {
-          toast.error("Không đọc được hàng BOQ từ file");
+          toast.error(
+            "Chọn khách + mã CT để tạo BG runtime, hoặc file không đọc được",
+          );
           return;
         }
         setDraftLines(
@@ -133,7 +156,7 @@ function QuotationsPage() {
             notes: l.notes,
           })),
         );
-        toast.success(`Nhập ${lines.length} dòng từ Excel (runtime preview)`);
+        toast.success(`Nhập ${lines.length} dòng preview — chọn KH/CT để tạo BG`);
         return;
       }
       const lines = await readBoqFile(file, vat);
