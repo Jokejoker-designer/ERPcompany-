@@ -4,6 +4,10 @@
 
 import { apiGet, apiPost } from "@/lib/api-client";
 import {
+  parseServerPermissions,
+  type ServerPermissions,
+} from "@/lib/server-permissions";
+import {
   mapRuntimeCustomer,
   mapRuntimeProject,
   mapRuntimeQuotation,
@@ -33,7 +37,12 @@ export type RuntimeBundle = {
 
 export type MeResult =
   | { authenticated: false }
-  | { authenticated: true; user: User; mustChange: boolean };
+  | {
+      authenticated: true;
+      user: User;
+      mustChange: boolean;
+      permissions: ServerPermissions | null;
+    };
 
 export async function runtimeLogin(
   username: string,
@@ -69,13 +78,30 @@ export async function runtimeMe(): Promise<MeResult> {
   const data = await apiGet<{
     authenticated?: boolean;
     user?: RuntimeMeUser;
+    permissions?: unknown;
   }>("/api/me");
   if (!data.authenticated || !data.user) return { authenticated: false };
   return {
     authenticated: true,
     user: mapRuntimeUser(data.user),
     mustChange: Boolean(data.user.must_change),
+    permissions: parseServerPermissions(data.permissions),
   };
+}
+
+export type RuntimeDashboardAnalytics = {
+  categories: string[];
+  sales_by_category: { label: string; value: number }[];
+  quotation_status: { label: string; value: number }[];
+  approval_status: { label: string; value: number }[];
+};
+
+export async function fetchDashboardAnalytics(query: {
+  tu_ngay?: string;
+  den_ngay?: string;
+  hang_muc?: string;
+}): Promise<RuntimeDashboardAnalytics> {
+  return apiGet<RuntimeDashboardAnalytics>("/api/dashboard_analytics", query);
 }
 
 export async function fetchRuntimeBundle(): Promise<RuntimeBundle> {
@@ -156,6 +182,11 @@ export async function createRuntimeCustomer(input: {
   address?: string;
   notes?: string;
 }): Promise<{ id: string }> {
+  const { dataSource, serverPermissions } = (await import("@/store/erp-store")).useErpStore.getState();
+  if (dataSource === "runtime") {
+    const { assertWritePermission } = await import("@/lib/server-permissions");
+    assertWritePermission(serverPermissions, "customer");
+  }
   const data = await apiPost<{ id?: number | string; customer_id?: number }>(
     "/api/write/customer",
     {

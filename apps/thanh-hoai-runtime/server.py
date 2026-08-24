@@ -585,11 +585,19 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/api/me":
             if not sess:
                 return self._send_json({"authenticated": False})
-            return self._send_json({"authenticated": True, "user": {
-                "id": sess.get("user_id"),
-                "user_id": sess.get("user_id"),
-                "username": sess["username"], "full_name": sess["full_name"], "role": sess["role"],
-                "must_change": sess.get("must_change", 0)}})
+            perms = api.user_erp_permissions(sess["role"])
+            return self._send_json({
+                "authenticated": True,
+                "user": {
+                    "id": sess.get("user_id"),
+                    "user_id": sess.get("user_id"),
+                    "username": sess["username"],
+                    "full_name": sess["full_name"],
+                    "role": sess["role"],
+                    "must_change": sess.get("must_change", 0),
+                },
+                "permissions": perms,
+            })
 
         # --- moi API duoi day BAT BUOC dang nhap ---
         if not sess:
@@ -657,6 +665,8 @@ class Handler(BaseHTTPRequestHandler):
             handlers = {
                 "/api/dashboard":     lambda: api.dashboard(conn, role, sess),
                 "/api/dashboard_charts": lambda: api.dashboard_charts(conn, role),
+                "/api/dashboard_analytics": lambda: api.dashboard_analytics(
+                    conn, role, q1("tu_ngay"), q1("den_ngay"), q1("hang_muc")),
                 "/api/customers":     lambda: api.customer_list(conn, role),
                 "/api/customer_360":  lambda: api.customer_360(conn, role, q1("id")),
                 "/api/quotations":    lambda: api.quotation_list(conn, role),

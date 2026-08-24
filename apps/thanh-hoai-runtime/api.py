@@ -101,6 +101,54 @@ def can_view(page_id, role):
     return role in PERMS.get(page_id, ALL)
 
 
+# ---- ERP React UI: route ↔ server page (single enforcement source) ----
+ERP_ROUTE_SPECS = [
+    ("/app/dashboard", "dashboard"),
+    ("/app/customers", "customer"),
+    ("/app/projects", "cong_trinh_hien_truong"),
+    ("/app/quotations", "quotation"),
+    ("/app/scan", "workflow"),
+    ("/app/import", "_write:import"),
+    ("/app/editor", "documents"),
+    ("/app/documents", "documents"),
+    ("/app/chungtu", "documents"),
+    ("/app/materials", "pricing"),
+    ("/app/receivables", "receivable"),
+    ("/app/bank", "payment"),
+    ("/app/settings", "template"),
+    ("/app/roles", "_admin_only"),
+]
+
+
+def user_erp_permissions(role):
+    """Session permissions for ERP React — mirrors PERMS / PERMS_WRITE on server."""
+    import api_write as AW
+
+    read_pages = sorted(p for p, allowed in PERMS.items() if role in allowed)
+    write_resources = sorted(
+        r for r, allowed in AW.PERMS_WRITE.items() if role in allowed
+    )
+    routes = []
+    for route, spec in ERP_ROUTE_SPECS:
+        if spec == "_admin_only":
+            if role == "Quan tri he thong":
+                routes.append(route)
+        elif spec.startswith("_write:"):
+            res = spec.split(":", 1)[1]
+            if role in AW.PERMS_WRITE.get(res, []):
+                routes.append(route)
+        elif spec in PERMS and role in PERMS[spec]:
+            routes.append(route)
+    return {
+        "read_pages": read_pages,
+        "write_resources": write_resources,
+        "erp_routes": sorted(set(routes)),
+        "can_see_money": role in CAN_SEE_MONEY,
+        "can_see_finance": role in CAN_SEE_COMPANY_FINANCE,
+        "can_see_sales_values": role in CAN_SEE_SALES_VALUES,
+    }
+
+
 def require(page_id, role):
     if not can_view(page_id, role):
         raise PermissionError("Vai tro '%s' khong co quyen xem trang nay." % role)
@@ -423,6 +471,84 @@ def dashboard_charts(conn, role):
         "tinh_trang_cong_trinh": status_rows,
         "tien_do_tuan": progress,
         "tien_do_nguon": "ngay_kt_ke_hoach/ ngay_kt_thuc_te (luy ke hang muc)",
+    }
+
+
+def dashboard_analytics(conn, role, tu_ngay=None, den_ngay=None, hang_muc=None):
+    """Dashboard filters: date range + product category (hang_muc) from quotation lines."""
+    require("dashboard", role)
+    if role == "Ky thuat truong":
+        raise PermissionError("KTT khong duoc truy cap analytics dashboard tai chinh.")
+
+    date_parts = []
+    date_params = []
+    if tu_ngay:
+        date_parts.append("date(q.ngay_lap) >= date(?)")
+        date_params.append(tu_ngay)
+    if den_ngay:
+        date_parts.append("date(q.ngay_lap) <= date(?)")
+        date_params.append(den_ngay)
+    date_sql = (" AND " + " AND ".join(date_parts)) if date_parts else ""
+
+    hm_sql = ""
+    hm_params = []
+    if hang_muc and str(hang_muc).strip() and hang_muc != "all":
+        hm_sql = " AND qi.hang_muc = ?"
+        hm_params.append(str(hang_muc).strip())
+
+    categories = [
+        r["hang_muc"]
+        for r in conn.execute(
+            """SELECT DISTINCT hang_muc FROM quotation_item
+               WHERE hang_muc IS NOT NULL AND trim(hang_muc) != ''
+               ORDER BY hang_muc"""
+        ).fetchall()
+    ]
+
+    sales_rows = _d(
+        conn.execute(
+            f"""SELECT qi.hang_muc AS label, COALESCE(SUM(qi.thanh_tien),0) AS value
+                FROM quotation_item qi
+                JOIN quotation q ON q.id = qi.quotation_id
+                WHERE q.status NOT IN ('Huy'){date_sql}{hm_sql}
+                GROUP BY qi.hang_muc
+                ORDER BY value DESC""",
+            tuple(date_params + hm_params),
+        ).fetchall()
+    )
+
+    status_rows = _d(
+        conn.execute(
+            f"""SELECT q.status AS label, COUNT(*) AS value
+                FROM quotation q
+                WHERE q.status NOT IN ('Huy'){date_sql}
+                GROUP BY q.status ORDER BY value DESC""",
+            tuple(date_params),
+        ).fetchall()
+    )
+
+    approval_rows = _d(
+        conn.execute(
+            """SELECT trang_thai AS label, COUNT(*) AS value
+               FROM workflow_instance
+               WHERE trang_thai IS NOT NULL
+               GROUP BY trang_thai ORDER BY value DESC"""
+        ).fetchall()
+    )
+
+    if role not in CAN_SEE_MONEY:
+        sales_rows = []
+        for r in status_rows:
+            r["value"] = r.get("value")
+
+    return {
+        "categories": categories,
+        "sales_by_category": sales_rows if role in CAN_SEE_SALES_VALUES else [],
+        "quotation_status": status_rows,
+        "approval_status": approval_rows,
+        "tu_ngay": tu_ngay,
+        "den_ngay": den_ngay,
+        "hang_muc": hang_muc,
     }
 
 

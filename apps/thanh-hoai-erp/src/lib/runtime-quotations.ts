@@ -3,7 +3,16 @@
  */
 
 import { apiPost } from "@/lib/api-client";
+import { assertWritePermission } from "@/lib/server-permissions";
+import { useErpStore } from "@/store/erp-store";
 import type { Quotation, QuotationLine } from "@/data/seed";
+
+function guardWrite(resource: string) {
+  const { dataSource, serverPermissions } = useErpStore.getState();
+  if (dataSource === "runtime") {
+    assertWritePermission(serverPermissions, resource);
+  }
+}
 
 export type RuntimeQuotationItemInput = {
   hang_muc: string;
@@ -90,6 +99,7 @@ export async function createRuntimeQuotation(input: {
   thoiHanBaoHanh?: string;
   ghiChuNoiBo?: string;
 }): Promise<{ id: number; code: string }> {
+  guardWrite("quotation");
   const data = await apiPost<{ id: number; code: string }>(
     "/api/write/quotation",
     {
@@ -111,6 +121,7 @@ export async function updateRuntimeQuotationItems(
   quotationId: string | number,
   items: RuntimeQuotationItemInput[],
 ): Promise<void> {
+  guardWrite("quotation");
   await apiPost("/api/write/quotation_items", {
     id: Number(quotationId),
     items,
@@ -121,6 +132,7 @@ export async function setRuntimeQuotationStatus(
   quotationId: string | number,
   status: Quotation["status"],
 ): Promise<void> {
+  guardWrite("quotation");
   await apiPost("/api/write/quotation_status", {
     id: Number(quotationId),
     status: RUNTIME_QUOTE_STATUS[status],
@@ -130,6 +142,7 @@ export async function setRuntimeQuotationStatus(
 export async function createRuntimeQuotationVersion(
   quotationId: string | number,
 ): Promise<{ id: number; code: string }> {
+  guardWrite("quotation");
   const data = await apiPost<{ id: number; code: string }>(
     "/api/write/quotation_version",
     { id: Number(quotationId) },
@@ -140,6 +153,7 @@ export async function createRuntimeQuotationVersion(
 export async function deleteRuntimeQuotation(
   quotationId: string | number,
 ): Promise<void> {
+  guardWrite("quotation");
   await apiPost("/api/write/xoa", {
     loai: "quotation",
     id: Number(quotationId),
@@ -175,6 +189,7 @@ export async function mapRuntimeFlexImport(body: {
   projectId?: string | number;
   scope?: "moi_thau_khach";
 }): Promise<FlexMapResult> {
+  guardWrite("import_flex");
   const file_b64 = await fileToBase64(body.file);
   const preview = await apiPost<FlexPreview>("/api/import_flex_preview", {
     filename: body.file.name,
@@ -208,6 +223,7 @@ export async function commitRuntimeFlexImport(confirmToken: string): Promise<{
   batch?: string;
   flex_line?: number;
 }> {
+  guardWrite("import_flex");
   const res = await apiPost<{
     ok?: boolean;
     ket_qua?: { batch?: string; flex_line?: number };
@@ -224,6 +240,7 @@ export async function createRuntimeQuotationFromFlexList(input: {
   confirmToken?: string;
   batch?: string;
 }): Promise<{ quotationId: number; code: string; soDong: number }> {
+  guardWrite("tao_bao_gia");
   const data = await apiPost<{
     ok?: boolean;
     quotation_id: number;

@@ -5,6 +5,11 @@
 
 import { DEMO_USERS, type RoleId, type User } from "@/data/seed";
 import type { Session } from "@/lib/erp-auth";
+import {
+  canAccessRouteServer,
+  firstAllowedRouteServer,
+  type ServerPermissions,
+} from "@/lib/server-permissions";
 
 /** App path keys (no trailing slash) */
 export type AppRoute =
@@ -263,20 +268,28 @@ export function resolveEffectiveUser(
 export function canAccessRoute(
   role: RoleId | undefined | null,
   path: string,
+  serverPerms?: ServerPermissions | null,
 ): boolean {
   if (!role) return false;
-  // normalize path
   const key = (path.split("?")[0].replace(/\/$/, "") || path) as AppRoute;
+  if (serverPerms?.erp_routes?.length) {
+    return canAccessRouteServer(serverPerms, key);
+  }
   const allowed = ROUTE_ROLES[key];
   if (!allowed) {
-    // unknown sub-routes under /app — require login only
     if (path.startsWith("/app")) return true;
     return false;
   }
   return allowed.includes(role);
 }
 
-export function firstAllowedRoute(role: RoleId): AppRoute {
+export function firstAllowedRoute(
+  role: RoleId,
+  serverPerms?: ServerPermissions | null,
+): AppRoute {
+  if (serverPerms?.erp_routes?.length) {
+    return firstAllowedRouteServer(serverPerms);
+  }
   const order = Object.keys(ROUTE_ROLES) as AppRoute[];
   for (const r of order) {
     if (ROUTE_ROLES[r].includes(role)) return r;

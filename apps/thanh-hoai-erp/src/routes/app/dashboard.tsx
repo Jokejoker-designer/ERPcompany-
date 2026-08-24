@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   Bar,
@@ -19,6 +19,21 @@ import { SetupProgressBanner } from "@/components/erp/setup-wizard";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardBody, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import {
+  filterQuotations,
+  filterReceivables,
+  quotationStatusChart,
+  salesByCategoryChart,
+  type DashboardFilterState,
+} from "@/lib/dashboard-filters";
+import {
+  PRODUCT_CATEGORIES,
+  defaultDashboardRange,
+  type ProductCategory,
+} from "@/lib/product-categories";
+import { fetchDashboardAnalytics } from "@/lib/runtime-data";
+import type { RuntimeDashboardAnalytics } from "@/lib/runtime-data";
 import { formatVnd, formatVndShort } from "@/lib/utils";
 import { resolveUserKey } from "@/lib/user-scope";
 import { useErpStore } from "@/store/erp-store";
@@ -39,18 +54,6 @@ const STAGE_LABEL = {
   hoan_thanh: "Hoàn thành",
 } as const;
 
-const QUOTE_STATUS_LABEL: Record<
-  "draft" | "pending" | "approved" | "sent" | "won" | "lost",
-  string
-> = {
-  draft: "Nháp",
-  pending: "Chờ duyệt",
-  approved: "Đã duyệt",
-  sent: "Đã gửi",
-  won: "Trúng",
-  lost: "Trượt",
-};
-
 const CHART_COLORS = [
   "var(--color-brand)",
   "var(--color-info)",
@@ -62,6 +65,15 @@ const CHART_COLORS = [
 ];
 
 function DashboardPage() {
+  const defaults = defaultDashboardRange();
+  const [filters, setFilters] = useState<DashboardFilterState>({
+    from: defaults.from,
+    to: defaults.to,
+    category: "all",
+  });
+  const [runtimeAnalytics, setRuntimeAnalytics] =
+    useState<RuntimeDashboardAnalytics | null>(null);
+
   const receivables = useErpStore((s) => s.receivables);
   const quotations = useErpStore((s) => s.quotations);
   const projects = useErpStore((s) => s.projects);
@@ -70,6 +82,7 @@ function DashboardPage() {
   const session = useErpStore((s) => s.session);
   const user = useErpStore((s) => s.user);
   const activeProjectId = useErpStore((s) => s.activeProjectId);
+  const serverPermissions = useErpStore((s) => s.serverPermissions);
   const documents = useDocsStore((s) => s.documents);
   const auditQueue = useDocsStore((s) => s.auditQueue);
   const getApprovalStats = useFormWorkflowStore((s) => s.getApprovalStats);
@@ -84,13 +97,56 @@ function DashboardPage() {
     [auditQueue],
   );
 
-  const totalAR = receivables.reduce((s, r) => s + (r.value - r.collected), 0);
   const signed = projects.reduce((s, p) => s + p.value, 0);
   const running = projects.filter(
     (p) => p.stage === "thi_cong" || p.stage === "nghiem_thu",
   ).length;
   const overdueProjects = projects.filter((p) => p.overdue).length;
-  const pendingQuotes = quotations.filter((q) => q.status === "pending").length;
+
+  const filteredQuotes = useMemo(
+    () => filterQuotations(quotations, filters),
+    [quotations, filters],
+  );
+  const filteredReceivables = useMemo(
+    () => filterReceivables(receivables, filters),
+    [receivables, filters],
+  );
+
+  useEffect(() => {
+    if (dataSource !== "runtime") {
+      setRuntimeAnalytics(null);
+      return;
+    }
+    let cancelled = false;
+    void fetchDashboardAnalytics({
+      tu_ngay: filters.from,
+      den_ngay: filters.to,
+      hang_muc:
+        filters.category === "all" ? undefined : filters.category,
+    })
+      .then((data) => {
+        if (!cancelled) setRuntimeAnalytics(data);
+      })
+      .catch(() => {
+        if (!cancelled) setRuntimeAnalytics(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [dataSource, filters.from, filters.to, filters.category]);
+
+  const categoryOptions = useMemo(() => {
+    const fromRuntime = runtimeAnalytics?.categories ?? [];
+    const fromDemo = PRODUCT_CATEGORIES.map((c) => c.label);
+    const merged = [...new Set([...fromRuntime, ...fromDemo])].sort();
+    return merged;
+  }, [runtimeAnalytics]);
+
+  const filteredPending = filteredQuotes.filter((q) => q.status === "pending").length;
+  const filteredTotalAR = filteredReceivables.reduce(
+    (s, r) => s + (r.value - r.collected),
+    0,
+  );
 
   const revenueSeries = useMemo(() => {
     if (
@@ -125,15 +181,33 @@ function DashboardPage() {
   }, [getApprovalStats, userKey, activeProjectId]);
 
   const quoteStatusChart = useMemo(() => {
-    const buckets: Record<string, number> = {};
-    for (const q of quotations) {
-      const label = QUOTE_STATUS_LABEL[q.status];
-      buckets[label] = (buckets[label] ?? 0) + 1;
+    if (
+      dataSource === "runtime" &&
+      runtimeAnalytics?.quotation_status?.length
+    ) {
+      return runtimeAnalytics.quotation_status.map((r) => ({
+        label: r.label,
+        value: r.value,
+      }));
     }
-    return Object.entries(buckets).map(([label, value]) => ({ label, value }));
-  }, [quotations]);
+    return quotationStatusChart(quotations, filters);
+  }, [quotations, filters, dataSource, runtimeAnalytics]);
+
+  const salesCategoryChart = useMemo(() => {
+    if (
+      dataSource === "runtime" &&
+      runtimeAnalytics?.sales_by_category?.length
+    ) {
+      return runtimeAnalytics.sales_by_category.map((r) => ({
+        label: r.label,
+        value: r.value,
+      }));
+    }
+    return salesByCategoryChart(quotations, filters);
+  }, [quotations, filters, dataSource, runtimeAnalytics]);
 
   const hasQuoteChart = quoteStatusChart.some((d) => d.value > 0);
+  const hasSalesCategory = salesCategoryChart.some((d) => d.value > 0);
 
   const approvals = useMemo(() => {
     const items: {
@@ -215,6 +289,97 @@ function DashboardPage() {
     <div className="min-w-0 space-y-4">
       <SetupProgressBanner />
 
+      <Card className="border-border-soft">
+        <CardBody className="flex flex-wrap items-end gap-3 py-3">
+          <div className="min-w-[140px]">
+            <label className="mb-1 block text-xs font-semibold text-muted">
+              Từ ngày
+            </label>
+            <Input
+              type="date"
+              value={filters.from}
+              onChange={(e) =>
+                setFilters((f) => ({ ...f, from: e.target.value }))
+              }
+            />
+          </div>
+          <div className="min-w-[140px]">
+            <label className="mb-1 block text-xs font-semibold text-muted">
+              Đến ngày
+            </label>
+            <Input
+              type="date"
+              value={filters.to}
+              onChange={(e) =>
+                setFilters((f) => ({ ...f, to: e.target.value }))
+              }
+            />
+          </div>
+          <div className="min-w-[200px]">
+            <label className="mb-1 block text-xs font-semibold text-muted">
+              Danh mục sản phẩm / hạng mục
+            </label>
+            <select
+              className="h-10 w-full rounded-[var(--radius-md)] border border-border bg-surface px-3 text-sm"
+              value={filters.category}
+              onChange={(e) =>
+                setFilters((f) => ({
+                  ...f,
+                  category: e.target.value as ProductCategory | "all",
+                }))
+              }
+            >
+              <option value="all">Tất cả danh mục</option>
+              {dataSource === "runtime"
+                ? categoryOptions.map((c) => (
+                    <option key={c} value={c}>{c}</option>
+                  ))
+                : PRODUCT_CATEGORIES.map((c) => (
+                    <option key={c.id} value={c.id}>{c.label}</option>
+                  ))}
+            </select>
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            <Button
+              size="sm"
+              variant="secondary"
+              onClick={() => {
+                const d = defaultDashboardRange();
+                setFilters({ from: d.from, to: d.to, category: "all" });
+              }}
+            >
+              6 tháng
+            </Button>
+            <Button
+              size="sm"
+              variant="secondary"
+              onClick={() => {
+                const to = new Date();
+                const from = new Date();
+                from.setDate(from.getDate() - 30);
+                setFilters({
+                  from: from.toISOString().slice(0, 10),
+                  to: to.toISOString().slice(0, 10),
+                  category: filters.category,
+                });
+              }}
+            >
+              30 ngày
+            </Button>
+          </div>
+          {dataSource === "runtime" && serverPermissions ? (
+            <Badge variant="ok" className="ml-auto">
+              RBAC server · {serverPermissions.erp_routes.length} menu
+            </Badge>
+          ) : null}
+          {categoryOptions.length ? (
+            <span className="text-xs text-muted">
+              {categoryOptions.length} hạng mục trong dữ liệu
+            </span>
+          ) : null}
+        </CardBody>
+      </Card>
+
       <div className="flex flex-wrap gap-2">
         <Button size="sm" variant="secondary" asChild>
           <Link to="/app/editor">
@@ -253,10 +418,10 @@ function DashboardPage() {
         />
         <Metric
           label="Phải thu còn lại"
-          value={formatVnd(totalAR)}
+          value={formatVnd(filteredTotalAR)}
           foot={
             <Badge variant="warn">
-              {receivables.filter((r) => r.status !== "paid").length} HĐ
+              {filteredReceivables.filter((r) => r.status !== "paid").length} HĐ
             </Badge>
           }
           tone="warn"
@@ -276,8 +441,12 @@ function DashboardPage() {
         />
         <Metric
           label="Báo giá chờ duyệt"
-          value={String(pendingQuotes)}
-          foot={<Badge variant="info">{quotations.length} BG tổng</Badge>}
+          value={String(filteredPending)}
+          foot={
+            <Badge variant="info">
+              {filteredQuotes.length} BG trong kỳ
+            </Badge>
+          }
           tone="danger"
         />
       </div>
@@ -424,6 +593,51 @@ function DashboardPage() {
                   />
                   <Legend />
                 </PieChart>
+              </ResponsiveContainer>
+            )}
+          </CardBody>
+        </Card>
+
+        <Card className="min-w-0">
+          <CardHeader>
+            <CardTitle>Doanh số theo danh mục (lọc)</CardTitle>
+          </CardHeader>
+          <CardBody className="h-64 min-w-0">
+            {!hasSalesCategory ? (
+              <div className="flex h-full items-center justify-center text-sm text-muted">
+                Không có dòng BOQ khớp bộ lọc.
+              </div>
+            ) : (
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={salesCategoryChart} layout="vertical">
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke="var(--color-border-soft)"
+                  />
+                  <XAxis
+                    type="number"
+                    tick={{ fontSize: 12, fill: "var(--color-muted)" }}
+                  />
+                  <YAxis
+                    type="category"
+                    dataKey="label"
+                    width={100}
+                    tick={{ fontSize: 11, fill: "var(--color-muted)" }}
+                  />
+                  <Tooltip
+                    formatter={(v: number) => [formatVnd(v), "Giá trị"]}
+                    contentStyle={{
+                      borderRadius: 10,
+                      border: "1px solid var(--color-border)",
+                      fontSize: 12,
+                    }}
+                  />
+                  <Bar
+                    dataKey="value"
+                    fill="var(--color-brand)"
+                    radius={[0, 6, 6, 0]}
+                  />
+                </BarChart>
               </ResponsiveContainer>
             )}
           </CardBody>

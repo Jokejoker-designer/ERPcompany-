@@ -77,6 +77,8 @@ export type MaterialItem = {
   stock: number;
   supplier: string;
   source: "manual" | "import_hd" | "scan";
+  /** Product category for dashboard / inventory filters */
+  category?: string;
 };
 
 export type QuotationLine = {
@@ -88,6 +90,7 @@ export type QuotationLine = {
   unitPrice: number;
   taxRate: number;
   notes: string;
+  category?: string;
 };
 
 export type Quotation = {
@@ -354,6 +357,7 @@ function line(
     unitPrice,
     taxRate: extra?.taxRate ?? 8,
     notes: extra?.notes ?? "",
+    category: extra?.category,
   };
 }
 
@@ -471,11 +475,11 @@ export const SEED_PROJECTS: Project[] = [
 ];
 
 export const SEED_MATERIALS: MaterialItem[] = [
-  { id: "m1", sku: "VT-ONG-19", name: "Ống đồng Ø19", unit: "m", unitCost: 165_000, stock: 420, supplier: "NCC Đồng Á", source: "import_hd" },
-  { id: "m2", sku: "TB-AHU-12", name: "AHU 12k CMH", unit: "bộ", unitCost: 72_000_000, stock: 2, supplier: "HVAC Pro", source: "import_hd" },
-  { id: "m3", sku: "VT-ONG-22", name: "Ống đồng Ø22 + bảo ôn", unit: "m", unitCost: 184_000, stock: 280, supplier: "NCC Đồng Á", source: "import_hd" },
-  { id: "m4", sku: "VT-GAS-R32", name: "Gas R32", unit: "kg", unitCost: 118_000, stock: 45, supplier: "Gas Việt", source: "import_hd" },
-  { id: "m5", sku: "TB-CHILLER-80", name: "Chiller nước 80RT", unit: "bộ", unitCost: 420_000_000, stock: 1, supplier: "CoolTech VN", source: "manual" },
+  { id: "m1", sku: "VT-ONG-19", name: "Ống đồng Ø19", unit: "m", unitCost: 165_000, stock: 420, supplier: "NCC Đồng Á", source: "import_hd", category: "ong_dong" },
+  { id: "m2", sku: "TB-AHU-12", name: "AHU 12k CMH", unit: "bộ", unitCost: 72_000_000, stock: 2, supplier: "HVAC Pro", source: "import_hd", category: "thiet_bi" },
+  { id: "m3", sku: "VT-ONG-22", name: "Ống đồng Ø22 + bảo ôn", unit: "m", unitCost: 184_000, stock: 280, supplier: "NCC Đồng Á", source: "import_hd", category: "ong_dong" },
+  { id: "m4", sku: "VT-GAS-R32", name: "Gas R32", unit: "kg", unitCost: 118_000, stock: 45, supplier: "Gas Việt", source: "import_hd", category: "vat_tu" },
+  { id: "m5", sku: "TB-CHILLER-80", name: "Chiller nước 80RT", unit: "bộ", unitCost: 420_000_000, stock: 1, supplier: "CoolTech VN", source: "manual", category: "thiet_bi" },
 ];
 
 export const SEED_QUOTATIONS: Quotation[] = [
@@ -493,15 +497,21 @@ export const SEED_QUOTATIONS: Quotation[] = [
     lines: [
       line("l1", "Ống đồng Ø19", 100, "m", 180_000, {
         description: "Ống đồng C12200, độ dày 1.0mm, cách nhiệt PE 19mm",
+        category: "ong_dong",
       }),
       line("l2", "Ống đồng Ø12.7", 80, "m", 95_000),
       line("l3", "AHU 12k CMH", 2, "bộ", 88_000_000, {
         description: "AHU 2 chiều, lọc G4+F7, motor IE3",
+        category: "thiet_bi",
       }),
       line("l4", "Van chặn gas 1/2\"", 24, "cái", 450_000),
       line("l5", "Cáp điều khiển 2x1.5", 350, "m", 28_000),
-      line("l6", "Nhân công lắp đặt MEP", 1, "gói", 42_000_000),
-      line("l7", "Vận chuyển & cẩu lắp", 1, "lượt", 8_500_000),
+      line("l6", "Nhân công lắp đặt MEP", 1, "gói", 42_000_000, {
+        category: "nhan_cong",
+      }),
+      line("l7", "Vận chuyển & cẩu lắp", 1, "lượt", 8_500_000, {
+        category: "dich_vu",
+      }),
     ],
   },
   {
@@ -770,6 +780,7 @@ export function normalizeLine(
     unitPrice: Number(l.unitPrice) || 0,
     taxRate: typeof l.taxRate === "number" ? l.taxRate : fallbackTax,
     notes: l.notes ?? "",
+    category: l.category,
   };
 }
 

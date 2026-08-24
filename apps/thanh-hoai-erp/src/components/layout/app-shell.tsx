@@ -56,6 +56,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const logout = useErpStore((s) => s.logout);
   const openWizard = useErpStore((s) => s.openWizard);
   const refreshSession = useErpStore((s) => s.refreshSession);
+  const serverPermissions = useErpStore((s) => s.serverPermissions);
   const dataSource = useErpStore((s) => s.dataSource);
   const runtimeConnected = useErpStore((s) => s.runtimeConnected);
   const runtimeSyncing = useErpStore((s) => s.runtimeSyncing);
@@ -71,23 +72,37 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   const visibleNav = useMemo(() => {
     if (!role) return [];
+    const useServer =
+      dataSource === "runtime" && serverPermissions?.erp_routes?.length;
     return NAV_GROUPS.map((g) => ({
       ...g,
-      items: g.items.filter((i) => i.roles.includes(role)),
+      items: g.items.filter((i) => {
+        if (useServer) {
+          return serverPermissions!.erp_routes.includes(i.to);
+        }
+        return i.roles.includes(role);
+      }),
     })).filter((g) => g.items.length > 0);
-  }, [role]);
+  }, [role, dataSource, serverPermissions]);
 
   const mobileNav = useMemo(() => {
     if (!role) return [];
-    const allowed = ALL_NAV_ITEMS.filter((i) => i.roles.includes(role));
+    const useServer =
+      dataSource === "runtime" && serverPermissions?.erp_routes?.length;
+    const allowed = ALL_NAV_ITEMS.filter((i) => {
+      if (useServer) return serverPermissions!.erp_routes.includes(i.to);
+      return i.roles.includes(role);
+    });
     const primary = MOBILE_PRIMARY.map((to) =>
       allowed.find((i) => i.to === to),
     ).filter(Boolean) as typeof allowed;
     const rest = allowed.filter((i) => !primary.some((p) => p.to === i.to));
     return [...primary, ...rest].slice(0, 5);
-  }, [role]);
+  }, [role, dataSource, serverPermissions]);
 
-  const allowed = role ? canAccessRoute(role, pathname) : false;
+  const allowed = role
+    ? canAccessRoute(role, pathname, serverPermissions)
+    : false;
   const meta = PAGE_META[pathname] ?? PAGE_META["/app/dashboard"];
   const pct = setupCompletion(onboarding.flags);
   const currentNav = ALL_NAV_ITEMS.find((i) => i.to === pathname);
@@ -110,12 +125,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!role) return;
-    if (!canAccessRoute(role, pathname)) {
-      const dest = firstAllowedRoute(role);
+    if (!canAccessRoute(role, pathname, serverPermissions)) {
+      const dest = firstAllowedRoute(role, serverPermissions);
       toast.error(denyMessage(role, pathname));
       void navigate({ to: dest });
     }
-  }, [role, pathname, navigate]);
+  }, [role, pathname, navigate, serverPermissions]);
 
   const canSetup =
     role === "admin" || role === "giamdoc" || role === "kinhdoanh";

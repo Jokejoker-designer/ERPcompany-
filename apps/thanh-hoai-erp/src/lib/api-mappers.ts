@@ -16,6 +16,7 @@ import type {
   WorkflowFlags,
 } from "@/data/seed";
 import { EMPTY_WORKFLOW, normalizeLine } from "@/data/seed";
+import { inferProductCategory } from "@/lib/product-categories";
 
 const ROLE_MAP: Record<string, RoleId> = {
   "quan tri he thong": "admin",
@@ -192,16 +193,18 @@ export function mapRuntimeQuotationLine(
   row: Record<string, unknown>,
   defaultVat: number,
 ): QuotationLine {
+  const name = str(row.hang_muc || row.ten_hang || row.name || row.mo_ta);
   return normalizeLine(
     {
       id: str(row.id || row.stt || `l-${Math.random().toString(36).slice(2, 8)}`),
-      name: str(row.hang_muc || row.ten_hang || row.name || row.mo_ta),
+      name,
       description: str(row.mo_ta || row.description),
       qty: num(row.so_luong ?? row.qty, 1),
       unit: str(row.don_vi || row.dvt || row.unit, "cái"),
       unitPrice: num(row.don_gia ?? row.unit_price ?? row.unitPrice),
       taxRate: num(row.thue_suat ?? row.tax_rate ?? row.taxRate, defaultVat),
       notes: str(row.ghi_chu || row.notes),
+      category: inferProductCategory(name),
     },
     defaultVat,
   );

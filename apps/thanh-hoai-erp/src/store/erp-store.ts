@@ -64,6 +64,7 @@ import {
   runtimeLogout,
   runtimeMe,
 } from "@/lib/runtime-data";
+import type { ServerPermissions } from "@/lib/server-permissions";
 import {
   createRuntimeQuotation,
   createRuntimeQuotationVersion,
@@ -111,6 +112,8 @@ type ErpState = {
   runtimeSyncing: boolean;
   runtimeError: string | null;
   runtimeDashboard: RuntimeDashboard | null;
+  /** From /api/me — authoritative when dataSource is runtime */
+  serverPermissions: ServerPermissions | null;
   company: CompanyConfig;
   uiPrefs: UiPrefs;
   customers: Customer[];
@@ -350,6 +353,7 @@ export const useErpStore = create<ErpState>()(
       runtimeSyncing: false,
       runtimeError: null,
       runtimeDashboard: null,
+      serverPermissions: null,
       company: SEED_COMPANY,
       uiPrefs: { ...DEFAULT_UI_PREFS },
       customers: SEED_CUSTOMERS,
@@ -367,6 +371,7 @@ export const useErpStore = create<ErpState>()(
         if (get().dataSource === "runtime") {
           try {
             const { user, mustChange } = await runtimeLogin(username, password);
+            const me = await runtimeMe();
             const session: Session = {
               userId: user.id,
               username: user.username,
@@ -374,8 +379,9 @@ export const useErpStore = create<ErpState>()(
               issuedAt: Date.now(),
             };
             set({
-              user,
+              user: me.authenticated ? me.user : user,
               session,
+              serverPermissions: me.authenticated ? me.permissions : null,
               pendingTotpUser: null,
               _totpPending: null,
               runtimeConnected: true,
@@ -461,6 +467,7 @@ export const useErpStore = create<ErpState>()(
           pendingTotpUser: null,
           _totpPending: null,
           runtimeDashboard: wasRuntime ? null : get().runtimeDashboard,
+          serverPermissions: null,
           runtimeError: null,
         });
       },
@@ -677,6 +684,7 @@ export const useErpStore = create<ErpState>()(
               set({
                 user: null,
                 session: null,
+                serverPermissions: null,
                 runtimeConnected: true,
                 runtimeError: null,
               });
@@ -690,6 +698,7 @@ export const useErpStore = create<ErpState>()(
                 token: "runtime-cookie",
                 issuedAt: Date.now(),
               },
+              serverPermissions: me.permissions,
               runtimeConnected: true,
               runtimeError: null,
             });
@@ -732,6 +741,7 @@ export const useErpStore = create<ErpState>()(
             session: null,
             runtimeConnected: false,
             runtimeDashboard: null,
+            serverPermissions: null,
             runtimeError: null,
             customers: SEED_CUSTOMERS,
             projects: SEED_PROJECTS.map(hydrateProject),
