@@ -12,7 +12,8 @@
 | 4 | `TH-GD · Giám đốc` | Giám đốc | [04-bot-giam-doc.md](04-bot-giam-doc.md) |
 | 5 | `TH-KT · Kế toán` | Kế toán | [05-bot-ke-toan.md](05-bot-ke-toan.md) |
 
-Quy trình chung: [00-quy-trinh-a-z.md](00-quy-trinh-a-z.md).
+**Bảng làm việc bắt buộc (mọi bot đọc trước):** [BANG-QUY-TRINH.md](BANG-QUY-TRINH.md)  
+Tóm tắt chữ: [00-quy-trinh-a-z.md](00-quy-trinh-a-z.md).
 
 Thủ kho **không** có bot riêng — TH-ADMIN chỉ đường khi cần vật tư.
 
@@ -87,4 +88,5 @@ E  TH-KT     Hồ sơ thanh toán / quyết toán sau đã ký
 Z  TH-ADMIN  Đóng phiếu khi pack + quyết toán xong
 ```
 
-Chi tiết từng chữ: [00-quy-trinh-a-z.md](00-quy-trinh-a-z.md).
+Chi tiết từng chữ: [00-quy-trinh-a-z.md](00-quy-trinh-a-z.md).  
+Bảng bước / nút / lỗi: [BANG-QUY-TRINH.md](BANG-QUY-TRINH.md).
