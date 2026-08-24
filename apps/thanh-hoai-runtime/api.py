@@ -3096,6 +3096,66 @@ def ct_dossier(conn, role, sess, project_id):
     return result
 
 
+def document_audit_queue(conn, role, sess, project_id):
+    """Hàng đợi audit mẫu giấy tờ: SHA lệch, thiếu bằng chứng, file trùng liên kết."""
+    dossier = ct_dossier(conn, role, sess, project_id)
+    items = []
+    evidence_use: dict[int, list[str]] = {}
+    for row in dossier.get("rows") or []:
+        if not row.get("applicable"):
+            continue
+        sid = row.get("evidence_source_document_id")
+        if sid:
+            evidence_use.setdefault(int(sid), []).append(row["ma_mau"])
+        issues: list[str] = []
+        export_status = row.get("export_status") or ""
+        if export_status and export_status != "READY":
+            issues.append(export_status)
+        if not row.get("has_evidence") and row.get("requirement") in (
+            "REQUIRED",
+            "ACTIVE_CONDITIONAL",
+        ):
+            issues.append("MISSING_EVIDENCE")
+        if not row.get("export_ready") and row.get("trang_thai") in (
+            "Da_duyet",
+            "Da_ky",
+        ):
+            issues.append("EXPORT_STALE")
+        if issues:
+            items.append(
+                {
+                    "ma_mau": row["ma_mau"],
+                    "title": row.get("title"),
+                    "phase_code": row.get("phase_code"),
+                    "format": row.get("format"),
+                    "trang_thai": row.get("trang_thai"),
+                    "evidence_source_document_id": sid,
+                    "evidence_file_name": row.get("evidence_file_name"),
+                    "export_status": export_status,
+                    "export_ready": row.get("export_ready"),
+                    "version": row.get("version"),
+                    "issues": issues,
+                    "can_update": row.get("can_update"),
+                    "can_download_evidence": row.get("can_download_evidence"),
+                    "next_action": row.get("next_action"),
+                }
+            )
+    duplicate_evidence = {
+        str(doc_id): codes for doc_id, codes in evidence_use.items() if len(codes) > 1
+    }
+    return {
+        "project_id": int(project_id),
+        "completion_ready": dossier.get("completion_ready"),
+        "completion_policy_status": dossier.get("completion_policy_status"),
+        "profile_code": dossier.get("profile_code"),
+        "audit_count": len(items),
+        "items": items,
+        "duplicate_evidence": duplicate_evidence,
+        "rows": dossier.get("rows"),
+        "can_edit_context": dossier.get("can_edit_context"),
+    }
+
+
 # ==================== BATCH 6: NGHIEM THU (read projection) ================
 _ACCEPTANCE_READ_ROLES = {"Giam doc", "Ke toan", "Ky thuat truong", "Quan tri he thong"}
 _ACCEPTANCE_EDIT_ROLES = {"Giam doc", "Ky thuat truong", "Quan tri he thong"}

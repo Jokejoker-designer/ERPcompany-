@@ -31,6 +31,13 @@ type DocsState = {
     ctCode?: string;
     companyName?: string;
   }) => string;
+  linkCtTemplate: (input: {
+    maMau: string;
+    title?: string;
+    format?: string;
+    projectCode?: string;
+    sourceDocumentId?: string;
+  }) => string;
   createBlank: (kind: "word" | "excel", title?: string) => string;
   createFromTemplate: (type: "bbnt" | "bao_gia" | "hop_dong", meta?: {
     company?: string;
@@ -140,6 +147,51 @@ export const useDocsStore = create<DocsState>()(
           ctCode: input.ctCode,
           content,
           versionLabel: "v1 · từ quét folder",
+        });
+        set((s) => ({
+          documents: [doc, ...s.documents],
+          activeDocId: id,
+        }));
+        return id;
+      },
+
+      linkCtTemplate: (input) => {
+        const existing = get().documents.find((d) => d.ctCode === input.maMau);
+        if (existing) {
+          set({ activeDocId: existing.id });
+          return existing.id;
+        }
+        const isExcel = (input.format || "").toLowerCase().includes("xls");
+        const kind: DocKind = isExcel ? "excel" : "word";
+        const ext = isExcel ? "xlsx" : "docx";
+        const content =
+          kind === "excel"
+            ? defaultExcelFromBoq([
+                {
+                  name: input.title || input.maMau,
+                  qty: 1,
+                  unit: "gói",
+                  unitPrice: 0,
+                },
+              ])
+            : defaultWordHtml(input.title || input.maMau, {
+                project: input.projectCode,
+                body: `Mẫu hồ sơ ${input.maMau}\n\nLiên kết runtime SD#${input.sourceDocumentId ?? "—"}\n\nSửa nội dung tại đây hoặc mở file Word/Excel thật từ tab Audit.`,
+              });
+        const id = `doc-${Date.now()}`;
+        const doc = newDoc({
+          id,
+          title: `${input.maMau} · ${input.title || "Mẫu CT"}`,
+          kind,
+          ext,
+          source: "template",
+          sourcePath: input.sourceDocumentId
+            ? `runtime:sd:${input.sourceDocumentId}`
+            : undefined,
+          projectCode: input.projectCode,
+          ctCode: input.maMau,
+          content,
+          versionLabel: "v1 · liên kết CT",
         });
         set((s) => ({
           documents: [doc, ...s.documents],

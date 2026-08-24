@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Check, Paperclip, Send, X } from "lucide-react";
 import { toast } from "sonner";
 import { ProjectContextBar, useActiveProject } from "@/components/erp/project-context";
+import { DocumentAuditPanel } from "@/components/erp/document-audit-panel";
 import { DataTable } from "@/components/erp/data-table";
 import { FormApprovalBadge, Metric } from "@/components/erp/status";
 import { Badge } from "@/components/ui/badge";
@@ -47,6 +48,8 @@ function DocumentsPage() {
   const fileRef = useRef<HTMLInputElement>(null);
   const [attachCode, setAttachCode] = useState<string | null>(null);
   const [phase, setPhase] = useState<string>("all");
+  const [tab, setTab] = useState<"workflow" | "audit">("workflow");
+  const dataSource = useErpStore((s) => s.dataSource);
 
   const projectQuotes = project
     ? quotations.filter((x) => x.projectCode === project.code)
@@ -167,6 +170,33 @@ function DocumentsPage() {
     <div className="space-y-4">
       <ProjectContextBar showQuotes />
 
+      <div className="flex flex-wrap gap-2">
+        <Button
+          size="sm"
+          variant={tab === "workflow" ? "default" : "secondary"}
+          onClick={() => setTab("workflow")}
+        >
+          Phê duyệt biểu mẫu
+        </Button>
+        <Button
+          size="sm"
+          variant={tab === "audit" ? "default" : "secondary"}
+          onClick={() => setTab("audit")}
+        >
+          Audit file Word/Excel
+          {dataSource === "runtime" ? "" : " (runtime)"}
+        </Button>
+        <Button size="sm" variant="secondary" asChild>
+          <Link to="/app/editor">Mở / sửa tài liệu</Link>
+        </Button>
+      </div>
+
+      {tab === "audit" && project ? (
+        <DocumentAuditPanel projectId={project.id} projectCode={project.code} />
+      ) : null}
+
+      {tab === "workflow" ? (
+        <>
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <Metric label="Tổng mẫu CT" value={String(CT_TEMPLATES.length)} />
         <Metric
@@ -484,8 +514,10 @@ function DocumentsPage() {
       <p className="text-xs text-muted">
         Registry V3.1 — trạng thái phê duyệt lưu theo user + công trình (
         <code>thanh-hoai-form-workflow-v1</code>). Đồng bộ checklist CT khi gửi
-        / duyệt.
+        / duyệt. Tab Audit: liên kết file thật, SHA, mở Word/Excel qua runtime.
       </p>
+        </>
+      ) : null}
     </div>
   );
 }
