@@ -4,6 +4,10 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
+  Cell,
+  Legend,
+  Pie,
+  PieChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -16,8 +20,13 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardBody, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatVnd, formatVndShort } from "@/lib/utils";
+import { resolveUserKey } from "@/lib/user-scope";
 import { useErpStore } from "@/store/erp-store";
 import { useDocsStore } from "@/store/docs-store";
+import {
+  approvalStatsForChart,
+  useFormWorkflowStore,
+} from "@/store/form-workflow-store";
 
 export const Route = createFileRoute("/app/dashboard")({
   component: DashboardPage,
@@ -30,14 +39,42 @@ const STAGE_LABEL = {
   hoan_thanh: "Hoàn thành",
 } as const;
 
+const QUOTE_STATUS_LABEL: Record<
+  "draft" | "pending" | "approved" | "sent" | "won" | "lost",
+  string
+> = {
+  draft: "Nháp",
+  pending: "Chờ duyệt",
+  approved: "Đã duyệt",
+  sent: "Đã gửi",
+  won: "Trúng",
+  lost: "Trượt",
+};
+
+const CHART_COLORS = [
+  "var(--color-brand)",
+  "var(--color-info)",
+  "var(--color-warn)",
+  "var(--color-ok)",
+  "var(--color-danger)",
+  "#6366f1",
+  "#94a3b8",
+];
+
 function DashboardPage() {
   const receivables = useErpStore((s) => s.receivables);
   const quotations = useErpStore((s) => s.quotations);
   const projects = useErpStore((s) => s.projects);
   const customers = useErpStore((s) => s.customers);
   const bankLines = useErpStore((s) => s.bankLines);
+  const session = useErpStore((s) => s.session);
+  const user = useErpStore((s) => s.user);
+  const activeProjectId = useErpStore((s) => s.activeProjectId);
   const documents = useDocsStore((s) => s.documents);
   const auditQueue = useDocsStore((s) => s.auditQueue);
+  const getApprovalStats = useFormWorkflowStore((s) => s.getApprovalStats);
+
+  const userKey = resolveUserKey(session, user?.username);
 
   const runtimeDashboard = useErpStore((s) => s.runtimeDashboard);
   const dataSource = useErpStore((s) => s.dataSource);
@@ -81,6 +118,22 @@ function DashboardPage() {
   }, [projects, receivables, dataSource, runtimeDashboard]);
 
   const hasRevenue = revenueSeries.some((r) => r.value > 0);
+
+  const approvalChart = useMemo(() => {
+    const stats = getApprovalStats(userKey, activeProjectId);
+    return approvalStatsForChart(stats);
+  }, [getApprovalStats, userKey, activeProjectId]);
+
+  const quoteStatusChart = useMemo(() => {
+    const buckets: Record<string, number> = {};
+    for (const q of quotations) {
+      const label = QUOTE_STATUS_LABEL[q.status];
+      buckets[label] = (buckets[label] ?? 0) + 1;
+    }
+    return Object.entries(buckets).map(([label, value]) => ({ label, value }));
+  }, [quotations]);
+
+  const hasQuoteChart = quoteStatusChart.some((d) => d.value > 0);
 
   const approvals = useMemo(() => {
     const items: {
@@ -181,6 +234,9 @@ function DashboardPage() {
         </Button>
         <Button size="sm" variant="secondary" asChild>
           <Link to="/app/chungtu">9 · Xuất chứng từ</Link>
+        </Button>
+        <Button size="sm" variant="secondary" asChild>
+          <Link to="/app/materials">Vật tư · Kho</Link>
         </Button>
       </div>
 
@@ -316,6 +372,114 @@ function DashboardPage() {
                   <div className="shrink-0 text-xs text-muted">{a.deadline}</div>
                 </Link>
               ))
+            )}
+          </CardBody>
+        </Card>
+      </div>
+
+      <div className="grid min-w-0 gap-4 lg:grid-cols-2">
+        <Card className="min-w-0">
+          <CardHeader>
+            <CardTitle>Phê duyệt biểu mẫu (84 mẫu CT)</CardTitle>
+            <Link
+              to="/app/documents"
+              className="text-xs font-semibold text-brand-ink hover:underline"
+            >
+              Hồ sơ CT
+            </Link>
+          </CardHeader>
+          <CardBody className="h-64 min-w-0">
+            {!approvalChart.length ? (
+              <div className="flex h-full items-center justify-center text-sm text-muted">
+                Chưa có trạng thái phê duyệt — mở Hồ sơ CT để soạn / gửi duyệt.
+              </div>
+            ) : (
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={approvalChart}
+                    dataKey="value"
+                    nameKey="label"
+                    innerRadius={48}
+                    outerRadius={80}
+                    paddingAngle={2}
+                  >
+                    {approvalChart.map((_, i) => (
+                      <Cell
+                        key={i}
+                        fill={CHART_COLORS[i % CHART_COLORS.length]}
+                      />
+                    ))}
+                  </Pie>
+                  <Tooltip
+                    formatter={(v: number, _n, p) => [
+                      `${v} mẫu`,
+                      p.payload.label,
+                    ]}
+                    contentStyle={{
+                      borderRadius: 10,
+                      border: "1px solid var(--color-border)",
+                      fontSize: 12,
+                    }}
+                  />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
+            )}
+          </CardBody>
+        </Card>
+
+        <Card className="min-w-0">
+          <CardHeader>
+            <CardTitle>Báo giá theo trạng thái</CardTitle>
+            <Link
+              to="/app/quotations"
+              className="text-xs font-semibold text-brand-ink hover:underline"
+            >
+              Danh sách BG
+            </Link>
+          </CardHeader>
+          <CardBody className="h-64 min-w-0">
+            {!hasQuoteChart ? (
+              <div className="flex h-full flex-col items-center justify-center gap-2 text-center text-sm text-muted">
+                <p>Chưa có báo giá trong hệ thống.</p>
+                <Button size="sm" variant="secondary" asChild>
+                  <Link to="/app/quotations">Tạo báo giá</Link>
+                </Button>
+              </div>
+            ) : (
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={quoteStatusChart} layout="vertical">
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke="var(--color-border-soft)"
+                  />
+                  <XAxis
+                    type="number"
+                    allowDecimals={false}
+                    tick={{ fontSize: 12, fill: "var(--color-muted)" }}
+                  />
+                  <YAxis
+                    type="category"
+                    dataKey="label"
+                    width={72}
+                    tick={{ fontSize: 12, fill: "var(--color-muted)" }}
+                  />
+                  <Tooltip
+                    formatter={(v: number) => [`${v} BG`, "Số lượng"]}
+                    contentStyle={{
+                      borderRadius: 10,
+                      border: "1px solid var(--color-border)",
+                      fontSize: 12,
+                    }}
+                  />
+                  <Bar
+                    dataKey="value"
+                    fill="var(--color-info)"
+                    radius={[0, 6, 6, 0]}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
             )}
           </CardBody>
         </Card>

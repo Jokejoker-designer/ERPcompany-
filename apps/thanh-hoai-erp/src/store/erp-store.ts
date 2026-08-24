@@ -38,7 +38,8 @@ import {
   quoteTotal,
   demoDocStatus,
 } from "@/data/seed";
-import { useDocsStore } from "@/store/docs-store";
+import { useFormWorkflowStore } from "@/store/form-workflow-store";
+import { resolveUserKey } from "@/lib/user-scope";
 import {
   DEFAULT_UI_PREFS,
   type UiPrefs,
@@ -63,6 +64,13 @@ import {
   runtimeLogout,
   runtimeMe,
 } from "@/lib/runtime-data";
+import {
+  createRuntimeQuotation,
+  createRuntimeQuotationVersion,
+  erpLineToRuntimeItem,
+  setRuntimeQuotationStatus,
+  updateRuntimeQuotationItems,
+} from "@/lib/runtime-quotations";
 import type { RuntimeDashboard } from "@/lib/api-mappers";
 import {
   type CredentialsMap,
@@ -82,6 +90,7 @@ import {
   makeSessionToken,
   SECURITY_QUESTIONS,
 } from "@/lib/erp-auth";
+import { useDocsStore } from "@/store/docs-store";
 import {
   generateTotpSecret,
   verifyTotp,
@@ -377,6 +386,14 @@ export const useErpStore = create<ErpState>()(
               },
             });
             await get().syncFromRuntime();
+            const userKey = resolveUserKey(session, user.username);
+            const ws = useFormWorkflowStore.getState().getWorkspace(userKey);
+            if (
+              ws.activeProjectId &&
+              get().projects.some((p) => p.id === ws.activeProjectId)
+            ) {
+              set({ activeProjectId: ws.activeProjectId });
+            }
             return {
               ok: true,
               message: mustChange
@@ -410,11 +427,19 @@ export const useErpStore = create<ErpState>()(
           return { ok: true, message: "Nhập mã Google Authenticator", needsTotp: true };
         }
         const onboarding = get().onboarding;
+        const userKey = resolveUserKey(session, user.username);
+        const ws = useFormWorkflowStore.getState().getWorkspace(userKey);
+        const activeFromWs =
+          ws.activeProjectId &&
+          get().projects.some((p) => p.id === ws.activeProjectId)
+            ? ws.activeProjectId
+            : get().activeProjectId;
         set({
           user,
           session,
           pendingTotpUser: null,
           _totpPending: null,
+          activeProjectId: activeFromWs,
           onboarding: {
             ...onboarding,
             wizardOpen: !must && !onboarding.completed && !onboarding.dismissed,
@@ -896,7 +921,11 @@ export const useErpStore = create<ErpState>()(
           customers: s.customers.filter((c) => c.id !== id),
         })),
 
-      setActiveProject: (id) => set({ activeProjectId: id }),
+      setActiveProject: (id) => {
+        const userKey = resolveUserKey(get().session, get().user?.username);
+        useFormWorkflowStore.getState().setActiveProject(userKey, id);
+        set({ activeProjectId: id });
+      },
 
       addProject: (input) => {
         const customer = get().customers.find((c) => c.id === input.customerId);
@@ -1023,9 +1052,80 @@ export const useErpStore = create<ErpState>()(
         })),
 
       addQuotation: (input) => {
+        const vat = input.vat ?? 8;
+        const validLines = input.lines.map((l, i) =>
+          normalizeLine({ ...l, id: `l${i}` }, vat),
+        );
+
+        if (get().dataSource === "runtime") {
+          const id = `q-pending-${Date.now()}`;
+          const code = nextQuoteCode(get().quotations);
+          const q: Quotation = {
+            id,
+            code,
+            revision: 1,
+            customer: input.customer,
+            projectCode: input.projectCode,
+            projectName: input.projectName,
+            vat,
+            note: input.note ?? "",
+            status: "draft",
+            createdAt: new Date().toISOString().slice(0, 10),
+            lines: validLines.map((l, i) => ({
+              ...l,
+              id: `${id}-l${i}`,
+            })),
+          };
+          set((s) => ({
+            quotations: [q, ...s.quotations],
+            projects: s.projects.map((p) => {
+              if (p.code !== input.projectCode) return p;
+              return {
+                ...p,
+                name: input.projectName || p.name,
+                customer: input.customer || p.customer,
+                workflow: {
+                  ...p.workflow,
+                  profile: true,
+                  quote: true,
+                  docs04: true,
+                },
+              };
+            }),
+          }));
+          void (async () => {
+            try {
+              const cust = get().customers.find(
+                (c) =>
+                  c.name.trim() === input.customer.trim() ||
+                  c.id === input.customer.trim(),
+              );
+              if (!cust) throw new Error("Không tìm thấy khách trên runtime");
+              const proj = get().projects.find(
+                (p) => p.code === input.projectCode.trim(),
+              );
+              const created = await createRuntimeQuotation({
+                customerId: cust.id,
+                projectId: proj?.id,
+                loaiBaoGia: "Bán hàng hóa/thiết bị",
+                ghiChuNoiBo: input.note,
+                items: validLines.map(erpLineToRuntimeItem),
+              });
+              await get().syncFromRuntime();
+              set((s) => ({
+                quotations: s.quotations.map((x) =>
+                  x.id === id ? { ...x, id: String(created.id), code: created.code } : x,
+                ),
+              }));
+            } catch {
+              /* optimistic row remains */
+            }
+          })();
+          return id;
+        }
+
         const id = `q${Date.now()}`;
         const code = nextQuoteCode(get().quotations);
-        const vat = input.vat ?? 8;
         const q: Quotation = {
           id,
           code,
@@ -1037,7 +1137,7 @@ export const useErpStore = create<ErpState>()(
           note: input.note ?? "",
           status: "draft",
           createdAt: new Date().toISOString().slice(0, 10),
-          lines: input.lines.map((l, i) =>
+          lines: validLines.map((l, i) =>
             normalizeLine({ ...l, id: `${id}-l${i}` }, vat),
           ),
         };
@@ -1073,7 +1173,7 @@ export const useErpStore = create<ErpState>()(
           ),
         })),
 
-      addQuotationLine: (quoteId, line) =>
+      addQuotationLine: (quoteId, line) => {
         set((s) => ({
           quotations: s.quotations.map((q) => {
             if (q.id !== quoteId) return q;
@@ -1097,9 +1197,11 @@ export const useErpStore = create<ErpState>()(
               ],
             };
           }),
-        })),
+        }));
+        scheduleRuntimeQuoteLinesSync(quoteId);
+      },
 
-      updateQuotationLine: (quoteId, lineId, patch) =>
+      updateQuotationLine: (quoteId, lineId, patch) => {
         set((s) => ({
           quotations: s.quotations.map((q) => {
             if (q.id !== quoteId) return q;
@@ -1112,16 +1214,20 @@ export const useErpStore = create<ErpState>()(
               ),
             };
           }),
-        })),
+        }));
+        scheduleRuntimeQuoteLinesSync(quoteId);
+      },
 
-      removeQuotationLine: (quoteId, lineId) =>
+      removeQuotationLine: (quoteId, lineId) => {
         set((s) => ({
           quotations: s.quotations.map((q) => {
             if (q.id !== quoteId) return q;
             if (q.lines.length <= 1) return q;
             return { ...q, lines: q.lines.filter((l) => l.id !== lineId) };
           }),
-        })),
+        }));
+        scheduleRuntimeQuoteLinesSync(quoteId);
+      },
 
       setQuotationStatus: (id, status) => {
         set((s) => ({
@@ -1130,16 +1236,30 @@ export const useErpStore = create<ErpState>()(
           ),
         }));
         if (status === "won") get().promoteQuoteToContract(id);
+        if (get().dataSource === "runtime" && /^\d+$/.test(String(id))) {
+          void setRuntimeQuotationStatus(id, status).catch(() => undefined);
+        }
       },
 
-      bumpRevision: (id) =>
+      bumpRevision: (id) => {
         set((s) => ({
           quotations: s.quotations.map((q) =>
             q.id === id
               ? { ...q, revision: q.revision + 1, status: "draft" }
               : q,
           ),
-        })),
+        }));
+        if (get().dataSource === "runtime" && /^\d+$/.test(String(id))) {
+          void (async () => {
+            try {
+              await createRuntimeQuotationVersion(id);
+              await get().syncFromRuntime();
+            } catch {
+              /* local bump remains */
+            }
+          })();
+        }
+      },
 
       promoteQuoteToContract: (quoteId) => {
         const q = get().quotations.find((x) => x.id === quoteId);
@@ -1663,3 +1783,19 @@ export const useErpStore = create<ErpState>()(
     },
   ),
 );
+
+const quoteSyncTimers: Record<string, ReturnType<typeof setTimeout>> = {};
+
+function scheduleRuntimeQuoteLinesSync(quoteId: string) {
+  if (useErpStore.getState().dataSource !== "runtime") return;
+  const existing = quoteSyncTimers[quoteId];
+  if (existing) clearTimeout(existing);
+  quoteSyncTimers[quoteId] = setTimeout(() => {
+    const q = useErpStore.getState().quotations.find((x) => x.id === quoteId);
+    if (!q || !/^\d+$/.test(String(q.id))) return;
+    void updateRuntimeQuotationItems(
+      q.id,
+      q.lines.map(erpLineToRuntimeItem),
+    ).catch(() => undefined);
+  }, 900);
+}

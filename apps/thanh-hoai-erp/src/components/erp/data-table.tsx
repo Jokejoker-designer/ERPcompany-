@@ -1,8 +1,11 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArrowDown, ArrowUp, ArrowUpDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { EmptyState } from "@/components/erp/empty-state";
+import { TableFacetFilters, type FacetOption } from "@/components/erp/table-filters";
+import { DEFAULT_TABLE_PREFS, type TablePrefs } from "@/lib/table-prefs";
+import { useTablePrefsStore } from "@/store/table-prefs-store";
 
 export type Column<T> = {
   id: string;
@@ -13,6 +16,13 @@ export type Column<T> = {
   className?: string;
   /** Hide on small screens */
   hideOnMobile?: boolean;
+};
+
+type FacetDef<T> = {
+  id: string;
+  options: FacetOption[];
+  /** Return facet key for row; omit = skip */
+  match?: (row: T, facetValue: string) => boolean;
 };
 
 type Props<T> = {
@@ -30,6 +40,10 @@ type Props<T> = {
   selectedKey?: string | null;
   className?: string;
   toolbar?: React.ReactNode;
+  /** Persist sort/filter per user when set with userKey */
+  tableId?: string;
+  userKey?: string;
+  facets?: FacetDef<T>[];
 };
 
 export function DataTable<T>({
@@ -46,10 +60,44 @@ export function DataTable<T>({
   selectedKey,
   className,
   toolbar,
+  tableId,
+  userKey,
+  facets,
 }: Props<T>) {
-  const [q, setQ] = useState("");
-  const [sortId, setSortId] = useState<string | null>(null);
-  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+  const getPrefs = useTablePrefsStore((s) => s.getPrefs);
+  const setPrefs = useTablePrefsStore((s) => s.setPrefs);
+  const resetPrefs = useTablePrefsStore((s) => s.resetPrefs);
+
+  const [localPrefs, setLocalPrefs] = useState<TablePrefs>(DEFAULT_TABLE_PREFS);
+  const persisted = Boolean(tableId && userKey);
+  const prefs: TablePrefs = persisted
+    ? getPrefs(userKey!, tableId!)
+    : localPrefs;
+
+  const q = prefs.q;
+  const sortId = prefs.sortId;
+  const sortDir = prefs.sortDir;
+  const facetValues = prefs.facets;
+
+  useEffect(() => {
+    if (!tableId || !userKey) return;
+    const stored = getPrefs(userKey, tableId);
+    if (!stored.sortId && columns.some((c) => c.id === "name" && c.sortValue)) {
+      setPrefs(userKey, tableId, { sortId: "name", sortDir: "asc" });
+    }
+  }, [tableId, userKey, columns, getPrefs, setPrefs]);
+
+  function patchPrefs(patch: Partial<TablePrefs>) {
+    if (persisted) {
+      setPrefs(userKey!, tableId!, patch);
+    } else {
+      setLocalPrefs((prev) => ({
+        ...prev,
+        ...patch,
+        facets: patch.facets ? { ...prev.facets, ...patch.facets } : prev.facets,
+      }));
+    }
+  }
 
   const filtered = useMemo(() => {
     let list = rows;
@@ -58,6 +106,13 @@ export function DataTable<T>({
       list = list.filter((r) =>
         searchKeys.some((fn) => fn(r).toLowerCase().includes(needle)),
       );
+    }
+    if (facets?.length) {
+      for (const f of facets) {
+        const val = facetValues[f.id] ?? "all";
+        if (!val || val === "all" || !f.match) continue;
+        list = list.filter((r) => f.match!(r, val));
+      }
     }
     if (sortId) {
       const col = columns.find((c) => c.id === sortId);
@@ -74,18 +129,26 @@ export function DataTable<T>({
       }
     }
     return list;
-  }, [rows, q, searchKeys, sortId, sortDir, columns]);
+  }, [rows, q, searchKeys, sortId, sortDir, columns, facets, facetValues]);
 
   function toggleSort(id: string) {
     if (sortId === id) {
-      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+      patchPrefs({ sortDir: sortDir === "asc" ? "desc" : "asc" });
     } else {
-      setSortId(id);
-      setSortDir("asc");
+      patchPrefs({ sortId: id, sortDir: "asc" });
     }
   }
 
   const pad = density === "compact" ? "px-3 py-2" : "px-3 py-3";
+
+  const facetMap = facets
+    ? Object.fromEntries(
+        facets.map((f) => [
+          f.id,
+          f.options,
+        ]),
+      )
+    : null;
 
   return (
     <div
@@ -94,24 +157,38 @@ export function DataTable<T>({
         className,
       )}
     >
-      <div className="flex flex-wrap items-center gap-2 border-b border-border-soft px-3 py-2">
-        {searchKeys?.length ? (
-          <div className="relative min-w-[180px] flex-1">
-            <Search className="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted" />
-            <Input
-              className="h-9 pl-8 text-sm"
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              placeholder={searchPlaceholder}
-            />
-          </div>
-        ) : (
-          <div className="flex-1" />
-        )}
-        {toolbar}
-        <span className="text-[11px] tabular-nums text-muted">
-          {filtered.length}/{rows.length}
-        </span>
+      <div className="flex flex-col gap-2 border-b border-border-soft px-3 py-2">
+        <div className="flex flex-wrap items-center gap-2">
+          {searchKeys?.length ? (
+            <div className="relative min-w-[180px] flex-1">
+              <Search className="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted" />
+              <Input
+                className="h-9 pl-8 text-sm"
+                value={q}
+                onChange={(e) => patchPrefs({ q: e.target.value })}
+                placeholder={searchPlaceholder}
+              />
+            </div>
+          ) : (
+            <div className="flex-1" />
+          )}
+          {toolbar}
+          <span className="text-[11px] tabular-nums text-muted">
+            {filtered.length}/{rows.length}
+          </span>
+        </div>
+        {facetMap ? (
+          <TableFacetFilters
+            facets={facetMap}
+            value={facetValues}
+            onChange={(id, v) =>
+              patchPrefs({ facets: { ...facetValues, [id]: v } })
+            }
+            onClear={
+              persisted ? () => resetPrefs(userKey!, tableId!) : undefined
+            }
+          />
+        ) : null}
       </div>
 
       {!filtered.length ? (

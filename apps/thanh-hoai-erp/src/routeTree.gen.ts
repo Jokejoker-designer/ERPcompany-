@@ -21,6 +21,7 @@ import { Route as AppDashboardRouteImport } from './routes/app/dashboard'
 import { Route as AppDocumentsRouteImport } from './routes/app/documents'
 import { Route as AppEditorRouteImport } from './routes/app/editor'
 import { Route as AppImportRouteImport } from './routes/app/import'
+import { Route as AppMaterialsRouteImport } from './routes/app/materials'
 import { Route as AppProjectsRouteImport } from './routes/app/projects'
 import { Route as AppQuotationsRouteImport } from './routes/app/quotations'
 import { Route as AppReceivablesRouteImport } from './routes/app/receivables'
@@ -88,6 +89,11 @@ const AppImportRoute = AppImportRouteImport.update({
   path: '/import',
   getParentRoute: () => AppRoute,
 } as any)
+const AppMaterialsRoute = AppMaterialsRouteImport.update({
+  id: '/materials',
+  path: '/materials',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppProjectsRoute = AppProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
@@ -131,6 +137,7 @@ export interface FileRoutesByFullPath {
   '/app/documents': typeof AppDocumentsRoute
   '/app/editor': typeof AppEditorRoute
   '/app/import': typeof AppImportRoute
+  '/app/materials': typeof AppMaterialsRoute
   '/app/projects': typeof AppProjectsRoute
   '/app/quotations': typeof AppQuotationsRoute
   '/app/receivables': typeof AppReceivablesRoute
@@ -150,6 +157,7 @@ export interface FileRoutesByTo {
   '/app/documents': typeof AppDocumentsRoute
   '/app/editor': typeof AppEditorRoute
   '/app/import': typeof AppImportRoute
+  '/app/materials': typeof AppMaterialsRoute
   '/app/projects': typeof AppProjectsRoute
   '/app/quotations': typeof AppQuotationsRoute
   '/app/receivables': typeof AppReceivablesRoute
@@ -171,6 +179,7 @@ export interface FileRoutesById {
   '/app/documents': typeof AppDocumentsRoute
   '/app/editor': typeof AppEditorRoute
   '/app/import': typeof AppImportRoute
+  '/app/materials': typeof AppMaterialsRoute
   '/app/projects': typeof AppProjectsRoute
   '/app/quotations': typeof AppQuotationsRoute
   '/app/receivables': typeof AppReceivablesRoute
@@ -193,6 +202,7 @@ export interface FileRouteTypes {
     | '/app/documents'
     | '/app/editor'
     | '/app/import'
+    | '/app/materials'
     | '/app/projects'
     | '/app/quotations'
     | '/app/receivables'
@@ -212,6 +222,7 @@ export interface FileRouteTypes {
     | '/app/documents'
     | '/app/editor'
     | '/app/import'
+    | '/app/materials'
     | '/app/projects'
     | '/app/quotations'
     | '/app/receivables'
@@ -232,6 +243,7 @@ export interface FileRouteTypes {
     | '/app/documents'
     | '/app/editor'
     | '/app/import'
+    | '/app/materials'
     | '/app/projects'
     | '/app/quotations'
     | '/app/receivables'
@@ -334,6 +346,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppImportRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/materials': {
+      id: '/app/materials'
+      path: '/materials'
+      fullPath: '/app/materials'
+      preLoaderRoute: typeof AppMaterialsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/projects': {
       id: '/app/projects'
       path: '/projects'
@@ -387,6 +406,7 @@ interface AppRouteChildren {
   AppDocumentsRoute: typeof AppDocumentsRoute
   AppEditorRoute: typeof AppEditorRoute
   AppImportRoute: typeof AppImportRoute
+  AppMaterialsRoute: typeof AppMaterialsRoute
   AppProjectsRoute: typeof AppProjectsRoute
   AppQuotationsRoute: typeof AppQuotationsRoute
   AppReceivablesRoute: typeof AppReceivablesRoute
@@ -404,6 +424,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppDocumentsRoute: AppDocumentsRoute,
   AppEditorRoute: AppEditorRoute,
   AppImportRoute: AppImportRoute,
+  AppMaterialsRoute: AppMaterialsRoute,
   AppProjectsRoute: AppProjectsRoute,
   AppQuotationsRoute: AppQuotationsRoute,
   AppReceivablesRoute: AppReceivablesRoute,

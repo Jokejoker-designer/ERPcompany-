@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus, Trash2, UserPlus } from "lucide-react";
 import { toast } from "sonner";
@@ -12,6 +12,7 @@ import { DataTable } from "@/components/erp/data-table";
 import { EmptyState } from "@/components/erp/empty-state";
 import { toastWithUndo } from "@/lib/undo-toast";
 import type { Customer } from "@/data/seed";
+import { resolveUserKey } from "@/lib/user-scope";
 
 export const Route = createFileRoute("/app/customers")({
   component: CustomersPage,
@@ -34,8 +35,19 @@ function CustomersPage() {
     address: "",
     notes: "",
   });
-  const [selectedId, setSelectedId] = useState(customers[0]?.id ?? "");
+  const session = useErpStore((s) => s.session);
+  const user = useErpStore((s) => s.user);
+  const userKey = resolveUserKey(session, user?.username);
 
+  const projectCountByCustomer = useMemo(() => {
+    const m = new Map<string, number>();
+    for (const p of projects) {
+      m.set(p.customerId, (m.get(p.customerId) ?? 0) + 1);
+    }
+    return m;
+  }, [projects]);
+
+  const [selectedId, setSelectedId] = useState(customers[0]?.id ?? "");
   const selected =
     customers.find((c) => c.id === selectedId) ?? customers[0] ?? null;
   const related = selected
@@ -86,10 +98,35 @@ function CustomersPage() {
       <DataTable<Customer>
         rows={customers}
         rowKey={(c) => c.id}
+        tableId="customers"
+        userKey={userKey}
         selectedKey={selectedId}
         onRowClick={(c) => setSelectedId(c.id)}
-        searchKeys={[(c) => c.name, (c) => c.code, (c) => c.taxId, (c) => c.phone, (c) => c.contact]}
+        searchKeys={[
+          (c) => c.name,
+          (c) => c.code,
+          (c) => c.taxId,
+          (c) => c.phone,
+          (c) => c.contact,
+          (c) => c.email,
+        ]}
         searchPlaceholder="Lọc theo tên, mã, MST, SĐT…"
+        facets={[
+          {
+            id: "hasCt",
+            options: [
+              { value: "all", label: "Tất cả KH" },
+              { value: "yes", label: "Có CT" },
+              { value: "no", label: "Chưa có CT" },
+            ],
+            match: (c, v) => {
+              const n = projectCountByCustomer.get(c.id) ?? 0;
+              if (v === "yes") return n > 0;
+              if (v === "no") return n === 0;
+              return true;
+            },
+          },
+        ]}
         density="compact"
         emptyTitle="Chưa có khách hàng"
         emptyDescription="Tạo profile khách trước khi lập công trình / báo giá."
@@ -123,6 +160,7 @@ function CustomersPage() {
           {
             id: "contact",
             header: "Liên hệ",
+            sortValue: (c) => c.contact || c.phone,
             cell: (c) => (
               <span className="text-muted">
                 {c.contact || "—"} · {c.phone || "—"}
@@ -130,12 +168,19 @@ function CustomersPage() {
             ),
           },
           {
+            id: "created",
+            header: "Ngày tạo",
+            sortValue: (c) => c.createdAt,
+            cell: (c) => c.createdAt,
+            hideOnMobile: true,
+          },
+          {
             id: "ct",
             header: "CT",
-            sortValue: (c) => projects.filter((p) => p.customerId === c.id).length,
+            sortValue: (c) => projectCountByCustomer.get(c.id) ?? 0,
             cell: (c) => (
               <Badge variant="default">
-                {projects.filter((p) => p.customerId === c.id).length}
+                {projectCountByCustomer.get(c.id) ?? 0}
               </Badge>
             ),
             className: "w-16",

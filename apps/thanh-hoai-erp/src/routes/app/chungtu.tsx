@@ -12,12 +12,20 @@ import { Button } from "@/components/ui/button";
 import { Card, CardBody, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   CHUNG_TU,
+  type Project,
+  type Quotation,
+  type Receivable,
   normalizeLine,
   quoteSubtotal,
   quoteTotal,
   quoteVat,
 } from "@/data/seed";
 import { formatVnd } from "@/lib/utils";
+import {
+  CHUNG_TU_EXPORT_LOAI,
+  downloadProjectExport,
+  downloadQuotationExport,
+} from "@/lib/sales-export";
 import { useErpStore } from "@/store/erp-store";
 import { PrintPreviewModal } from "@/components/erp/print-preview";
 
@@ -27,6 +35,7 @@ export const Route = createFileRoute("/app/chungtu")({
 
 function ChungTuPage() {
   const company = useErpStore((s) => s.company);
+  const dataSource = useErpStore((s) => s.dataSource);
   const projects = useErpStore((s) => s.projects);
   const project = useActiveProject();
   const quotations = useErpStore((s) => s.quotations);
@@ -52,7 +61,7 @@ function ChungTuPage() {
     ? receivables.find((r) => r.projectCode === project.code)
     : null;
 
-  function exportDoc(type: string) {
+  async function exportDoc(type: string) {
     if (!project) {
       toast.error("Chọn công trình trước khi xuất", {
         description:
@@ -60,12 +69,52 @@ function ChungTuPage() {
             ? "Chưa có CT — vào menu 3 · Công trình để tạo"
             : "Dùng dropdown «Đổi công trình» phía trên",
       });
-      // scroll to picker
       document
         .getElementById("chon-cong-trinh")
         ?.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
+
+    const loai = CHUNG_TU_EXPORT_LOAI[type];
+    if (dataSource === "runtime" && loai) {
+      const docId =
+        loai === "quotation" && quote ? quote.id : project.id;
+      try {
+        await downloadProjectExport(loai, docId, "xlsx");
+        setExported((e) => (e.includes(type) ? e : [...e, type]));
+        setPreviewType(type);
+        toast.success(`Xuất Excel ${type} — runtime`, {
+          description: `${project.code} · ${project.customer}`,
+        });
+        if (type === "Hợp đồng" || type === "Báo giá") {
+          markWorkflow(
+            project.id,
+            type === "Hợp đồng" ? "contract" : "quote",
+            true,
+          );
+        }
+        if (type === "BBNT") markWorkflow(project.id, "docs06", true);
+        if (type === "BQT" || type === "Thư ĐNTT" || type === "ĐCCN") {
+          markWorkflow(project.id, "docs08", true);
+          markWorkflow(project.id, "ar", true);
+        }
+        return;
+      } catch (e) {
+        if (loai === "quotation" && quote) {
+          try {
+            await downloadQuotationExport(quote.id, "xlsx");
+            toast.success(`Xuất báo giá ${quote.code}`);
+            return;
+          } catch {
+            /* fall through to preview */
+          }
+        }
+        toast.message(
+          e instanceof Error ? e.message : "Runtime chưa có chứng từ — xem trước",
+        );
+      }
+    }
+
     setExported((e) => (e.includes(type) ? e : [...e, type]));
     setPreviewType(type);
     if (type === "Hợp đồng" || type === "Báo giá") {
@@ -200,7 +249,7 @@ function ChungTuPage() {
                     <Button
                       size="sm"
                       variant={project ? "default" : "secondary"}
-                      onClick={() => exportDoc(c.type)}
+                      onClick={() => void exportDoc(c.type)}
                     >
                       <Download className="h-3.5 w-3.5" />
                       Xuất
@@ -213,6 +262,26 @@ function ChungTuPage() {
         </CardBody>
       </Card>
 
+      <PrintPreviewModal
+        open={previewOpen}
+        title={`${previewType} · ${project?.code ?? "—"}`}
+        onClose={() => setPreviewOpen(false)}
+      >
+        {!project ? (
+          <p className="py-8 text-center text-muted">
+            Chọn công trình để xem chứng từ đã điền dữ liệu.
+          </p>
+        ) : (
+          <ChungTuPreviewBody
+            previewType={previewType}
+            project={project}
+            company={company}
+            quote={quote}
+            ar={ar}
+          />
+        )}
+      </PrintPreviewModal>
+
       <Card className="border-brand/20 bg-gradient-to-b from-brand-soft/30 to-surface">
         <CardHeader>
           <CardTitle>Xem trước chứng từ đã điền — {previewType}</CardTitle>
@@ -224,129 +293,151 @@ function ChungTuPage() {
               Chọn công trình ở bước 1 để xem chứng từ đã điền dữ liệu.
             </p>
           ) : (
-            <>
-              <div className="flex items-start gap-3 border-b border-border-soft pb-3">
-                <div className="grid h-11 w-11 place-items-center rounded-[var(--radius-md)] bg-brand text-xs font-bold text-on-brand">
-                  TH
-                </div>
-                <div>
-                  <div className="text-base font-bold uppercase tracking-wide text-brand-ink">
-                    {company.companyName}
-                  </div>
-                  <div className="text-xs text-muted">
-                    MST {company.taxId} · {company.address}
-                  </div>
-                  <div className="text-xs text-muted">{company.phone}</div>
-                </div>
-              </div>
-
-              <div className="text-center">
-                <div className="text-lg font-bold uppercase text-fg">
-                  {previewType}
-                </div>
-                <div className="text-xs text-muted">
-                  Mã CT: {project.code}
-                  {project.contractCode
-                    ? ` · HĐ: ${project.contractCode}`
-                    : ""}
-                  {quote ? ` · BG: ${quote.code} rev #${quote.revision}` : ""}
-                </div>
-              </div>
-
-              <div className="grid gap-2 rounded-[var(--radius-md)] border border-border bg-surface p-3 sm:grid-cols-2">
-                <div>
-                  <div className="text-[10px] font-bold uppercase text-muted">
-                    Khách hàng
-                  </div>
-                  <div className="font-semibold">{project.customer}</div>
-                </div>
-                <div>
-                  <div className="text-[10px] font-bold uppercase text-muted">
-                    Công trình
-                  </div>
-                  <div className="font-semibold">{project.name}</div>
-                  <div className="text-xs text-muted">{project.address}</div>
-                </div>
-              </div>
-
-              {previewType === "Báo giá" && quote ? (
-                <div className="overflow-x-auto rounded-[var(--radius-md)] border border-border">
-                  <table className="w-full min-w-[520px] text-left text-xs">
-                    <thead>
-                      <tr className="border-b border-border bg-surface-2/70 text-muted">
-                        <th className="px-2 py-2">#</th>
-                        <th className="px-2 py-2">Hạng mục</th>
-                        <th className="px-2 py-2">ĐV</th>
-                        <th className="px-2 py-2 text-right">SL</th>
-                        <th className="px-2 py-2 text-right">Đơn giá</th>
-                        <th className="px-2 py-2 text-right">Thành tiền</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {quote.lines.map((l, i) => {
-                        const line = normalizeLine(l, quote.vat);
-                        return (
-                          <tr key={line.id} className="border-b border-border-soft">
-                            <td className="px-2 py-1.5">{i + 1}</td>
-                            <td className="px-2 py-1.5">
-                              <div className="font-medium">{line.name}</div>
-                              {line.description ? (
-                                <div className="text-muted">{line.description}</div>
-                              ) : null}
-                            </td>
-                            <td className="px-2 py-1.5">{line.unit}</td>
-                            <td className="px-2 py-1.5 text-right tabular-nums">
-                              {line.qty}
-                            </td>
-                            <td className="px-2 py-1.5 text-right tabular-nums">
-                              {formatVnd(line.unitPrice)}
-                            </td>
-                            <td className="px-2 py-1.5 text-right tabular-nums font-medium">
-                              {formatVnd(line.qty * line.unitPrice)}
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                  <div className="flex flex-col items-end gap-0.5 border-t border-border px-3 py-2 text-xs">
-                    <div>
-                      Chưa VAT:{" "}
-                      <strong>{formatVnd(quoteSubtotal(quote))}</strong>
-                    </div>
-                    <div>
-                      VAT: <strong>{formatVnd(quoteVat(quote))}</strong>
-                    </div>
-                    <div className="text-sm">
-                      Tổng:{" "}
-                      <strong className="text-brand-ink">
-                        {formatVnd(quoteTotal(quote))}
-                      </strong>
-                    </div>
-                  </div>
-                </div>
-              ) : previewType === "Báo giá" ? (
-                <p className="text-center text-muted">
-                  CT chưa có báo giá — tạo ở menu 4 · Báo giá.
-                </p>
-              ) : (
-                <p className="rounded-[var(--radius-md)] border border-border-soft bg-surface-2/50 px-3 py-4 text-xs text-muted">
-                  Chứng từ <strong className="text-fg">{previewType}</strong>{" "}
-                  sẽ điền: khách <strong className="text-fg">{project.customer}</strong>
-                  , CT <strong className="text-fg">{project.code}</strong>
-                  {project.contractCode
-                    ? `, HĐ ${project.contractCode}`
-                    : ""}
-                  {ar
-                    ? `, công nợ còn ${formatVnd(ar.value - ar.collected)}`
-                    : ""}
-                  .
-                </p>
-              )}
-            </>
+            <ChungTuPreviewBody
+              previewType={previewType}
+              project={project}
+              company={company}
+              quote={quote}
+              ar={ar}
+            />
           )}
         </CardBody>
       </Card>
     </div>
+  );
+}
+
+function ChungTuPreviewBody({
+  previewType,
+  project,
+  company,
+  quote,
+  ar,
+}: {
+  previewType: string;
+  project: Project;
+  company: {
+    companyName: string;
+    taxId: string;
+    address: string;
+    phone: string;
+  };
+  quote: Quotation | null;
+  ar: Receivable | null | undefined;
+}) {
+  return (
+    <>
+      <div className="flex items-start gap-3 border-b border-border-soft pb-3">
+        <div className="grid h-11 w-11 place-items-center rounded-[var(--radius-md)] bg-brand text-xs font-bold text-on-brand">
+          TH
+        </div>
+        <div>
+          <div className="text-base font-bold uppercase tracking-wide text-brand-ink">
+            {company.companyName}
+          </div>
+          <div className="text-xs text-muted">
+            MST {company.taxId} · {company.address}
+          </div>
+          <div className="text-xs text-muted">{company.phone}</div>
+        </div>
+      </div>
+
+      <div className="text-center">
+        <div className="text-lg font-bold uppercase text-fg">{previewType}</div>
+        <div className="text-xs text-muted">
+          Mã CT: {project.code}
+          {project.contractCode ? ` · HĐ: ${project.contractCode}` : ""}
+          {quote ? ` · BG: ${quote.code} rev #${quote.revision}` : ""}
+        </div>
+      </div>
+
+      <div className="grid gap-2 rounded-[var(--radius-md)] border border-border bg-surface p-3 sm:grid-cols-2">
+        <div>
+          <div className="text-[10px] font-bold uppercase text-muted">
+            Khách hàng
+          </div>
+          <div className="font-semibold">{project.customer}</div>
+        </div>
+        <div>
+          <div className="text-[10px] font-bold uppercase text-muted">
+            Công trình
+          </div>
+          <div className="font-semibold">{project.name}</div>
+          <div className="text-xs text-muted">{project.address ?? ""}</div>
+        </div>
+      </div>
+
+      {previewType === "Báo giá" && quote ? (
+        <div className="overflow-x-auto rounded-[var(--radius-md)] border border-border">
+          <table className="w-full min-w-[520px] text-left text-xs">
+            <thead>
+              <tr className="border-b border-border bg-surface-2/70 text-muted">
+                <th className="px-2 py-2">#</th>
+                <th className="px-2 py-2">Hạng mục</th>
+                <th className="px-2 py-2">ĐV</th>
+                <th className="px-2 py-2 text-right">SL</th>
+                <th className="px-2 py-2 text-right">Đơn giá</th>
+                <th className="px-2 py-2 text-right">Thành tiền</th>
+              </tr>
+            </thead>
+            <tbody>
+              {quote.lines.map((l, i) => {
+                const line = normalizeLine(l, quote.vat);
+                return (
+                  <tr key={line.id} className="border-b border-border-soft">
+                    <td className="px-2 py-1.5">{i + 1}</td>
+                    <td className="px-2 py-1.5">
+                      <div className="font-medium">{line.name}</div>
+                      {line.description ? (
+                        <div className="text-muted">{line.description}</div>
+                      ) : null}
+                    </td>
+                    <td className="px-2 py-1.5">{line.unit}</td>
+                    <td className="px-2 py-1.5 text-right tabular-nums">
+                      {line.qty}
+                    </td>
+                    <td className="px-2 py-1.5 text-right tabular-nums">
+                      {formatVnd(line.unitPrice)}
+                    </td>
+                    <td className="px-2 py-1.5 text-right tabular-nums font-medium">
+                      {formatVnd(line.qty * line.unitPrice)}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          <div className="flex flex-col items-end gap-0.5 border-t border-border px-3 py-2 text-xs">
+            <div>
+              Chưa VAT: <strong>{formatVnd(quoteSubtotal(quote))}</strong>
+            </div>
+            <div>
+              VAT: <strong>{formatVnd(quoteVat(quote))}</strong>
+            </div>
+            <div className="text-sm">
+              Tổng:{" "}
+              <strong className="text-brand-ink">
+                {formatVnd(quoteTotal(quote))}
+              </strong>
+            </div>
+          </div>
+        </div>
+      ) : previewType === "Báo giá" ? (
+        <p className="text-center text-muted">
+          CT chưa có báo giá — tạo ở menu 4 · Báo giá.
+        </p>
+      ) : (
+        <p className="rounded-[var(--radius-md)] border border-border-soft bg-surface-2/50 px-3 py-4 text-xs text-muted">
+          Chứng từ <strong className="text-fg">{previewType}</strong> sẽ điền:
+          khách <strong className="text-fg">{project.customer}</strong>, CT{" "}
+          <strong className="text-fg">{project.code}</strong>
+          {project.contractCode ? `, HĐ ${project.contractCode}` : ""}
+          {ar
+            ? `, công nợ còn ${formatVnd(ar.value - ar.collected)}`
+            : ""}
+          .
+        </p>
+      )}
+    </>
   );
 }
