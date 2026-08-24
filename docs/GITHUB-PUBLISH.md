@@ -25,5 +25,14 @@ gh repo create Jokejoker-designer/ERPcompany-complete --public --source=. --push
 ```bash
 git tag v1.2.0
 git push origin v1.2.0
-# GitHub → Releases → đính kèm file .tar.gz này
 ```
+
+Workflow **Release** tự tạo GitHub Release + file `erpcompany-v1.2.0.tar.gz`.  
+Workflow **Publish demo package** đăng `@jokejoker-designer/erpcompany-demo` lên tab Packages (metadata + link demo).
+
+## Demo công khai (không phải Packages)
+
+Tab **Packages** là registry npm/Docker — **không** mở được UI ERP.  
+Demo web: **GitHub Pages** → https://jokejoker-designer.github.io/ERPcompany-/
+
+Chi tiết: [`GITHUB-DEMO.md`](GITHUB-DEMO.md)

@@ -1,4 +1,4 @@
-﻿# Deploy runtime static docs → GitHub Pages (optional)
+﻿# Deploy landing demo → GitHub Pages
 name: Deploy demo Pages
 
 on:
@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - "apps/thanh-hoai-runtime/docs/**"
+      - "docs/GITHUB-DEMO.md"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 

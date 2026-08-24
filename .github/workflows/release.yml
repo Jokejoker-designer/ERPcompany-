@@ -1,0 +1,27 @@
+# Tạo GitHub Release khi push tag v*
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pack source archive
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          git archive --format=tar.gz --prefix=ERPcompany-/ HEAD \
+            -o "erpcompany-v${VERSION}.tar.gz"
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: erpcompany-v*.tar.gz
+          generate_release_notes: true

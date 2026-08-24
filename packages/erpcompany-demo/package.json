@@ -1,0 +1,28 @@
+{
+  "name": "@jokejoker-designer/erpcompany-demo",
+  "version": "1.2.0",
+  "description": "Thanh Hoai ERP + AnKhang POS — metadata & demo links (GitHub Pages, không phải runtime npm)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jokejoker-designer/ERPcompany-.git"
+  },
+  "homepage": "https://jokejoker-designer.github.io/ERPcompany-/",
+  "bugs": {
+    "url": "https://github.com/Jokejoker-designer/ERPcompany-/issues"
+  },
+  "keywords": [
+    "erp",
+    "demo",
+    "thanh-hoai",
+    "pos",
+    "vietnam"
+  ],
+  "license": "MIT",
+  "files": [
+    "README.md"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  }
+}
