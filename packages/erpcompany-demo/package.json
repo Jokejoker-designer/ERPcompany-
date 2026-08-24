@@ -1,7 +1,7 @@
 {
   "name": "@jokejoker-designer/erpcompany-demo",
   "version": "1.2.0",
-  "description": "Thanh Hoai ERP + AnKhang POS — metadata & demo links (GitHub Pages, không phải runtime npm)",
+  "description": "ERPcompany distribution metadata (Pages, preview, source links)",
   "repository": {
     "type": "git",
     "url": "https://github.com/Jokejoker-designer/ERPcompany-.git"

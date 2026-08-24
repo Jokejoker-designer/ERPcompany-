@@ -1,4 +1,4 @@
-# Publish npm metadata package → tab GitHub Packages (không phải demo UI)
+# Publish @jokejoker-designer/erpcompany-demo to GitHub Packages
 name: Publish demo package
 
 on:

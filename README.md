@@ -80,7 +80,7 @@ Checklist 5 phút: [`CHAY-LOCAL.md`](CHAY-LOCAL.md).
 | UI v1.2.0 + POS + demo + docs | Hồ sơ KH, hóa đơn, sao kê, SĐT, token |
 | CI / Pages (nếu bật) | Password, Tailscale key |
 
-**Demo công khai:** [GitHub Pages](https://jokejoker-designer.github.io/ERPcompany-/) · [Hướng dẫn demo](docs/GITHUB-DEMO.md) · Tab **Packages** = registry npm (không phải demo UI).
+**Distribution:** [Pages](https://jokejoker-designer.github.io/ERPcompany-/) · [`docs/GITHUB-DEMO.md`](docs/GITHUB-DEMO.md)
 
 ## Production domain (Cloudflare)
 

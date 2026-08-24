@@ -30,9 +30,6 @@ git push origin v1.2.0
 Workflow **Release** tự tạo GitHub Release + file `erpcompany-v1.2.0.tar.gz`.  
 Workflow **Publish demo package** đăng `@jokejoker-designer/erpcompany-demo` lên tab Packages (metadata + link demo).
 
-## Demo công khai (không phải Packages)
+## Distribution
 
-Tab **Packages** là registry npm/Docker — **không** mở được UI ERP.  
-Demo web: **GitHub Pages** → https://jokejoker-designer.github.io/ERPcompany-/
-
-Chi tiết: [`GITHUB-DEMO.md`](GITHUB-DEMO.md)
+[`GITHUB-DEMO.md`](GITHUB-DEMO.md)
