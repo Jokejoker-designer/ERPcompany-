@@ -26,6 +26,7 @@ import app_config
 import db as D
 import docgen as DG
 import document_issue as DI
+import zalo_work as ZW
 import import_excel as IE
 import scan_source as SCAN
 import seed as SEED
@@ -357,6 +358,10 @@ def ensure_db():
         print("Phat hien DB thieu schema ky so / OAuth ho so - dang migrate additive...")
         import migrate_document_issue
         migrate_document_issue.migrate(Path(D.DB_PATH))
+    if not _has_table("zalo_work_item"):
+        print("Phat hien DB thieu hop thu Grok Zalo - dang migrate additive...")
+        import migrate_zalo_work
+        migrate_zalo_work.migrate(Path(D.DB_PATH))
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -791,6 +796,8 @@ class Handler(BaseHTTPRequestHandler):
                 "/api/document_signatures": lambda: DI.document_signatures(
                     conn, role, sess, q1("project_id"), q1("ma_mau")),
                 "/api/oauth/status": lambda: DI.oauth_status(conn, sess),
+                "/api/zalo_work_inbox": lambda: ZW.zalo_work_inbox(
+                    conn, role, sess, q1("status")),
                 "/api/ct_acceptance": lambda: api.ct_acceptance(conn, role, sess, q1("project_id"),
                                                                   q1("acceptance_id")),
                 "/api/ct_nhat_ky":    lambda: api.ct_nhat_ky(conn, role, sess, q1("project_id")),
@@ -941,6 +948,8 @@ class Handler(BaseHTTPRequestHandler):
                 "document_issue": lambda: DI.document_issue(conn, sess, body),
                 "oauth_bind": lambda: DI.oauth_bind(conn, sess, body),
                 "document_access_token": lambda: DI.document_access_token(conn, sess, body),
+                "zalo_work_collect": lambda: ZW.zalo_work_collect(conn, sess, body),
+                "zalo_work_dispatch": lambda: ZW.zalo_work_dispatch(conn, sess, body),
                 "ct_ho_so_trang_thai": lambda: AW.ct_set_ho_so_trang_thai(conn, sess, body),
                 "ct_dossier_context": lambda: AW.ct_dossier_context(conn, sess, body),
                 "ct_dossier_batch": lambda: AW.ct_dossier_batch(conn, sess, body),

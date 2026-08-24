@@ -1259,6 +1259,28 @@ CREATE TABLE IF NOT EXISTS ct_document_signature (
 CREATE INDEX IF NOT EXISTS idx_ct_doc_sig_project
     ON ct_document_signature(project_id, ma_mau, signed_at);
 
+-- Thu thap viec tu Grok Zalo (va kenh chat) — ADMIN dieu phoi tiep.
+CREATE TABLE IF NOT EXISTS zalo_work_item (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    source TEXT NOT NULL DEFAULT 'grok_zalo',
+    external_id TEXT,
+    thread_name TEXT,
+    sender_name TEXT,
+    sender_phone TEXT,
+    raw_text TEXT NOT NULL,
+    project_code TEXT,
+    ma_mau TEXT,
+    suggested_bot TEXT,
+    priority TEXT NOT NULL DEFAULT 'binh_thuong',
+    status TEXT NOT NULL DEFAULT 'Moi',
+    dispatched_to TEXT,
+    created_by INTEGER REFERENCES app_user(id),
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    UNIQUE(source, external_id)
+);
+CREATE INDEX IF NOT EXISTS idx_zalo_work_status
+    ON zalo_work_item(status, created_at);
+
 CREATE TABLE IF NOT EXISTS cong_trinh_lich_giao_vat_tu (  -- yeu cau rieng Human Lead
     id INTEGER PRIMARY KEY, project_id INTEGER NOT NULL REFERENCES project(id),
     ten_vat_tu TEXT NOT NULL, so_luong_du_kien REAL, ngay_giao_du_kien TEXT,

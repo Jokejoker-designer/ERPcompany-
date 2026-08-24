@@ -6,6 +6,7 @@ import { ProjectContextBar, useActiveProject } from "@/components/erp/project-co
 import { DocumentAuditPanel } from "@/components/erp/document-audit-panel";
 import { DocumentIssuePanel } from "@/components/erp/document-issue-panel";
 import { OauthDocumentCard } from "@/components/erp/oauth-document-card";
+import { ZaloWorkInbox } from "@/components/erp/zalo-work-inbox";
 import { DataTable } from "@/components/erp/data-table";
 import { FormApprovalBadge, Metric } from "@/components/erp/status";
 import { Badge } from "@/components/ui/badge";
@@ -200,6 +201,7 @@ function DocumentsPage() {
       {tab === "workflow" && dataSource === "runtime" && project ? (
         <div className="space-y-4">
           <OauthDocumentCard />
+          <ZaloWorkInbox />
           <DocumentIssuePanel projectId={project.id} projectCode={project.code} />
         </div>
       ) : null}

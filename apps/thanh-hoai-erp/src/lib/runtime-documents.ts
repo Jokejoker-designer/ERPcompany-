@@ -270,6 +270,52 @@ export function oauthStartUrl(provider: "google" | "microsoft"): string {
   return `${apiBaseUrl()}/api/oauth/start?provider=${provider}`;
 }
 
+export type ZaloWorkItem = {
+  id: number;
+  source: string;
+  thread_name?: string | null;
+  sender_name?: string | null;
+  raw_text: string;
+  project_code?: string | null;
+  ma_mau?: string | null;
+  suggested_bot?: string | null;
+  priority: string;
+  status: string;
+  dispatched_to?: string | null;
+  created_at?: string;
+};
+
+export async function fetchZaloWorkInbox(
+  status?: string,
+): Promise<{ open_count: number; count: number; rows: ZaloWorkItem[] }> {
+  return apiGet("/api/zalo_work_inbox", status ? { status } : {});
+}
+
+export async function collectZaloWork(items: {
+  raw_text: string;
+  thread_name?: string;
+  sender_name?: string;
+  project_code?: string;
+  ma_mau?: string;
+  suggested_bot?: string;
+  priority?: string;
+  external_id?: string;
+}[]): Promise<{ collected: number; skipped_duplicate: number }> {
+  return apiPost("/api/write/zalo_work_collect", { items });
+}
+
+export async function dispatchZaloWork(
+  id: number,
+  dispatchedTo: string,
+  status: "Da_dieu_phoi" | "Bo_qua" = "Da_dieu_phoi",
+): Promise<{ ok: boolean }> {
+  return apiPost("/api/write/zalo_work_dispatch", {
+    id,
+    dispatched_to: dispatchedTo,
+    status,
+  });
+}
+
 export const AUDIT_ISSUE_LABEL: Record<string, string> = {
   HASH_MISMATCH: "File đã sửa ngoài hệ thống (SHA lệch)",
   SIZE_MISMATCH: "Kích thước file thay đổi",

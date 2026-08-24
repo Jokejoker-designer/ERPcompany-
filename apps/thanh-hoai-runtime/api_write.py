@@ -228,6 +228,8 @@ PERMS_WRITE = {
                    "Ky thuat vien", "Thu kho", "Quan tri he thong"],
     "document_access": ["Giam doc", "Ke toan", "Kinh doanh", "Ky thuat truong",
                         "Ky thuat vien", "Thu kho", "Quan tri he thong"],
+    "zalo_work": ["Giam doc", "Ke toan", "Kinh doanh", "Ky thuat truong",
+                  "Ky thuat vien", "Thu kho", "Quan tri he thong"],
 }
 
 

@@ -1,9 +1,10 @@
-# 6 Grok Bot — 1 điều phối + 5 vị trí
+# 7 Grok Bot — Zalo thu thập + Admin điều phối + 5 vị trí
 
-**TH-ADMIN** là bot điều phối. Năm bot còn lại chỉ làm đúng vai. Không bot nào thay người ký / duyệt trên ERP.
+**TH-ZALO** gom mọi việc từ Grok Zalo. **TH-ADMIN** điều phối. Năm bot còn lại chỉ làm đúng vai.
 
 | # | Tên bot (đặt đúng tên này) | Vị trí ERP | File prompt |
 |---|----------------------------|------------|-------------|
+| 6 | `TH-ZALO · Thu thập` | Hộp thư Grok Zalo | [06-bot-zalo.md](06-bot-zalo.md) |
 | 0 | `TH-ADMIN · Điều phối` | Quản trị + tổng đài | [00-bot-admin.md](00-bot-admin.md) |
 | 1 | `TH-KD · Kinh doanh` | Kinh doanh | [01-bot-kinh-doanh.md](01-bot-kinh-doanh.md) |
 | 2 | `TH-KTV · Kỹ thuật viên` | Kỹ thuật viên | [02-bot-ky-thuat-vien.md](02-bot-ky-thuat-vien.md) |
@@ -19,7 +20,7 @@ Thủ kho **không** có bot riêng — TH-ADMIN chỉ đường khi cần vật
 
 ## Cách tạo trên Grok (grok.x.ai / grok.com)
 
-Tạo **TH-ADMIN trước**, rồi 5 bot vị trí (6 lần):
+Tạo **TH-ZALO** và **TH-ADMIN** trước, rồi 5 bot vị trí (7 lần):
 
 1. Mở Grok → **Create a bot** (hoặc Custom / Projects, tùy giao diện).
 2. **Name** = cột “Tên bot” ở bảng trên.
@@ -27,25 +28,27 @@ Tạo **TH-ADMIN trước**, rồi 5 bot vị trí (6 lần):
 4. **Instructions** = copy toàn bộ khối `SYSTEM PROMPT` trong file đó (từ dòng `Bạn là…` đến hết khối).
 5. **Conversation starters** = copy 3 câu trong mục “Câu mở đầu”.
 6. Bật bot **private** (nội bộ công ty). Không dán mật khẩu, cookie, SHA thật vào instruction.
-7. Lưu. Lặp cho đủ 6 bot.
+7. Lưu. Lặp cho đủ 7 bot.
 
-Gợi ý ảnh: ADMIN = điều phối, KD = báo giá, KTV = nhật ký, KTT = checklist, GD = chữ ký, KT = hóa đơn.
+Gợi ý ảnh: ZALO = hộp thư, ADMIN = điều phối, KD = báo giá, KTV = nhật ký, KTT = checklist, GD = chữ ký, KT = hóa đơn.
 
 ## Cách tạo trên Cursor (Cloud Agent / Grok)
 
 1. Cursor → **Agents** → New cloud agent.
 2. Repo: `ERPcompany-`.
 3. **Custom instructions** = cùng khối `SYSTEM PROMPT`.
-4. Đặt tên agent giống bảng. Tạo **6** agent. Việc mới luôn mở **TH-ADMIN** trước.
+4. Đặt tên agent giống bảng. Tạo **7** agent.
 
 Khi chạy:  
-`Việc mới | Công trình: CT-… | Việc: …` → TH-ADMIN  
-Sau khi có `ĐIỀU PHỐI → TH-xxx`, mở đúng bot đó và dán khối BÀN GIAO.
+Chat Zalo / dán thread → **TH-ZALO** (thu thập)  
+Phiếu Mới / việc lẻ → **TH-ADMIN**  
+Sau `ĐIỀU PHỐI → TH-xxx`, mở đúng bot vị trí.
 
 ## Tài khoản ERP tương ứng (demo)
 
 | Bot | Username gợi ý | Không được làm |
 |-----|----------------|----------------|
+| TH-ZALO | `admin` hoặc bất kỳ | Điều phối / soạn / duyệt / ký |
 | TH-ADMIN | `admin` | Soạn / duyệt / ký / hạch toán thay 5 bot kia |
 | TH-KD | `kinhdoanh` | Duyệt kỹ thuật, ký số, xem giá vốn (trừ khi được cấp) |
 | TH-KTV | `ktv` | Duyệt hồ sơ người khác, ký số, xem tiền |
@@ -74,8 +77,9 @@ Bot chuyên môn xong việc: `Tới: TH-ADMIN` (báo cáo) **hoặc** bot kế 
 ## Thứ tự A → Z
 
 ```
-0  TH-ADMIN  Nhận việc, định tuyến, theo dõi
-A  TH-KD     Mở khách + CT + báo giá / HĐ
+Zalo  TH-ZALO   Gom chat Grok Zalo → phiếu (ERP hộp thư)
+0     TH-ADMIN  Đọc hộp thư + chat, định tuyến
+A     TH-KD     Mở khách + CT + báo giá / HĐ
 B  TH-KTV    Sinh Word/Excel từ DB, sửa file, gửi duyệt
 C  TH-KTT    Rà soát, duyệt hoặc trả về
 D  TH-GD     Ký số + phát hành (OAuth nếu bắt buộc)

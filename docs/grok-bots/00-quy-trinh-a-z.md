@@ -5,9 +5,13 @@
 `Thiếu → Đang soạn → Chờ duyệt → Đã duyệt → Đã ký`  
 (Không nhảy bước. Đã ký là bất biến — muốn sửa phải **Revision**.)
 
+## Zalo — Thu thập (Bot TH-ZALO)
+
+Mọi việc từ **Grok trên Zalo** dán vào TH-ZALO trước. Bot tách phiếu, POST `/api/write/zalo_work_collect` (hoặc người bấm lưu). Không làm chuyên môn.
+
 ## 0 — Điều phối (Bot Admin)
 
-Mọi việc mới **mở TH-ADMIN trước**. Admin không soạn/duyệt/ký: chỉ map trạng thái và ra `ĐIỀU PHỐI → TH-xxx`.
+Việc mới **không từ Zalo**: mở TH-ADMIN. Việc từ Zalo: Admin đọc hộp thư `Moi` rồi `ĐIỀU PHỐI → TH-xxx`. Admin không soạn/duyệt/ký.
 
 ## A — Mở việc (Bot Kinh doanh)
 
