@@ -11,6 +11,7 @@ import type {
   QuotationLine,
   Receivable,
   RoleId,
+  ScanHit,
   User,
   WorkflowFlags,
 } from "@/data/seed";
@@ -285,3 +286,55 @@ export type RuntimeDashboard = {
   weeks: number[];
   projects: Record<string, unknown>[];
 };
+
+const DOC_TYPE_PHASE: Record<string, string> = {
+  "Bao gia": "04",
+  "Hop dong": "01",
+  "BBNT": "06",
+  "BQT": "08",
+  "Hoa don": "08",
+  "De nghi TT": "08",
+  "Ho so": "05",
+  "Ban ve": "02",
+  "Khac": "00",
+};
+
+export function mapRuntimeScanDocument(
+  row: Record<string, unknown>,
+  sourceDir = "",
+): ScanHit {
+  const extRaw = String(row.ext || "")
+    .replace(/^\./, "")
+    .toLowerCase();
+  const ext: ScanHit["ext"] =
+    extRaw === "pdf" ||
+    extRaw === "docx" ||
+    extRaw === "xlsx" ||
+    extRaw === "jpg" ||
+    extRaw === "png"
+      ? extRaw
+      : "other";
+  const relPath = String(row.rel_path || "");
+  const parts = relPath.split(/[/\\]/).filter(Boolean);
+  const docType = String(row.doc_type || "Khac");
+  const customerHint = String(
+    row.customer_name || row.khach_folder || parts[0] || "",
+  );
+  const projectHint =
+    parts.length > 2 ? parts.slice(1, -1).join("\\") : customerHint;
+
+  return {
+    id: `sd-${String(row.source_document_id ?? row.id ?? relPath)}`,
+    root: sourceDir || parts[0] || "",
+    path: relPath,
+    fileName: String(row.file_name || ""),
+    ext,
+    sizeKb: Math.max(0, Math.round(Number(row.size_bytes || 0) / 1024)),
+    customerHint,
+    projectHint,
+    ctCode: docType,
+    phase: DOC_TYPE_PHASE[docType] ?? "00",
+    mapped: true,
+    imported: true,
+  };
+}

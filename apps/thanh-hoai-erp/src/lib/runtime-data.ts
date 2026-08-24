@@ -8,6 +8,7 @@ import {
   mapRuntimeProject,
   mapRuntimeQuotation,
   mapRuntimeReceivable,
+  mapRuntimeScanDocument,
   mapRuntimeUser,
   rowsOf,
   type RuntimeDashboard,
@@ -18,6 +19,7 @@ import type {
   Project,
   Quotation,
   Receivable,
+  ScanHit,
   User,
 } from "@/data/seed";
 
@@ -169,4 +171,66 @@ export async function createRuntimeCustomer(input: {
     },
   );
   return { id: String(data.id ?? data.customer_id ?? "") };
+}
+
+export type RuntimeScanStatus = {
+  source_dir?: string;
+  last_scan?: string;
+  customers?: number;
+  documents?: number;
+  has_scan?: boolean;
+  scan_roots?: string[];
+};
+
+export async function fetchRuntimeScanStatus(): Promise<RuntimeScanStatus> {
+  return apiGet<RuntimeScanStatus>("/api/scan_status");
+}
+
+export async function runRuntimeDiskScan(
+  sourceDirs: string[],
+  saveRoots = true,
+): Promise<{
+  ok?: boolean;
+  stats?: Record<string, number>;
+  source_dir?: string;
+  error?: string;
+}> {
+  return apiPost("/api/scan_now", {
+    source_dirs: sourceDirs,
+    save_roots: saveRoots,
+  });
+}
+
+export async function fetchRuntimeScanHits(): Promise<{
+  hits: ScanHit[];
+  lastScan: string | null;
+  sourceDir: string;
+  total: number;
+}> {
+  const data = await apiGet<{
+    mode?: string;
+    rows?: Record<string, unknown>[];
+    total?: number;
+    source_dir?: string;
+    last_scan?: string;
+  }>("/api/documents");
+
+  if (data.mode !== "scan" || !Array.isArray(data.rows)) {
+    return {
+      hits: [],
+      lastScan: data.last_scan ?? null,
+      sourceDir: data.source_dir ?? "",
+      total: 0,
+    };
+  }
+
+  const sourceDir = String(data.source_dir || "");
+  const hits = data.rows.map((row) => mapRuntimeScanDocument(row, sourceDir));
+
+  return {
+    hits,
+    lastScan: data.last_scan ?? null,
+    sourceDir,
+    total: Number(data.total ?? hits.length),
+  };
 }

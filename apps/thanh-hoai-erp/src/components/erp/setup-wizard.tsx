@@ -340,9 +340,16 @@ export function SetupWizard() {
               }}
               onRun={() => {
                 updateCompany({ scanRoots: companyForm.scanRoots });
-                const n = runEnterpriseScan();
-                markSetup("scan");
-                toast.success(`Quét DN xong — ${n} file`);
+                void runEnterpriseScan()
+                  .then((n) => {
+                    markSetup("scan");
+                    toast.success(`Quét — ${n} file`);
+                  })
+                  .catch((e: unknown) => {
+                    toast.error(
+                      e instanceof Error ? e.message : "Quét thất bại",
+                    );
+                  });
               }}
               onImport={() => {
                 const res = importScanHits();
